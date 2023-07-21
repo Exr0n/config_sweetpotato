@@ -6,18 +6,19 @@
 #ctrl - j : ok
 
 # focus window
-alt - h              : ~/arm_homebrew/bin/yabai -m window   --focus west    #|| yabai -m display --focus 1
-alt - j              : ~/arm_homebrew/bin/yabai -m window   --focus south   #|| yabai -m display --focus 3
-alt - k              : ~/arm_homebrew/bin/yabai -m window   --focus north   #|| yabai -m display --focus 1
-alt - l              : ~/arm_homebrew/bin/yabai -m window   --focus east    #|| yabai -m display --focus 2
+alt - h              : yabai -m window   --focus west    #|| yabai -m display --focus 1
+alt - j              : yabai -m window   --focus south   #|| yabai -m display --focus 3
+alt - k              : yabai -m window   --focus north   #|| yabai -m display --focus 1
+alt - l              : yabai -m window   --focus east    #|| yabai -m display --focus 2
 #ctrl - h                    : yabai -m window   --focus west || yabai -m display --focus 1
 #ctrl - j                    : yabai -m window   --focus south|| yabai -m display --focus 3
 #ctrl - k                    : yabai -m window   --focus north|| yabai -m display --focus 1
 #ctrl - l                    : yabai -m window   --focus east || yabai -m display --focus 2
 
 # focus monitors
-alt - t             : ~/arm_homebrew/bin/yabai -m display --focus 1
-alt - n             : ~/arm_homebrew/bin/yabai -m display --focus 2
+alt - t             : yabai -m display --focus 1
+alt - n             : yabai -m display --focus 2
+alt - s             : yabai -m display --focus 3
 
 # focus space (replaced by system preferences)
 #   This looks crazy (and it probably is) but its a hierarchy ok?
@@ -97,3 +98,4 @@ alt - u                     : yabai -m window --focus recent
 
 
 
+ctrl + lalt - t : open -na Alacritty
