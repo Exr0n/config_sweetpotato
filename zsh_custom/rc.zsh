@@ -12,6 +12,7 @@ source "$XDG_CONFIG_HOME/zsh_custom/lean_p10k.zsh"
 #source $XDG_CONFIG_HOME/yabairc
 
 # Custom Aliases
+eval $(thefuck --alias)
 alias tsn='ts-node'
 alias trf='ssh exr0n@hop.exr0n.com -p 2222'
 alias pls='sudo'
@@ -46,9 +47,15 @@ alias note='nvim -u $XDG_CONFIG_HOME/nvim/notesmode.vim'
 #    neovide --frameless --multiGrid $@ &
 #    disown %neovide
 #}
+alias findpass=' pass show -c $(find "$HOME/.password-store" -name "*.gpg" -exec grealpath --relative-to "$HOME/.password-store" {} \; | rev | cut -c5- | rev | fzf)'
 alias compile_org_to_pdf='pandoc -s *.org -o export.pdf --pdf-engine=xelatex --lua-filter=$HOME/.pandoc/filters/org_directives_to_metadata.lua && mupdf export.pdf'
 #    git
 alias gpl='git pull'
+function gtfa {
+	git branch -r | grep -v '\->' | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | while read remote; do git branch --track "${remote#origin/}" "$remote"; done
+	git fetch --all
+	git pull --all
+}
 function gpext {
     nohup git push "$@" > /dev/null &
 }

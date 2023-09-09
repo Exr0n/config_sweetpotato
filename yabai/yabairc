@@ -13,7 +13,7 @@ yabai -m config left_padding                     15
 yabai -m config right_padding                    15
 yabai -m config window_gap                       15
 
-yabai -m rule --add app="^System Preferences$"   manage=off
+yabai -m rule --add app="^System Settings$"   	 manage=off
 #yabai -m rule --add app="^Toggl Track$"         manage=off
 yabai -m rule --add app="^Discord$"              manage=off
 yabai -m rule --add app="^Reminders$"            manage=off
@@ -26,6 +26,8 @@ yabai -m rule --add app="^Finder$"               manage=off
 yabai -m rule --add app="^FaceTime$"             manage=off
 yabai -m rule --add app="^Numi$"                 manage=off
 yabai -m rule --add app="^Python$"               manage=off
+yabai -m rule --add app="^Preview$"              manage=off
+yabai -m rule --add app="^Contacts$"             manage=off
 
 #yabai -m rule --add app="^Mailspring$"          manage=off
 #yabai -m rule --add app="^Mem$"                 manage=off
