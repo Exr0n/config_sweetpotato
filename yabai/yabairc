@@ -28,7 +28,12 @@ yabai -m rule --add app="^Numi$"                 manage=off
 yabai -m rule --add app="^Python$"               manage=off
 yabai -m rule --add app="^Preview$"              manage=off
 yabai -m rule --add app="^Contacts$"             manage=off
+yabai -m rule --add app="^Fantastical$"          manage=off
+yabai -m rule --add app="^Rewind$"           	 manage=off
+yabai -m rule --add app="^python3$"           	 manage=off
 
 #yabai -m rule --add app="^Mailspring$"          manage=off
 #yabai -m rule --add app="^Mem$"                 manage=off
 #yabai -m rule --add app="^Condution$"           manage=off
+
+yabai -m rule --add title="yabai-unmanaged"     manage=off

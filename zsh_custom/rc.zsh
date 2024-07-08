@@ -11,6 +11,8 @@ source "$XDG_CONFIG_HOME/zsh_custom/lean_p10k.zsh"
 #source /home/exr0n/.config/dontrun_custom/env.zsh
 #source $XDG_CONFIG_HOME/yabairc
 
+export PATH="$PATH:$HOME/.cargo/bin"
+
 # Custom Aliases
 eval $(thefuck --alias)
 alias tsn='ts-node'
@@ -30,6 +32,7 @@ alias ls='lsd'
 alias du='echo use dust'
 alias df='echo use duf'
 alias rm='echo use rip'
+alias f='fuck'
 alias ping='gping'
 eval "$(zoxide init zsh --cmd c)"
 #    vim tmux integration
@@ -79,7 +82,7 @@ alias jl="julia -O0 --compile=min --startup=no" # run julia w/o optimizations fo
 alias py='python3'
 alias pip='py -m pip'
 alias pym='py -m'
-alias venv='pym venv .venv && echo .venv/ >> .gitignore && source .venv/bin/activate'
+alias venv='source .venv/bin/activate || pym venv .venv && echo .venv/ >> .gitignore && source .venv/bin/activate'
 alias ipy='ipython'
 #    screen stuff
 alias sl='screen -ls'
@@ -161,19 +164,19 @@ function chpwd () {	# auto called by zsh
 
 	cur="$(pwd)"
 
-	# pyvenv stuff
-	if command -v deactivate; then deactivate; fi
-	while [[ -n $cur && $cur != "/" ]]; do   # search upwards https://unix.stackexchange.com/a/35265
-		[[ -f "$cur/pyvenv.cfg" ]] && source "$cur/bin/activate" && break
-		[[ -f "$cur/.venv/pyvenv.cfg" ]] && source "$cur/.venv/bin/activate" && break
+	# auto-env switching, removed because slow
+	# if command -v deactivate; then deactivate; fi
+	# while [[ -n $cur && $cur != "/" ]]; do   # search upwards https://unix.stackexchange.com/a/35265
+	# 	[[ -f "$cur/pyvenv.cfg" ]] && source "$cur/bin/activate" && break
+	# 	[[ -f "$cur/.venv/pyvenv.cfg" ]] && source "$cur/.venv/bin/activate" && break
 
-		# Note: if you want to ignore symlinks, use "$(realpath -s "$path"/..)"
-        if [[ `uname` != "Darwin" ]]; then
-            cur="$(readlink -f "$cur"/..)"
-        else
-            cur="$(greadlink -f "$cur"/..)"
-        fi
-	done
+	# 	# Note: if you want to ignore symlinks, use "$(realpath -s "$path"/..)"
+    #     if [[ `uname` != "Darwin" ]]; then
+    #         cur="$(readlink -f "$cur"/..)"
+    #     else
+    #         cur="$(greadlink -f "$cur"/..)"
+    #     fi
+	# done
 }
 
 function run_generic () {
