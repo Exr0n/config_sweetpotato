@@ -66,6 +66,15 @@ brew install skhd neovim pass coreutils zoxide moreutils lsd rm-improved ag
 ## reduce animations
 - enable reduce motion in accessibility
 
+# browser setup
+- [dark reader](https://chromewebstore.google.com/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh)
+- [surfing keys](https://chromewebstore.google.com/detail/surfingkeys/gfbliohnnapiefjpjlpjnehglfpaknnc?hl=en-US), and `;s` to disable pdf viewer
+- [youtube speed control](https://chromewebstore.google.com/detail/youtube-playback-speed-co/hdannnflhlmdablckfkjpleikpphncik?hl=en-US)
+- [icloud passwords](https://chromewebstore.google.com/detail/icloud-passwords/pejdijmoenmkgeppbflobdenhhabjlaj)
+- [tampermonkey](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) and add desmos darkmode script
+- [unhook youtube](https://chromewebstore.google.com/detail/unhook-remove-youtube-rec/khncfooichmfjbepaaaebmommgaepoid?hl=en)
+- [ublock](https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en)
+
 
 # other random stuff
 - https://github.com/magicien/GLTFQuickLook
