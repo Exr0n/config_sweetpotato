@@ -5,7 +5,22 @@ scutil --set LocalHostName "sweetpotato"
 scutil --set HostName "sweetpotato"
 ```
 
-# yabai
+# download apps
+
+- arc
+- kitty
+- raycast
+- karabiner
+- amphetamine
+- toggl
+- fantastical
+- chatgpt
+- telegram
+- discord
+
+# brew, yabai
+- install brew
+- install yabai 
 make sure to do this in Terminal.app because most terminal emulators currently run through Rosetta aka on Intel, whilst this will be built using the new M1 architecture. 
 You may have to create an alternative homebrew install. 
 ```sh
@@ -35,18 +50,6 @@ brew install emacs-mac
 # packages
 brew install skhd neovim pass coreutils zoxide moreutils lsd rm-improved ag
 
-# download apps
-- iosevka
-- brave
-- telegram
-- discord
-- condution
-- ideaflow
-- alfred
-- karabiner
-- amphetamine
-- toggl
-- syncthing
 
 # settings
 ## set option to command and command to option 
