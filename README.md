@@ -8,7 +8,7 @@ scutil --set HostName "sweetpotato"
 # download apps
 
 - arc
-- kitty
+- alacritty
 - raycast
 - karabiner
 - amphetamine
@@ -18,9 +18,17 @@ scutil --set HostName "sweetpotato"
 - telegram
 - discord
 
-# brew, yabai
+# basic shell setup
+- clone this repo
 - install brew
-- install yabai 
+- install yabai, skhd
+- install oh-my-zsh
+
+## git settings
+```
+git config --global push.autoSetupRemote true
+```
+
 make sure to do this in Terminal.app because most terminal emulators currently run through Rosetta aka on Intel, whilst this will be built using the new M1 architecture. 
 You may have to create an alternative homebrew install. 
 ```sh
@@ -42,10 +50,6 @@ brew install skhd
 brew services start skhd
 ```
 And do the accessability features yada yada 
-
-# emacs
-brew tap railwaycat/emacsmacport
-brew install emacs-mac
 
 # packages
 brew install skhd neovim pass coreutils zoxide moreutils lsd rm-improved ag
