@@ -29,6 +29,7 @@ scutil --set HostName "sweetpotato"
 git config --global push.autoSetupRemote true
 git config --global user.name Exr0n
 git config --global user.email howdy@exr0n.com
+git config --global pull.rebase false
 ```
 
 # packages
