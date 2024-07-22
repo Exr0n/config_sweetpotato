@@ -79,11 +79,13 @@ alias GG='gutil -A'
 #    julia
 alias jl="julia -O0 --compile=min --startup=no" # run julia w/o optimizations for fast dev time, https://www.reddit.com/r/Julia/comments/lmznx7/comment/gnyyv7u/?utm_source=share&utm_medium=web2x&context=3
 #    python stuff
-alias py='python3'
+alias py='python'
 alias pip='py -m pip'
 alias pym='py -m'
 alias venv='source .venv/bin/activate || pym venv .venv && echo .venv/ >> .gitignore && source .venv/bin/activate'
 alias ipy='ipython'
+alias cic='conda install -c conda-forge'
+alias ca='conda activate'
 #    screen stuff
 alias sl='screen -ls'
 alias ss='screen -S '

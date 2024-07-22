@@ -1,6 +1,11 @@
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+mkdir -p "$HOME/.caches/yabai_custom"
+
 yabai -m config window_opacity                   on
 yabai -m config active_window_opacity            1.0
-yabai -m config normal_window_opacity            0.8
+yabai -m config normal_window_opacity            0.95
+yabai -m config window_opacity_duration     	 0.02
 yabai -m config window_border                    off
 yabai -m config split_ratio                      0.5
 yabai -m config auto_balance                     on
@@ -31,9 +36,11 @@ yabai -m rule --add app="^Contacts$"             manage=off
 yabai -m rule --add app="^Fantastical$"          manage=off
 yabai -m rule --add app="^Rewind$"           	 manage=off
 yabai -m rule --add app="^python3$"           	 manage=off
+yabai -m rule --add app="^python$"           	 manage=off
 
 #yabai -m rule --add app="^Mailspring$"          manage=off
 #yabai -m rule --add app="^Mem$"                 manage=off
 #yabai -m rule --add app="^Condution$"           manage=off
 
 yabai -m rule --add title="yabai-unmanaged"     manage=off
+yabai -m rule --add app=".*" sub-layer=normal
