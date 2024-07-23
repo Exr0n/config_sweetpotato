@@ -3,6 +3,8 @@
 scutil --set ComputerName "sweetpotato"
 scutil --set LocalHostName "sweetpotato"
 scutil --set HostName "sweetpotato"
+defaults write -g InitialKeyRepeat -int 10 
+defaults write -g KeyRepeat -int 1
 ```
 
 # download apps
@@ -31,6 +33,7 @@ git config --global user.name Exr0n
 git config --global user.email howdy@exr0n.com
 git config --global pull.rebase false
 ```
+
 
 # packages
 brew install skhd neovim pass coreutils zoxide moreutils lsd rm-improved ag
