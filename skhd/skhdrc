@@ -120,10 +120,15 @@ ctrl + lalt + rcmd - o      : yabai -m window   --space 16 | yabai -m space --fo
 lalt - o 		: open -a ChatGPT
 lalt - a		: open -a Arc
 lalt - e		: open -a Alacritty
+lalt - q		: open -a 'Google Chrome'
+
 
 lalt - s 		: yabai -m display --focus 1
 lalt - t 		: yabai -m display --focus 2
 lalt - n 		: yabai -m display --focus 3
+lalt + shift - s 	: yabai -m window --display 1
+lalt + shift - t 	: yabai -m window --display 2
+lalt + shift - n 	: yabai -m window --display 3
 
 # toggle float
 alt - z                     : yabai -m window --toggle float

@@ -44,12 +44,13 @@ yabai -m rule --add app="^Contacts$"             manage=off
 yabai -m rule --add app="^Fantastical$"          manage=off
 yabai -m rule --add app="^Rewind$"           	 manage=off
 yabai -m rule --add app="^python3$"           	 manage=off
-yabai -m rule --add app="^python$"           	 manage=off
+yabai -m rule --add app="^python$"           	 manage=off grid=1:1:0:0:1:1
 
 #yabai -m rule --add app="^Mailspring$"          manage=off
 #yabai -m rule --add app="^Mem$"                 manage=off
 #yabai -m rule --add app="^Condution$"           manage=off
 
+# allow float windows to not be on top
 yabai -m rule --add title="yabai-unmanaged"     manage=off
 yabai -m rule --add app=".*" sub-layer=normal
 
