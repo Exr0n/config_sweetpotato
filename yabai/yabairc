@@ -11,7 +11,7 @@ yabai -m config window_border_radius 		-1.0
 yabai -m config split_ratio                      0.5
 yabai -m config auto_balance                     off
 
-yabai -m config layout                           bsp
+yabai -m config layout                           stack
 #yabai -m config top_padding                      40 # for menu bar
 #yabai -m config top_padding                      15  # no  menu bar
 #yabai -m config bottom_padding                   15
@@ -45,6 +45,7 @@ yabai -m rule --add app="^Fantastical$"          manage=off
 yabai -m rule --add app="^Rewind$"           	 manage=off
 yabai -m rule --add app="^python3$"           	 manage=off
 yabai -m rule --add app="^python$"           	 manage=off grid=1:1:0:0:1:1
+yabai -m rule --add app="^KiCad$"		 manage=off grid=1:1:0:0:1:1
 
 #yabai -m rule --add app="^Mailspring$"          manage=off
 #yabai -m rule --add app="^Mem$"                 manage=off

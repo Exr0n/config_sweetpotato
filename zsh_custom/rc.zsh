@@ -12,6 +12,10 @@ source "$XDG_CONFIG_HOME/zsh_custom/lean_p10k.zsh"
 #source $XDG_CONFIG_HOME/yabairc
 
 export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="/$HOME/.bun/bin:$PATH"
+
+. "$HOME/.cargo/env"
+
 
 # Custom Aliases
 eval $(thefuck --alias)
