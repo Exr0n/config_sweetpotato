@@ -46,8 +46,8 @@ lalt + shift - 3             : $HOME/.config/skhd/set_window_mark.sh 3
 lalt + shift - 4             : $HOME/.config/skhd/set_window_mark.sh 4
 lalt + shift - 5             : $HOME/.config/skhd/set_window_mark.sh 5
 lalt + shift - 6             : $HOME/.config/skhd/set_window_mark.sh 6
-lalt + shift - 7             : $HOME/.config/skhd/set_window_mark.sh 7
-lalt + shift - 8             : $HOME/.config/skhd/set_window_mark.sh 8
+lalt + shift - 7             : $HOME/.config/skhd/set_window_mark.sh 7    
+# lalt + shift - 8             : $HOME/.config/skhd/set_window_mark.sh 8    # telegram
 #lalt + shift - 9             : $HOME/.config/skhd/set_window_mark.sh 9		# messages
 #lalt + shift - 0             : $HOME/.config/skhd/set_window_mark.sh 10	# toggl
 lalt + shift - 0x0C          : $HOME/.config/skhd/set_window_mark.sh 11
@@ -103,14 +103,16 @@ ctrl + lalt + rcmd - o      : yabai -m window   --space 16 | yabai -m space --fo
 
 # focus app
 #lalt - o		: yabai -m window --focus "$(yabai -m query --windows | jq 'map(select(.app == "ChatGPT")) | .[0].id')"
-lalt - o 		: open -a ChatGPT
-lalt - a		: open -a Arc
-lalt - e		: open -a Alacritty
-lalt - q		: open -a 'Google Chrome'
-lalt - 8 		: open -a Mail
-lalt - 9		: open -a Discord
+lalt - o 		    : open -a ChatGPT
+lalt - a		    : open -a Arc
+lalt - e		    : open -a Alacritty
+lalt - q		    : open -a 'Google Chrome'
+lalt - 8 		    : open -a Mail
+lalt + shift - 8 	: open -a Telegram
+lalt + ctrl - 8 	: open -a Mochi
+lalt - 9		    : open -a Discord
 lalt + shift - 9 	: open -a Messages
-lalt - 0 		: open -a Fantastical 
+lalt - 0 		    : open -a Fantastical 
 lalt + shift - 0	: open -a 'Toggl Track'
 lalt + ctrl - 0		: open -a cao
 

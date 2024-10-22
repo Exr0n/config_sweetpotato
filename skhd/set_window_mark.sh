@@ -1,15 +1,16 @@
-SESSION_PATH="$HOME/.caches/yabai_custom/session_name"
-SESSION_NAME="$(< "$SESSION_PATH")"
+SCRIPT_DIR="$HOME/.config/skhd"
+source "$SCRIPT_DIR/util.sh"
 
-DIRPATH="$HOME/.caches/yabai_custom/sessions/$SESSION_NAME/window_id_"
-
-# rm -f "$DIRPATH$1"
 CUR_ID="$(yabai -m query --windows --window | jq -r '.id')"
-if [[ $(< "$DIRPATH$1") == "$CUR_ID" ]]; then
-    osascript -e "display notification \"$SESSION_NAME: unset $1\" with title \"switch window or space\""
-    rm -f "$DIRPATH$1"
-else
-    osascript -e "display notification \"$SESSION_NAME: set $1\" with title \"switch window or space\""
-    mkdir -p "$DIRPATH"
-    echo "$CUR_ID" > "$DIRPATH$1"
-fi
+mkdir -p "$TAG_TO_WINDOW_PATH"
+echo "$CUR_ID" > "$TAG_TO_WINDOW_PATH$1"
+osascript -e "display notification \"$SESSION_NAME: set $1\" with title \"switch window or space\""
+
+# if [[ $(< "$TAG_TO_WINDOW_PATH$1") == "$CUR_ID" ]]; then
+#     # osascript -e "display notification \"$SESSION_NAME: unset $1\" with title \"switch window or space\""
+#     # rm -f "$TAG_TO_WINDOW_PATH$1"
+# else
+#     osascript -e "display notification \"$SESSION_NAME: set $1\" with title \"switch window or space\""
+#     mkdir -p "$TAG_TO_WINDOW_PATH"
+#     echo "$CUR_ID" > "$TAG_TO_WINDOW_PATH$1"
+# fi

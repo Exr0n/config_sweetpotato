@@ -1,0 +1,1 @@
+"hw ch3a autostart" -o "fa24 ch3a"

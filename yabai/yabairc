@@ -36,7 +36,7 @@ yabai -m rule --add app="^Messages$" 		space=9
 yabai -m rule --add app="^Fantastical$" 	space=10
 yabai -m rule --add app="^Toggl Track$" 	space=10
 yabai -m rule --add app="^cao$" 		space=10
-yabai -m rule --add app="^Arc$" 		space=15
+#yabai -m rule --add app="^Arc$" 		space=15
 
 # allow float windows to not be on top
 yabai -m rule --add title="yabai-unmanaged"     manage=off
