@@ -15,14 +15,21 @@
 SCRIPT_DIR="$HOME/.config/skhd"
 source "$SCRIPT_DIR/util.sh"
 
-for window_id in $(cat "$BASE_DIR/sessions/$(< "$BASE_DIR/session_name")/window_id_"*); do
-    yabai -m window --minimize "$window_id"
-done
+MINIMIZE="$(cat "$BASE_DIR/sessions/$(< "$BASE_DIR/session_name")/window_id_"*)"
+FOCUS="$(cat "$BASE_DIR/sessions/$1/window_id_"*)"
 
 echo "$1" > "$BASE_DIR/session_name"
 
-for window_id in $(cat "$BASE_DIR/sessions/$1/window_id_"*); do
-    yabai -m window --focus "$window_id"
+for window_id in $FOCUS; do
+    if [[ "$MINIMIZE" != *"$window_id"* ]]; then
+        yabai -m window --focus "$window_id" &
+    fi
+done
+
+for window_id in $MINIMIZE; do
+    if [[ "$FOCUS" != *"$window_id"* ]]; then
+        yabai -m window --minimize "$window_id" > /dev/null 2>&1 &
+    fi
 done
 
 echo "Focused session $1 with $(ls $BASE_DIR/sessions/$1/window_id_* | wc -l | xargs) windows"

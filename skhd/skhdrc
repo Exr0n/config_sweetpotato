@@ -128,6 +128,7 @@ lalt + shift - n 	: yabai -m window --display 3
 alt - z                     	: yabai -m window --toggle float
 alt - v			        : yabai -m window --toggle zoom-fullscreen
 alt - b			        : yabai -m space --layout bsp 
+alt + ctrl - b			: yabai -m space --layout none 
 alt + shift - b		        : yabai -m space --layout stack
 # toggle split direction
 alt - m                     : yabai -m window --toggle split

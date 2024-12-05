@@ -16,6 +16,7 @@ export PATH="/$HOME/.bun/bin:$PATH"
 
 . "$HOME/.cargo/env"
 
+export TYPST_FONT_PATHS="$XDG_CONFIG_HOME/fonts"
 
 # Custom Aliases
 eval $(thefuck --alias)
