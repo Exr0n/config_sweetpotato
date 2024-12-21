@@ -47,7 +47,8 @@ git config --global pull.rebase false
 
 
 # packages
-brew install skhd neovim pass coreutils zoxide moreutils lsd rm-improved ag
+brew install pass coreutils zoxide moreutils lsd rm-improved ag
+brew install --cask font-iosevka-term-nerd-font
 
 # settings
 ## set option to command and command to option 
