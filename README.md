@@ -21,10 +21,21 @@ defaults write -g KeyRepeat -int 1
 - discord
 
 # basic shell setup
-- clone this repo
-- install brew
-- install yabai, skhd, and follow the disable SIP and dock scripting addon instructions
-- install oh-my-zsh
+- Disable SIP for yabai. 
+
+```
+git clone git@github.com:Exr0n/config_sweetpotato.git ~/.config                                   # clone
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"   # brew
+brew install koekeishiya/formulae/yabai koekeishiya/formulae/skhd                                 # yabai, skhd
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"   # install oh-my-zsh                             
+```
+
+Re-run until the system permissions are all granted 
+```
+yabai --start-service
+skhd --start-service
+```
+
 
 ## git settings
 ```
