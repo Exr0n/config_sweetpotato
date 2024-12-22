@@ -47,7 +47,7 @@ git config --global pull.rebase false
 
 
 # packages
-brew install pass coreutils zoxide moreutils lsd rm-improved ag
+brew install pass coreutils zoxide moreutils lsd rm-improved ag neovim jq
 brew install --cask font-iosevka-term-nerd-font
 
 # settings
