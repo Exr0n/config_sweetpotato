@@ -19,6 +19,11 @@ defaults write -g KeyRepeat -int 1
 - chatgpt
 - telegram
 - discord
+- zotero
+
+Sync services: arc, vscode settings, mochi, zotero 
+
+Things not synced: arc extensions, raycast extensions  
 
 # basic shell setup
 - Disable SIP for yabai. 
@@ -68,6 +73,7 @@ brew install --cask font-iosevka-term-nerd-font
 - [tampermonkey](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) and add desmos darkmode script
 - [unhook youtube](https://chromewebstore.google.com/detail/unhook-remove-youtube-rec/khncfooichmfjbepaaaebmommgaepoid?hl=en)
 - [ublock](https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en)
+- zotero connector 
 
 
 # other random stuff
