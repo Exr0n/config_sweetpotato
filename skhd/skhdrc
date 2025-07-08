@@ -146,3 +146,6 @@ lalt + ctrl + shift - r: yabai --restart-service
 #ctrl + lalt - t : osascript -e 'tell application "Alacritty" to activate' -e 'tell application "System Events" to set the title of the first window of process "Alacritty" to "yabai-unmanaged"'
 ctrl + lalt - t : open -na Alacritty
 ctrl + lshift + lalt - t : open -na Alacritty && yabai -m window $(yabai -m query --windows --app "Alacritty" | jq '.[-1].id') --toggle float
+
+# script commands
+lalt + shift - o : $HOME/.config/raycast-script-commands/insert-alphanumeric-timestamp.sh
