@@ -36,7 +36,7 @@ alias mv='mv -i'
 alias ls='lsd'
 alias du='echo use dust'
 alias df='echo use duf'
-alias rm='echo use rip'
+#alias rm='echo use rip'
 alias f='fuck'
 alias ping='gping'
 eval "$(zoxide init zsh --cmd c)"

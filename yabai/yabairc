@@ -38,6 +38,8 @@ yabai -m rule --add app="^Toggl Track$" 	space=10
 yabai -m rule --add app="^cao$" 		space=10
 #yabai -m rule --add app="^Arc$" 		space=15
 
+yabai -m rule --add app="^Finder$" 		manage=off
+
 # allow float windows to not be on top
 yabai -m rule --add title="yabai-unmanaged"     manage=off
 yabai -m rule --add app=".*" sub-layer=normal

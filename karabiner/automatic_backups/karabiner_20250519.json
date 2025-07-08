@@ -66,7 +66,7 @@
                         ]
                     },
                     {
-                        "description": "Post page-down for command-j",
+                        "description": "Post down-arrow for command-j",
                         "manipulators": [
                             {
                                 "from": {
@@ -75,7 +75,7 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "page_down",
+                                        "key_code": "down_arrow",
                                         "lazy": true
                                     }
                                 ],
@@ -84,7 +84,7 @@
                         ]
                     },
                     {
-                        "description": "Post page-up for command-k",
+                        "description": "Post up-arrow for command-k",
                         "manipulators": [
                             {
                                 "from": {
@@ -93,7 +93,7 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "page_up",
+                                        "key_code": "up_arrow",
                                         "lazy": true
                                     }
                                 ],
@@ -170,7 +170,8 @@
                     "from": { "key_code": "return_or_enter" },
                     "to": [{ "software_function": { "iokit_power_management_sleep_system": {} } }]
                 }
-            ]
+            ],
+            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         },
         {
             "name": "more keybinds",
@@ -188,7 +189,8 @@
                     "from": { "key_code": "right_command" },
                     "to": [{ "key_code": "return_or_enter" }]
                 }
-            ]
+            ],
+            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         }
     ]
 }

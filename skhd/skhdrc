@@ -106,15 +106,19 @@ ctrl + lalt + rcmd - o      : yabai -m window   --space 16 | yabai -m space --fo
 lalt - o 		    : open -a ChatGPT
 lalt - a		    : open -a Arc
 lalt - e		    : open -a Alacritty
-lalt - q		    : open -a 'Google Chrome'
-lalt - 8 		    : open -a Mail
-lalt + shift - 8 	: open -a Telegram
-lalt + ctrl - 8 	: open -a Mochi
-lalt - 9		    : open -a Discord
-lalt + shift - 9 	: open -a Messages
+lalt - 0x06		    : open -a 'Google Chrome'
+lalt - q		    : open -a Obsidian
+lalt + shift - q    	    : open -a Notes
+lalt - 8 		    : SW_APP="Mail";    [[ -n "$(yabai -m query --windows | jq '.[].app' | grep $SW_APP)" ]] && open -a "$SW_APP"
+lalt + shift - 8 	    : SW_APP="Telegram";[[ -n "$(yabai -m query --windows | jq '.[].app' | grep $SW_APP)" ]] && open -a "$SW_APP"
+lalt + ctrl - 8 	    : open -a Mochi
+lalt - 9		    : SW_APP="Discord";	[[ -n "$(yabai -m query --windows | jq '.[].app' | grep $SW_APP)" ]] && open -a "$SW_APP"
+lalt + shift - 9 	    : SW_APP="Messages";[[ -n "$(yabai -m query --windows | jq '.[].app' | grep $SW_APP)" ]] && open -a "$SW_APP"
 lalt - 0 		    : open -a Fantastical 
-lalt + shift - 0	: open -a 'Toggl Track'
-lalt + ctrl - 0		: open -a cao
+lalt + shift - 0	    : open -a 'Toggl Track'
+lalt + ctrl - 0		    : open -a cao
+
+
 
 
 lalt - s 		: yabai -m display --focus 1

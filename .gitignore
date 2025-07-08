@@ -1,3 +1,6 @@
 **/.DS_Store
 .togglrc
-
+.wrangler/
+wandb/
+swiftpm/
+ngrok/
