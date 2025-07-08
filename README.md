@@ -19,12 +19,28 @@ defaults write -g KeyRepeat -int 1
 - chatgpt
 - telegram
 - discord
+- zotero
+
+Sync services: arc, vscode settings, mochi, zotero 
+
+Things not synced: arc extensions, raycast extensions  
 
 # basic shell setup
-- clone this repo
-- install brew
-- install yabai, skhd, and follow the disable SIP and dock scripting addon instructions
-- install oh-my-zsh
+- Disable SIP for yabai. 
+
+```
+git clone git@github.com:Exr0n/config_sweetpotato.git ~/.config                                   # clone
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"   # brew
+brew install koekeishiya/formulae/yabai koekeishiya/formulae/skhd                                 # yabai, skhd
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"   # install oh-my-zsh                             
+```
+
+Re-run until the system permissions are all granted 
+```
+yabai --start-service
+skhd --start-service
+```
+
 
 ## git settings
 ```
@@ -36,7 +52,8 @@ git config --global pull.rebase false
 
 
 # packages
-brew install skhd neovim pass coreutils zoxide moreutils lsd rm-improved ag
+brew install pass coreutils zoxide moreutils lsd rm-improved ag neovim jq
+brew install --cask font-iosevka-term-nerd-font
 
 # settings
 ## set option to command and command to option 
@@ -56,6 +73,7 @@ brew install skhd neovim pass coreutils zoxide moreutils lsd rm-improved ag
 - [tampermonkey](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) and add desmos darkmode script
 - [unhook youtube](https://chromewebstore.google.com/detail/unhook-remove-youtube-rec/khncfooichmfjbepaaaebmommgaepoid?hl=en)
 - [ublock](https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en)
+- zotero connector 
 
 
 # other random stuff
