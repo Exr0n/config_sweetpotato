@@ -15,7 +15,7 @@
 dec_to_base64() {
     local num=$1
     if [ $num -eq 0 ]; then
-        echo "0"
+        echo "A"
         return
     fi
     
