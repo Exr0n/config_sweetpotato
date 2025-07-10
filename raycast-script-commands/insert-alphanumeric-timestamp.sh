@@ -31,12 +31,12 @@ dec_to_base64() {
     echo "$result"
 }
 
-# Get current date components
-YEAR=$(date +%y)  # Last 2 digits of year
+# Get current date components (no leading zeros to avoid octal interpretation)
+YEAR=$(($(date +%y) + 0))  # Last 2 digits of year, force decimal
 MONTH=$(date +%-m)  # Month (1-12)
 DAY=$(date +%-d)    # Day (1-31)
 HOUR=$(date +%-H)   # Hour (0-23)
-MINUTE=$(date +%M)  # Minute (00-59)
+MINUTE=$(date +%-M)  # Minute (0-59)
 
 # Convert to base 64
 MONTH_B64=$(dec_to_base64 $MONTH)
@@ -47,15 +47,13 @@ MINUTE_B64=$(dec_to_base64 $MINUTE)
 # Create timestamp: YYMDHM
 TIMESTAMP="${YEAR}${MONTH_B64}${DAY_B64}.${HOUR_B64}${MINUTE_B64} "
 
-# Use clipboard and wait for modifier release, then paste
+# Use clipboard with proper handling of non-text content
 osascript -e "
-set savedClipboard to the clipboard
-delay 0.05
+delay 0.03
+
 set the clipboard to \"$TIMESTAMP\"
 tell application \"System Events\"
     keystroke \"v\" using command down
 end tell
-delay 0.05
-set the clipboard to savedClipboard
 "
 
