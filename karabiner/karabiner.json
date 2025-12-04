@@ -1,5 +1,4 @@
 {
-    "global": { "show_in_menu_bar": false },
     "profiles": [
         {
             "complex_modifications": {
@@ -146,6 +145,7 @@
                 }
             ],
             "name": "Default profile",
+            "parameters": { "delay_milliseconds_before_open_device": 100 },
             "selected": true,
             "simple_modifications": [
                 {
@@ -154,7 +154,7 @@
                 },
                 {
                     "from": { "key_code": "delete_or_backspace" },
-                    "to": [{ "consumer_key_code": "al_terminal_lock_or_screensaver" }]
+                    "to": [{ "key_code": "vk_none" }]
                 },
                 {
                     "from": { "key_code": "left_command" },
@@ -170,7 +170,7 @@
                 },
                 {
                     "from": { "key_code": "return_or_enter" },
-                    "to": [{ "software_function": { "iokit_power_management_sleep_system": {} } }]
+                    "to": [{ "key_code": "vk_none" }]
                 }
             ],
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
