@@ -2,6 +2,9 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
 mkdir -p "$HOME/.caches/yabai_custom"
 
+yabai -m config --space 1 layout float	# don't manage mac display
+yabai -m config layout                           bsp
+
 yabai -m config window_opacity                   on
 yabai -m config active_window_opacity            1.0
 yabai -m config normal_window_opacity            0.95
@@ -9,9 +12,9 @@ yabai -m config window_opacity_duration     	 0.02
 yabai -m config window_border                    on
 yabai -m config window_border_radius 		-1.0
 yabai -m config split_ratio                      0.5
-yabai -m config auto_balance                     off
+yabai -m config auto_balance                     on
 
-yabai -m config layout                           float
+#yabai -m config layout                           float
 #yabai -m config top_padding                      40 # for menu bar
 #yabai -m config top_padding                      15  # no  menu bar
 #yabai -m config bottom_padding                   15
@@ -27,22 +30,26 @@ yabai -m config window_gap                       5
 yabai -m config mouse_follows_focus          	on
 
 
-yabai -m rule --add app!="^(System Settings|Numi|Preview|Contacts)$" manage=off grid=1:1:0:0:1:1	# grid everything except these apps
-
-yabai -m rule --add app="^ChatGPT$" 		space=7
-yabai -m rule --add app="^Mail$" 		space=8
-yabai -m rule --add app="^Discord$"  		space=9
-yabai -m rule --add app="^Messages$" 		space=9
-yabai -m rule --add app="^Fantastical$" 	space=10
-yabai -m rule --add app="^Toggl Track$" 	space=10
-yabai -m rule --add app="^cao$" 		space=10
-#yabai -m rule --add app="^Arc$" 		space=15
 
 yabai -m rule --add app="^Finder$" 		manage=off
 
+# old everything-in-one-float-stack tagging stuff
+#yabai -m rule --add app!="^(System Settings|Numi|Preview|Contacts)$" manage=off grid=1:1:0:0:1:1	# grid everything except these apps
+
+# old space-based stuff
+#yabai -m rule --add app="^ChatGPT$" 		space=7
+#yabai -m rule --add app="^Mail$" 		space=8
+#yabai -m rule --add app="^Discord$"  		space=9
+#yabai -m rule --add app="^Messages$" 		space=9
+#yabai -m rule --add app="^Fantastical$" 	space=10
+#yabai -m rule --add app="^Toggl Track$" 	space=10
+#yabai -m rule --add app="^cao$" 		space=10
+#yabai -m rule --add app="^Arc$" 		space=15
+
+
 # allow float windows to not be on top
-yabai -m rule --add title="yabai-unmanaged"     manage=off
-yabai -m rule --add app=".*" sub-layer=normal
+#yabai -m rule --add title="yabai-unmanaged"     manage=off
+#yabai -m rule --add app=".*" sub-layer=normal
 
 # borders 	style=round # neither blur nor rounded corners works
 

@@ -121,11 +121,11 @@ lalt + ctrl - 0		    : open -a cao
 
 
 
-lalt - s 		: yabai -m display --focus 1
-lalt - t 		: yabai -m display --focus 2
+lalt - t 		: yabai -m display --focus 1
+lalt - s 		: yabai -m display --focus 2
 lalt - n 		: yabai -m display --focus 3
-lalt + shift - s 	: yabai -m window --display 1
-lalt + shift - t 	: yabai -m window --display 2
+lalt + shift - t 	: yabai -m window --display 1
+lalt + shift - s 	: yabai -m window --display 2
 lalt + shift - n 	: yabai -m window --display 3
 
 # toggle float
@@ -149,3 +149,5 @@ ctrl + lshift + lalt - t : open -na Alacritty && yabai -m window $(yabai -m quer
 
 # script commands
 lalt + shift - o : $HOME/.config/raycast-script-commands/insert-alphanumeric-timestamp.sh
+ctrl + lalt - o: $HOME/.config/skhd/set_transparency.sh
+
