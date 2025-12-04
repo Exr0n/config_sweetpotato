@@ -2,7 +2,6 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
 mkdir -p "$HOME/.caches/yabai_custom"
 
-yabai -m config --space 1 layout float	# don't manage mac display
 yabai -m config layout                           bsp
 
 yabai -m config window_opacity                   on
@@ -53,3 +52,10 @@ yabai -m rule --add app="^Finder$" 		manage=off
 
 # borders 	style=round # neither blur nor rounded corners works
 
+LAYOUT_SCRIPT="$HOME/.config/yabai/apply-default-layouts.sh"
+yabai -m signal --add event=display_added action="$LAYOUT_SCRIPT"
+yabai -m signal --add event=display_removed action="$LAYOUT_SCRIPT"
+yabai -m signal --add event=display_moved action="$LAYOUT_SCRIPT"
+yabai -m signal --add event=display_resized action="$LAYOUT_SCRIPT"
+yabai -m signal --add event=space_changed action="$LAYOUT_SCRIPT"
+bash "$LAYOUT_SCRIPT"
