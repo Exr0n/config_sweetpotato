@@ -35,6 +35,7 @@ in_list() {
 echo "$1" > "$BASE_DIR/session_name"
 
 for window_id in "${FOCUS_IDS[@]}"; do
+    yabai -m window --deminimize "$window_id" > /dev/null 2>&1
     if ! in_list "$window_id" "${MINIMIZE_IDS[@]}"; then
         yabai -m window --focus "$window_id" &
     fi
