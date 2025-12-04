@@ -137,7 +137,8 @@ alt + shift - b		        : yabai -m space --layout stack
 # toggle split direction
 alt - m                     : yabai -m window --toggle split
 
-alt - u                     : yabai -m window --focus recent
+alt - u                     : $HOME/.config/skhd/focus_recently_created_window.sh
+alt - tab                   : yabai -m window --focus recent
 
 # restart yabai
 lalt + ctrl + shift - r: yabai --restart-service
@@ -150,4 +151,3 @@ ctrl + lshift + lalt - t : open -na Alacritty && yabai -m window $(yabai -m quer
 # script commands
 lalt + shift - o : $HOME/.config/raycast-script-commands/insert-alphanumeric-timestamp.sh
 ctrl + lalt - o: $HOME/.config/skhd/set_transparency.sh
-
