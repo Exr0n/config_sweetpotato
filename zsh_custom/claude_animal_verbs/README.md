@@ -57,11 +57,53 @@ registered animal pool. So you can re-run freely.
 ## Caveats
 
 - Claude Code auto-updates. After an update, the patch is gone — re-run.
-- "Hot-patch" is a misnomer: a running `claude` process has the binary
-  mmap'd; modifying the file does not affect live pages, only future
-  invocations. Prank fires the next time the target opens claude.
+- The on-disk patcher only affects future invocations: a running
+  `claude` process has the binary mmap'd and the verb pool already
+  parsed into JSC heap, so the on-disk patch doesn't reach it.
 - The current `claude` session that *runs* the patcher is fine —
   `os.replace` is atomic and the in-flight inode stays alive.
+
+## Hot-patching live processes (`hot_patch_running.py`)
+
+The on-disk patcher only affects future invocations. To reach an
+already-running session — without restarting it — use the in-memory
+patcher:
+
+```bash
+sudo python3 hot_patch_running.py --auto         # all `^claude` PIDs
+sudo python3 hot_patch_running.py --dry-run PID  # locate, count, no write
+sudo python3 hot_patch_running.py PID [PID ...]  # specific PIDs
+```
+
+How it works:
+
+1. Reads `/proc/<pid>/maps`, keeps only private writable regions ≤1 GB
+   (skips JSC's huge VA reservations).
+2. Scans those regions with a single regex alternation that matches any
+   of the 187 original verbs. Stores every hit's address.
+3. Bucket analysis: a 32 KB bucket containing ≥25 distinct verbs is the
+   verb-pool storage. JSC's WKFastMalloc allocates the 187 array
+   JSStrings densely (~3 KB), so the verb pool clusters tightly while
+   stray occurrences of common words ("Thinking", "Working") used as
+   function names or atomic-string entries elsewhere stay scattered and
+   are correctly skipped.
+4. Overwrites each in-cluster string with a duck verb of the **same
+   byte length** (we don't touch the StringImpl length field).
+   Length-matched ducks live in `DUCK_BY_LENGTH`; for lengths the pool
+   can't cover, we pad shorter ducks with trailing spaces.
+
+Constraints:
+
+- Linux only (uses `/proc/<pid>/mem`).
+- Requires write access to `/proc/<pid>/mem`. Same-UID alone isn't
+  enough under the default `yama.ptrace_scope=1`; needs `sudo` or
+  PTRACE_ATTACH ownership.
+- Idempotent — re-running on already-patched processes finds no dense
+  cluster (the original verbs are gone) and safely skips.
+- Same-length swap means we don't get to vary the verb-pool *count* in
+  memory the way the on-disk patcher does. If you want fresh
+  randomness in a long-running session, restart it (the on-disk pool
+  reseeds each parse).
 
 ## Future: scheduled rotation
 
