@@ -1,0 +1,197 @@
+# AeroSpace config — port of yabai/skhd from config_sweetpotato.
+# Window-tagging via Exr0n/window-tagging: alt+<key> jump to tagged window
+# (fallback workspace), alt+shift+<key> tag focused window. Layout = monocle/accordion.
+# Docs: https://nikitabobko.github.io/AeroSpace/guide
+
+start-at-login = true
+
+# "windows are the atom": every window full-screen, stacked exactly on top of each
+# other (monocle). Accordion w/ 0 padding = focused window fills the screen, others
+# hidden behind it -> switching shows zero movement (no jitter), and closing a window
+# (cmd-w) just reveals the next full-screen window (nothing to "reflow").
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = false
+default-root-container-layout = 'accordion'
+default-root-container-orientation = 'auto'
+accordion-padding = 0
+
+# cursor follows focus: jump the mouse to the center of the newly-focused window
+on-focus-changed = ['move-mouse window-force-center']
+
+# Dvorak: key notations resolve to where that character sits on a Dvorak keyboard.
+# So alt-h/j/k/l land on your Dvorak focus keys (like old skhd), and the window-tag
+# keys quote/comma/period/p resolve to physical Q/W/E/R (your ',.p keys).
+[key-mapping]
+preset = 'dvorak'
+
+[gaps]
+# ported from yabai: top 0, bottom/left/right 5, window_gap 5
+inner.horizontal = 5
+inner.vertical   = 5
+outer.top        = 0
+outer.bottom     = 5
+outer.left       = 5
+outer.right      = 5
+
+# pin comms/calendar app workspaces to the built-in (laptop) display
+[workspace-to-monitor-force-assignment]
+discord     = 'built-in'
+messages    = 'built-in'
+mail        = 'built-in'
+fantastical = 'built-in'
+
+# ── per-app workspaces (always-fullscreen single apps) ─────────
+# Each app gets its own named workspace → solo = always full-screen. Comms/calendar
+# apps (discord/messages/mail/fantastical) are pinned to the built-in display above.
+# Every rule's first command records $AEROSPACE_WINDOW_ID for alt-u (recently-created).
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace discord']
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace messages']
+[[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace mail']
+[[on-window-detected]]
+if.app-id = 'com.flexibits.fantastical2.mac'
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace fantastical']
+[[on-window-detected]]
+if.app-id = 'com.anthropic.claudefordesktop'
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace claude']
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.Browser'
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace arc']
+[[on-window-detected]]
+if.app-id = 'com.apple.Notes'
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace notes']
+
+# ── floating apps (yabai: Finder manage=off) ───────────────────
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'layout floating']
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'layout floating']
+
+# ── catch-all: record every other new window too (for alt-u) ───
+[[on-window-detected]]
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id']
+
+[mode.main.binding]
+
+# ── focus window (yabai: lalt h/j/k/l) ─────────────────
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+# ── move/warp window (yabai: alt+shift h/j/k/l) ────────
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# ── window-tagging (Exr0n/window-tagging) ──────────────
+# alt-<key> = jump to window tagged <key> (fallback: workspace <key>)
+# alt-shift-<key> = tag the focused window as <key>
+# Tags 1-7 on the number row; q/w/e/r tags on the ',.p keys (quote/comma/period/p
+# under the dvorak preset = physical Q/W/E/R), matching the old skhd 0x0C/0x0D/0x0E/p.
+# window-tagging (begin)
+alt-1 = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/switch_to_window_or_workspace.sh 1'
+alt-shift-1 = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/set_window_tag.sh 1'
+alt-2 = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/switch_to_window_or_workspace.sh 2'
+alt-shift-2 = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/set_window_tag.sh 2'
+alt-3 = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/switch_to_window_or_workspace.sh 3'
+alt-shift-3 = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/set_window_tag.sh 3'
+alt-4 = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/switch_to_window_or_workspace.sh 4'
+alt-shift-4 = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/set_window_tag.sh 4'
+alt-5 = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/switch_to_window_or_workspace.sh 5'
+alt-shift-5 = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/set_window_tag.sh 5'
+alt-6 = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/switch_to_window_or_workspace.sh 6'
+alt-shift-6 = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/set_window_tag.sh 6'
+alt-7 = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/switch_to_window_or_workspace.sh 7'
+alt-shift-7 = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/set_window_tag.sh 7'
+# ',.p keys (physical Q/W/E/R via dvorak preset) -> tags q/w/e/r
+alt-quote = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/switch_to_window_or_workspace.sh q'
+alt-shift-quote = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/set_window_tag.sh q'
+alt-comma = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/switch_to_window_or_workspace.sh w'
+alt-shift-comma = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/set_window_tag.sh w'
+alt-period = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/switch_to_window_or_workspace.sh e'
+alt-shift-period = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/set_window_tag.sh e'
+alt-p = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/switch_to_window_or_workspace.sh r'
+alt-shift-p = 'exec-and-forget WINDOW_TAGGING_BACKEND="$HOME/.config/window-tagging/src/aerospace/backend.sh" ~/.config/window-tagging/src/set_window_tag.sh r'
+# window-tagging (end)
+
+# pop focused window out to a fresh empty workspace + follow it (then tag it)
+alt-shift-i = 'exec-and-forget ~/.config/aerospace/pop-to-fresh-workspace.sh'
+
+# ── move window to workspace (yabai: ctrl+lalt+rcmd-N : window --space N | space --focus N)
+# AeroSpace can't distinguish left/right cmd -> 2-mod ctrl-alt chord. Follows the window.
+# Targets the tag workspaces (1-7 + the ',.p keys), matching the window-tag set.
+ctrl-alt-1 = 'move-node-to-workspace --focus-follows-window 1'
+ctrl-alt-2 = 'move-node-to-workspace --focus-follows-window 2'
+ctrl-alt-3 = 'move-node-to-workspace --focus-follows-window 3'
+ctrl-alt-4 = 'move-node-to-workspace --focus-follows-window 4'
+ctrl-alt-5 = 'move-node-to-workspace --focus-follows-window 5'
+ctrl-alt-6 = 'move-node-to-workspace --focus-follows-window 6'
+ctrl-alt-7 = 'move-node-to-workspace --focus-follows-window 7'
+ctrl-alt-quote  = 'move-node-to-workspace --focus-follows-window q'
+ctrl-alt-comma  = 'move-node-to-workspace --focus-follows-window w'
+ctrl-alt-period = 'move-node-to-workspace --focus-follows-window e'
+ctrl-alt-p      = 'move-node-to-workspace --focus-follows-window r'
+
+# ── monitors / displays (yabai: lalt t/s/n focus; +shift move) ─
+alt-t = 'focus-monitor 1'
+alt-s = 'focus-monitor 2'
+alt-n = 'focus-monitor 3'
+alt-shift-t = 'move-node-to-monitor --focus-follows-window 1'
+alt-shift-s = 'move-node-to-monitor --focus-follows-window 2'
+alt-shift-n = 'move-node-to-monitor --focus-follows-window 3'
+
+# ── layout (yabai: alt-b bsp / alt+shift-b stack / alt-m split) ─
+alt-b       = 'layout tiles horizontal vertical'   # toggle tiling orientation (~bsp)
+alt-shift-b = 'layout accordion'                   # ~stack
+alt-z       = 'layout floating tiling'             # toggle float (yabai alt-z)
+alt-v       = 'fullscreen'                         # zoom-fullscreen (yabai alt-v)
+alt-shift-v = 'exec-and-forget ~/.config/aerospace/float-center.sh'  # float + golden-ratio center (skhd alt+shift-v)
+alt-m       = 'layout tiles horizontal vertical'   # toggle split dir (yabai alt-m)
+
+# ── app launchers (skhd: lalt <key> : open -a ...) ─────────────
+# Letter keys resolve to Dvorak char positions (dvorak preset), matching old skhd.
+alt-e            = '''exec-and-forget open -a kitty'''                                # focus/open terminal (lalt-e)
+ctrl-alt-t       = '''exec-and-forget open -na kitty --args --start-as=maximized'''   # NEW terminal window (ctrl+lalt-t)
+ctrl-alt-shift-t = '''exec-and-forget open -na kitty --args --start-as=maximized'''   # new terminal (was +float; alt-z to float)
+alt-o            = '''exec-and-forget open -a Claude'''         # was ChatGPT (lalt-o)
+alt-a            = '''exec-and-forget open -a Arc'''            # browser (lalt-a)
+alt-c            = '''exec-and-forget open -a "Visual Studio Code"'''   # vscode
+alt-9            = '''exec-and-forget pgrep -x Discord >/dev/null && open -a Discord'''    # discord, only if running (lalt-9)
+alt-shift-9      = '''exec-and-forget pgrep -x Messages >/dev/null && open -a Messages'''  # messages, only if running (lalt+shift-9)
+alt-0            = '''exec-and-forget open -a Fantastical'''    # calendar (lalt-0)
+alt-shift-0      = '''exec-and-forget open -a "Toggl Track"'''  # toggl (lalt+shift-0)
+ctrl-alt-8       = '''exec-and-forget open -a Zotero'''         # zotero
+alt-shift-q      = '''exec-and-forget open -a Notes'''          # notes (lalt+shift-q)
+alt-8            = '''exec-and-forget pgrep -x Mail >/dev/null && open -a Mail'''  # mail, only if running (lalt-8)
+# stale / not-installed apps from old skhd — intentionally omitted, uncomment if installed:
+# alt-q          = '''exec-and-forget open -a Obsidian'''       # obsidian (lalt-q)
+# alt-shift-8    = '''exec-and-forget pgrep -x Telegram >/dev/null && open -a Telegram'''  # telegram (lalt+shift-8)
+# ctrl-alt-8 was Mochi (lalt+ctrl-8) — repurposed to Zotero above
+# alt-ctrl-0     = '''exec-and-forget open -a cao'''            # cao (lalt+ctrl-0)
+# semicolon (Dvorak) = Chrome (lalt-0x06) — Chrome not installed; using Arc instead
+
+# ── script commands (skhd raycast-script-commands) ─────────────
+alt-shift-o      = '''exec-and-forget ~/.config/raycast-script-commands/insert-alphanumeric-timestamp.sh'''  # paste alphanumeric timestamp
+# NOTE: old ctrl+alt-o transparency toggle was yabai-only (window opacity) — AeroSpace can't set opacity.
+
+# ── extra layout / service (skhd) ──────────────────────────────
+ctrl-alt-b       = 'layout floating'            # yabai alt+ctrl-b "layout none" (float)
+ctrl-alt-shift-r = 'reload-config'              # ~ restart WM (yabai lalt+ctrl+shift-r)
+alt-tab          = 'focus-back-and-forth'       # focus recently-focused window (yabai alt-tab: window --focus recent)
+alt-u            = 'exec-and-forget ~/.config/aerospace/focus-recently-created.sh'  # focus recently-CREATED window (yabai alt-u)
+alt-shift-semicolon = 'mode service'            # enter service mode
+
+[mode.service.binding]
+esc          = ['reload-config', 'mode main']
+r            = ['flatten-workspace-tree', 'mode main']   # reset layout
+f            = ['layout floating tiling', 'mode main']
+backspace    = ['close-all-windows-but-current', 'mode main']

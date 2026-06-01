@@ -56,14 +56,44 @@ brew install pass coreutils zoxide moreutils lsd rm-improved ag neovim jq
 brew install --cask font-iosevka-term-nerd-font
 
 # settings
-## set option to command and command to option 
-## set up spaces
-- disable automatically rearrange spaces by most recent use
-- disable switching to space containing application when switching to application
-- disable grouping windows by application
-- enable displays have seprate spaces:
-## reduce animations
-- enable reduce motion in accessibility
+
+## macOS defaults (copy-paste this whole block)
+```sh
+# --- keyboard ---
+defaults write -g InitialKeyRepeat -int 10
+defaults write -g KeyRepeat -int 1
+defaults write -g ApplePressAndHoldEnabled -bool false   # no accented-char popup on hold
+
+# --- spaces / mission control ---
+defaults write com.apple.dock mru-spaces -bool false              # don't auto-rearrange spaces by most recent use
+defaults write com.apple.dock workspaces-auto-swoosh -bool false  # don't switch to a space w/ open windows when switching app
+defaults write com.apple.dock expose-group-apps -bool false       # don't group windows by application
+defaults write com.apple.spaces spans-displays -bool false        # displays have separate spaces (needs logout)
+
+# --- reduce animations ---
+defaults write com.apple.universalaccess reduceMotion -bool true
+defaults write com.apple.Accessibility ReduceMotionEnabled -int 1
+
+# --- hot corner: top-right = turn display off ---
+defaults write com.apple.dock wvous-tr-corner -int 10   # 10 = Put Display to Sleep
+defaults write com.apple.dock wvous-tr-modifier -int 0  # no modifier key
+
+# --- dock ---
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-time-modifier -float 0     # instant show/hide
+defaults write com.apple.dock persistent-apps -array              # remove all pinned apps
+defaults write com.apple.dock persistent-others -array            # remove all pinned folders/stacks
+defaults write com.apple.dock show-recents -bool false            # no recent apps in dock
+defaults write com.apple.dock show-process-indicators -bool false # no "open" dots under apps
+
+killall Dock
+```
+
+## GUI-only (can't be scripted)
+- set option to command and command to option (Keyboard → Modifier Keys) — or let Karabiner handle it
+- default browser → Arc:  `brew install defaultbrowser && defaultbrowser browser`
+- Karabiner: approve driver in Privacy & Security ("Allow") + enable under Input Monitoring
+- AeroSpace / Raycast: grant Accessibility
 
 # browser setup
 - [dark reader](https://chromewebstore.google.com/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh)
