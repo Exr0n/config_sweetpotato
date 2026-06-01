@@ -1,0 +1,51 @@
+# --- Colors ---
+background            #1e1c31
+foreground            #cbe3e7
+
+# Cursor
+cursor                #caca00
+cursor_text_color     #000000
+
+# Normal colors
+color0   #201e33
+color1   #ff8080
+color2   #95ffa4
+color3   #ffe9aa
+color4   #91ddff
+color5   #c991e1
+color6   #aaffe4
+color7   #bbd3f7
+
+# Bright colors
+color8   #666585
+color9   #ff5458
+color10  #62d196
+color11  #ffb378
+color12  #326ccc
+color13  #906cff
+color14  #63f2f1
+color15  #96a3dc
+
+# --- Font ---
+font_family        IosevkaTerm Nerd Font ExtraLight
+font_size          14
+
+# --- Scrolling ---
+scrollback_lines    100000
+wheel_scroll_multiplier 3.0
+
+# --- Window ---
+hide_window_decorations yes
+dynamic_background_opacity yes
+background_opacity 0.92
+window_padding_width 30
+window_padding_height 20
+startup_session none
+remember_window_size no
+initial_window_width  100
+initial_window_height 100
+
+# --- Keybindings ---
+map cmd+n launch --type=os-window
+map ctrl+k scroll_page_up
+map ctrl+j scroll_page_down

@@ -4,3 +4,6 @@
 wandb/
 swiftpm/
 ngrok/
+__pycache__/
+*.pyc
+.DS_Store

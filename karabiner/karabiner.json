@@ -154,7 +154,7 @@
                 },
                 {
                     "from": { "key_code": "delete_or_backspace" },
-                    "to": [{ "key_code": "vk_none" }]
+                    "to": [{ "software_function": { "iokit_power_management_sleep_system": {} } }]
                 },
                 {
                     "from": { "key_code": "left_command" },

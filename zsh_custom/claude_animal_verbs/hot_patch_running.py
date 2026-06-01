@@ -5,24 +5,31 @@ overwriting the verb strings in their JS heap memory.
 
 The on-disk patcher (`patch_claude_verbs.py`) only affects future
 invocations — running processes have the binary mmap'd and the verb
-pool already parsed into JSC heap, so they keep the original verbs
-until restart. This script reaches into each running process via
-/proc/<pid>/mem and overwrites each verb string in place.
+pool already parsed into JSC heap, so they keep whatever verbs were
+in the bundle at parse time. This script reaches into each running
+process via /proc/<pid>/mem and overwrites each verb string in place.
+
+Source set: scans for the union of (a) the original 187 Claude verbs
+and (b) every verb in every animal POOL imported from
+`patch_claude_verbs`. That way it works regardless of whether the
+process was started against the pristine binary or a previously
+animal-patched one.
 
 Constraints:
   - Same-byte-length replacement only. JSC's StringImpl stores an
     explicit length field; we don't touch it, so the replacement
     must occupy the exact same number of bytes as the original.
-    For lengths the duck pool can't cover, we pad shorter ducks
+    For lengths the chosen pool can't cover, we pad shorter verbs
     with trailing space chars (looks fine in spinner display).
   - Requires write access to /proc/<pid>/mem. On Linux with
     yama.ptrace_scope=1 (Ubuntu default), this needs sudo or
     PTRACE_ATTACH. Run with sudo.
 
 Usage:
-    sudo python3 hot_patch_running.py PID [PID ...]
-    sudo python3 hot_patch_running.py --auto         # all `^claude` PIDs
-    sudo python3 hot_patch_running.py --dry-run PID  # count matches, no writes
+    sudo python3 hot_patch_running.py --pool jaguar PID [PID ...]
+    sudo python3 hot_patch_running.py --pool jaguar --auto    # all `^claude` PIDs
+    sudo python3 hot_patch_running.py --pool jaguar --dry-run PID
+    sudo python3 hot_patch_running.py --show-mapping --pool jaguar
 """
 
 from __future__ import annotations
@@ -34,6 +41,11 @@ import subprocess
 import sys
 import time
 from collections import defaultdict
+from pathlib import Path
+
+# Import POOLS from sibling on-disk patcher so we don't duplicate the data.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from patch_claude_verbs import POOLS  # noqa: E402
 
 # -----------------------------------------------------------------------------
 # Original Claude Code verb pool, in runtime byte form (\xE9 escapes resolved).
@@ -79,60 +91,50 @@ ORIGINAL_VERBS: list[bytes] = [
     b'Zesting', b'Zigzagging',
 ]
 
-# -----------------------------------------------------------------------------
-# Duck pool by byte length (for length-exact replacement).
-# -----------------------------------------------------------------------------
-DUCK_BY_LENGTH: dict[int, list[bytes]] = {
-    5:  [b'Quack', b'Drake', b'Float'],
-    6:  [b'Diving', b'Wading', b'Hiding', b'Drying'],
-    7:  [b'Bobbing', b'Honking', b'Nesting', b'Hissing', b'Quaking',
-         b'Bathing', b'Wagging', b'Pluming', b'Webbing', b'Hopping'],
-    8:  [b'Quacking', b'Waddling', b'Paddling', b'Dabbling', b'Foraging',
-         b'Preening', b'Floating', b'Roosting', b'Hatching', b'Brooding',
-         b'Moulting', b'Skimming', b'Drifting', b'Drinking'],
-    9:  [b'Splashing', b'Migrating', b'Pondering', b'Squawking', b'Quack-ing',
-         b'Re-diving', b'Re-honkng', b'Pondhopng'],
-    10: [b'Imprinting', b'Mallarding', b'Re-nesting', b'Egg-laying',
-         b'Pre-flying', b'Pre-honkng', b'Drake-bobs', b'Pond-divng'],
-    11: [b'Pond-diving', b'Re-quacking', b'Out-honking', b'Re-paddling',
-         b'Pre-dabbling', b'Out-flapping'],  # last two are 12, will fail assert — fix
-    12: [b'Pond-bobbing', b'Out-quacking', b'Mud-puddling', b'Bill-dipping',
-         b'Tail-wagging', b'Reed-bobbing', b'Pond-bathing', b'Pond-padding'],
-    13: [b'Pond-skimming', b'Reed-rustling', b'Drake-honking', b'Wing-fluffing',
-         b'Worm-snapping', b'Beak-cleaning', b'Down-fluffing', b'Drake-bobbing',
-         b'Lake-cruising', b'Pre-migrating', b'Pond-paddling'],
-    14: [b'Splash-landing', b'Algae-nibbling', b'Drake-quacking',
-         b'Marsh-paddling', b'Cygnet-rearing', b'Cattail-hiding'],
-    15: [b'Drake-strutting', b'Bread-snatching', b'Crumb-snatching'],
-    16: [b'Lily-pad-leaping', b'Lily-pad-bobbing', b'Pond-bath-having'],
-    17: [b'Tail-feather-bobs', b'Quack-quack-cals'],
-    18: [b'Bread-crumb-hunting', b'Cattail-fluttering', b'Mate-quack-calling'],
-}
+
+def search_verbs() -> list[bytes]:
+    """Union of original verbs + all animal-pool verbs.
+
+    A running process has whichever set of verbs was in the bundle at
+    parse time — pristine Claude (original), or any prior animal pool
+    we patched in. Searching the union finds them regardless."""
+    seen: set[bytes] = set(ORIGINAL_VERBS)
+    out: list[bytes] = list(ORIGINAL_VERBS)
+    for pool in POOLS.values():
+        for v in pool:
+            b = v.encode("utf-8")
+            if b not in seen:
+                seen.add(b)
+                out.append(b)
+    return out
 
 
-def build_mapping() -> dict[bytes, bytes]:
-    """Map each original verb (bytes) to a same-byte-length duck variant."""
+def build_mapping(pool_name: str, search: list[bytes]) -> dict[bytes, bytes]:
+    """Map each search verb (bytes) to a same-byte-length verb from the
+    target pool. If the pool has no entry of the right length, fall back
+    to the longest shorter entry padded with trailing spaces."""
+    target_pool = [v.encode("utf-8") for v in POOLS[pool_name]]
+    by_len: dict[int, list[bytes]] = defaultdict(list)
+    for v in target_pool:
+        by_len[len(v)].append(v)
+
     counters: dict[int, int] = defaultdict(int)
     out: dict[bytes, bytes] = {}
-    for orig in ORIGINAL_VERBS:
+    for orig in search:
         L = len(orig)
-        pool = DUCK_BY_LENGTH.get(L, [])
-        # Filter pool to only entries actually matching length (cheap defensive)
-        pool = [v for v in pool if len(v) == L]
-        if pool:
+        if L in by_len and by_len[L]:
+            pool = by_len[L]
             d = pool[counters[L] % len(pool)]
             counters[L] += 1
         else:
-            # Fallback: shorter duck verb + trailing spaces
+            # Fallback: pick a shorter target verb, pad with trailing spaces.
+            d = orig  # last-resort identity (shouldn't trigger if pool is healthy)
             for fl in range(L - 1, 0, -1):
-                fpool = [v for v in DUCK_BY_LENGTH.get(fl, []) if len(v) == fl]
-                if fpool:
-                    short = fpool[counters[fl] % len(fpool)]
+                if fl in by_len and by_len[fl]:
+                    short = by_len[fl][counters[fl] % len(by_len[fl])]
                     counters[fl] += 1
                     d = short + b' ' * (L - fl)
                     break
-            else:
-                d = orig
         if len(d) != L:
             raise AssertionError(f"length mismatch building mapping: {orig!r} -> {d!r}")
         out[orig] = d
@@ -158,13 +160,12 @@ def find_pool_buckets(hits: list[tuple[int, bytes]],
                       min_distinct: int = 25) -> list[tuple[int, bytes]]:
     """Identify verb-pool storage by fixed-size bucket density.
 
-    JSC's WKFastMalloc allocates the 187 verb-pool JSStrings densely when
-    it parses the array literal — 187 strings × ~16 bytes = ~3 KB of
-    contiguous heap. Each parse produces a bucket where 100+ distinct
-    verbs sit within 2-4 KB. Bucket density is a much sharper signal
-    than a sliding window, since stray occurrences of common words
-    elsewhere (Thinking/Working/Processing inside other JS data) almost
-    never share a bucket with 25+ distinct pool verbs.
+    JSC's WKFastMalloc allocates the verb-pool JSStrings densely when
+    it parses the array literal. Each parse produces a bucket where
+    ~100 distinct verbs sit within 2-4 KB. Bucket density is a much
+    sharper signal than a sliding window, since stray occurrences of
+    common words elsewhere (Thinking/Working/Processing inside other
+    JS data) almost never share a bucket with 25+ distinct pool verbs.
 
     Returns the subset of `hits` whose 32-KB bucket contains at least
     `min_distinct` distinct verbs."""
@@ -195,7 +196,6 @@ def patch_pid(pid: int, mapping: dict[bytes, bytes], dry_run: bool,
         print(f"[pid {pid}] no longer exists, skipping")
         return
 
-    # Filter: skip regions too big to plausibly be JS heap.
     big_byte_limit = max_region_mb * 1024 * 1024
     eligible = [(lo, hi) for lo, hi in regions if (hi - lo) <= big_byte_limit]
     skipped = len(regions) - len(eligible)
@@ -203,12 +203,8 @@ def patch_pid(pid: int, mapping: dict[bytes, bytes], dry_run: bool,
     print(f"[pid {pid}] {len(regions)} writable regions ({sum(hi-lo for lo,hi in regions)/1024/1024:.0f} MB total); "
           f"scanning {len(eligible)} ≤{max_region_mb}MB ({eligible_size/1024/1024:.0f} MB), skipping {skipped} larger")
 
-    # Build a single regex that matches any verb. re engine compiles literal
-    # alternation efficiently and gives us one scan per chunk.
     verb_re = re.compile(b"|".join(re.escape(v) for v in mapping))
 
-    # Pass 1: scan for verb occurrences. We don't write yet — the cluster
-    # analysis below decides which addresses are part of the pool.
     fd = os.open(f"/proc/{pid}/mem", os.O_RDWR)
     all_hits: list[tuple[int, bytes]] = []
     bytes_scanned = 0
@@ -245,7 +241,6 @@ def patch_pid(pid: int, mapping: dict[bytes, bytes], dry_run: bool,
         print(f"[pid {pid}] scan complete: {len(all_hits)} hits / "
               f"{unique_hits} unique verbs in {scan_elapsed:.1f}s")
 
-        # Bucket analysis — pick out verb-pool JSString clusters.
         in_pool = find_pool_buckets(all_hits,
                                     bucket_size=bucket_size,
                                     min_distinct=bucket_min_distinct)
@@ -254,7 +249,6 @@ def patch_pid(pid: int, mapping: dict[bytes, bytes], dry_run: bool,
                   f"present yet, or thresholds need tuning. Skipping writes.")
             return
 
-        # Report cluster bounds, broken out by bucket
         cluster_unique = {v for _, v in in_pool}
         bucket_summary: dict[int, int] = defaultdict(int)
         bucket_distinct: dict[int, set[bytes]] = defaultdict(set)
@@ -268,7 +262,6 @@ def patch_pid(pid: int, mapping: dict[bytes, bytes], dry_run: bool,
             print(f"   0x{b * bucket_size:x}: {bucket_summary[b]} hits, "
                   f"{len(bucket_distinct[b])} distinct verbs")
 
-        # Pass 2: write only inside-cluster addresses
         if dry_run:
             print(f"[pid {pid}] dry-run, not writing")
         else:
@@ -285,7 +278,6 @@ def patch_pid(pid: int, mapping: dict[bytes, bytes], dry_run: bool,
             print(f"[pid {pid}] patched {written} strings "
                   f"(write failures: {write_failures})")
 
-        # Top-N replacement summary
         cluster_summary: dict[bytes, int] = defaultdict(int)
         for _, v in in_pool:
             cluster_summary[v] += 1
@@ -310,19 +302,53 @@ def find_claude_pids() -> list[int]:
     return pids
 
 
+def current_pool_from_log(log_path: Path) -> str | None:
+    """Best-effort: read the rotation log and return the most recent
+    successfully-applied animal name. Used as the default --pool."""
+    if not log_path.exists():
+        return None
+    last_pool: str | None = None
+    last_ok = False
+    for line in log_path.read_text().splitlines():
+        m = re.search(r'rotating to: (\w+)', line)
+        if m:
+            last_pool = m.group(1)
+            last_ok = False
+        elif last_pool and line.endswith("] OK"):
+            last_ok = True
+    return last_pool if last_ok else None
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("pids", nargs="*", type=int,
                     help="PID(s) to patch (omit + use --auto for all claude PIDs)")
+    ap.add_argument("--pool", choices=list(POOLS),
+                    help="target animal pool. Default: latest from rotation.log "
+                         "(falls back to 'duck' if no log).")
     ap.add_argument("--auto", action="store_true",
                     help="patch every running `claude` process found via ps")
     ap.add_argument("--dry-run", action="store_true",
                     help="locate verbs but don't write")
     ap.add_argument("--show-mapping", action="store_true",
-                    help="print the verb->duck mapping and exit")
+                    help="print the verb->target-pool mapping and exit")
     args = ap.parse_args()
 
-    mapping = build_mapping()
+    if args.pool:
+        pool = args.pool
+    else:
+        log = Path(__file__).resolve().parent / "rotation.log"
+        pool = current_pool_from_log(log) or "duck"
+        print(f"Using pool: {pool} (from rotation log: {log})", file=sys.stderr)
+    if pool not in POOLS:
+        print(f"Unknown pool: {pool}", file=sys.stderr)
+        return 1
+
+    search = search_verbs()
+    mapping = build_mapping(pool, search)
+    print(f"Pool: {pool} ({len(POOLS[pool])} verbs)")
+    print(f"Search set: {len(search)} verbs (originals + all animal pools)")
+
     if args.show_mapping:
         for orig, dup in mapping.items():
             print(f"{orig!r:>26}  ->  {dup!r}")
@@ -337,7 +363,6 @@ def main() -> int:
         return 1
 
     print(f"Targeting {len(pids)} process(es): {pids}")
-    print(f"Mapping: {len(mapping)} verbs ({sum(len(v) for v in mapping.values())} total bytes)")
 
     failures = 0
     for pid in pids:

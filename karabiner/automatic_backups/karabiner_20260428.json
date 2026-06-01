@@ -146,6 +146,7 @@
             ],
             "name": "Default profile",
             "parameters": { "delay_milliseconds_before_open_device": 100 },
+            "selected": true,
             "simple_modifications": [
                 {
                     "from": { "key_code": "caps_lock" },
@@ -169,14 +170,13 @@
                 },
                 {
                     "from": { "key_code": "return_or_enter" },
-                    "to": [{ "software_function": { "iokit_power_management_sleep_system": {} } }]
+                    "to": [{ "key_code": "vk_none" }]
                 }
             ],
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         },
         {
             "name": "more keybinds",
-            "selected": true,
             "simple_modifications": [
                 {
                     "from": { "key_code": "caps_lock" },

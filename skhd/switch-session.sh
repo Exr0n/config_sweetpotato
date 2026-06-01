@@ -77,6 +77,18 @@ in_list() {
 
 echo "$1" > "$BASE_DIR/session_name"
 
+TIMESTAMP="$(date +%s)"
+MRU_FILE="$BASE_DIR/session_mru"
+TMP_MRU="$(mktemp)"
+{
+    printf "%s\t%s\n" "$TIMESTAMP" "$1"
+    if [[ -f "$MRU_FILE" ]]; then
+        awk -F '\t' -v name="$1" '$2 != name' "$MRU_FILE"
+    fi
+} | sort -r -n -k1,1 | uniq -f1 > "$TMP_MRU"
+mv "$TMP_MRU" "$MRU_FILE"
+printf "%s\n" "$TIMESTAMP" > "$TARGET_SESSION_DIR/last_used"
+
 FOCUS_TARGET="${FOCUS_IDS[0]:-}"
 
 for window_id in "${FOCUS_IDS[@]}"; do

@@ -1,0 +1,3 @@
+[submodule "window-tagging"]
+	path = window-tagging
+	url = git@github.com:Exr0n/window-tagging.git

@@ -170,7 +170,7 @@
                 },
                 {
                     "from": { "key_code": "return_or_enter" },
-                    "to": [{ "software_function": { "iokit_power_management_sleep_system": {} } }]
+                    "to": [{ "key_code": "vk_none" }]
                 }
             ],
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
