@@ -85,8 +85,42 @@ defaults write com.apple.dock persistent-apps -array              # remove all p
 defaults write com.apple.dock persistent-others -array            # remove all pinned folders/stacks
 defaults write com.apple.dock show-recents -bool false            # no recent apps in dock
 defaults write com.apple.dock show-process-indicators -bool false # no "open" dots under apps
+defaults write com.apple.dock launchanim -bool false              # no launch bounce
+defaults write com.apple.dock mineffect -string scale             # minimize = scale, not genie
+defaults write com.apple.dock expose-animation-duration -float 0.001  # near-instant Mission Control
+defaults write com.apple.dock tilesize -int 39
 
-killall Dock
+# --- typing / appearance (from old-machine backup) ---
+defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false   # autocorrect off
+defaults write -g AppleInterfaceStyleSwitchesAutomatically -bool true # auto dark/light
+
+# --- finder ---
+defaults write com.apple.finder FXPreferredViewStyle -string clmv    # column view default
+defaults write com.apple.finder ShowPathbar -bool true
+
+# --- trackpad: 3-finger swipe = spaces / mission control ---
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGesture -int 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerVertSwipeGesture -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerVertSwipeGesture -int 2
+
+# --- screenshots: to clipboard, keep floating thumbnail ---
+defaults write com.apple.screencapture target clipboard
+defaults write com.apple.screencapture show-thumbnail -bool true
+
+# --- menu bar: hide AirDrop + Display(AirPlay) ---
+defaults write com.apple.controlcenter "NSStatusItem Visible AirDrop" -bool false
+defaults write com.apple.controlcenter "NSStatusItem Visible Display" -bool false
+
+# --- keyboard shortcuts (symbolichotkeys; take effect after logout) ---
+# free up Spotlight keys for Raycast, disable input-source switch, Show Desktop on opt+shift+e
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 '{enabled = 0;}'  # ⌘Space Spotlight off
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 '{enabled = 0;}'  # ⌘⌥Space Finder search off
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 '{enabled = 0;}'  # ⌃Space input source off
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 61 '{enabled = 0;}'  # ⌃⌥Space input source off
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 36 '{enabled = 1; value = {parameters = (101, 2, 655360); type = standard;};}'  # Show Desktop = ⌥⇧+e(dvorak)
+
+killall Dock Finder ControlCenter SystemUIServer
 ```
 
 ## GUI-only (can't be scripted)
