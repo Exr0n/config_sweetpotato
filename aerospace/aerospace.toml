@@ -182,6 +182,7 @@ alt-8            = '''exec-and-forget pgrep -x Mail >/dev/null && open -a Mail''
 
 # ── script commands (skhd raycast-script-commands) ─────────────
 alt-shift-o      = '''exec-and-forget ~/.config/raycast-script-commands/insert-alphanumeric-timestamp.sh'''  # paste alphanumeric timestamp
+alt-shift-a      = '''exec-and-forget osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to not dark mode' '''  # toggle light/dark (physical cmd+shift+a)
 # NOTE: old ctrl+alt-o transparency toggle was yabai-only (window opacity) — AeroSpace can't set opacity.
 
 # ── extra layout / service (skhd) ──────────────────────────────
