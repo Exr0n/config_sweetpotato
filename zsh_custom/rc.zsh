@@ -35,7 +35,6 @@ alias u='mkdir -p "$CAPSULEROOT/notes" && v "$CAPSULEROOT/notes/$(date +"%Y_%m_%
 alias mv='mv -i'
 alias ls='lsd'
 alias f='fuck'
-alias ping='gping'
 eval "$(zoxide init zsh --cmd c)"
 #    vim tmux integration
 #        that moment when you forget what's vim and what's tmux
