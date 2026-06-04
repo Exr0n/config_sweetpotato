@@ -92,6 +92,13 @@ alt-shift-j = 'move down'
 alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
+# ── join: wrap focused window + neighbor into a nested container ──
+# (i3-style splits; then alt-b / alt-shift-b set that container's layout)
+ctrl-alt-shift-h = 'join-with left'
+ctrl-alt-shift-j = 'join-with down'
+ctrl-alt-shift-k = 'join-with up'
+ctrl-alt-shift-l = 'join-with right'
+
 # ── window-tagging (Exr0n/window-tagging) ──────────────
 # alt-<key> = jump to window tagged <key> (fallback: workspace <key>)
 # alt-shift-<key> = tag the focused window as <key>
