@@ -143,11 +143,11 @@ ctrl-alt-p      = 'move-node-to-workspace --focus-follows-window r'
 
 # ── monitors / displays (yabai: lalt t/s/n focus; +shift move) ─
 alt-t = 'focus-monitor 1'
-alt-s = 'focus-monitor 2'
-alt-n = 'focus-monitor 3'
+alt-s = 'focus-monitor 3'
+alt-n = 'focus-monitor 2'
 alt-shift-t = 'move-node-to-monitor --focus-follows-window 1'
-alt-shift-s = 'move-node-to-monitor --focus-follows-window 2'
-alt-shift-n = 'move-node-to-monitor --focus-follows-window 3'
+alt-shift-s = 'move-node-to-monitor --focus-follows-window 3'
+alt-shift-n = 'move-node-to-monitor --focus-follows-window 2'
 
 # ── layout (yabai: alt-b bsp / alt+shift-b stack / alt-m split) ─
 alt-b       = 'layout tiles horizontal vertical'   # toggle tiling orientation (~bsp)
