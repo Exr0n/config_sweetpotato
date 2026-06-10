@@ -155,6 +155,9 @@ alt-n = 'focus-monitor 2'
 alt-shift-t = 'move-node-to-monitor --focus-follows-window 1'
 alt-shift-s = 'move-node-to-monitor --focus-follows-window 3'
 alt-shift-n = 'move-node-to-monitor --focus-follows-window 2'
+# move the WHOLE focused workspace to a monitor (view follows it)
+ctrl-alt-shift-s = 'move-workspace-to-monitor 3'
+ctrl-alt-shift-n = 'move-workspace-to-monitor 2'
 
 # ── layout (yabai: alt-b bsp / alt+shift-b stack / alt-m split) ─
 alt-b       = 'layout tiles horizontal vertical'   # toggle tiling orientation (~bsp)
@@ -168,7 +171,7 @@ alt-m       = 'layout tiles horizontal vertical'   # toggle split dir (yabai alt
 # Letter keys resolve to Dvorak char positions (dvorak preset), matching old skhd.
 alt-e            = '''exec-and-forget open -a kitty'''                                # focus/open terminal (lalt-e)
 ctrl-alt-t       = '''exec-and-forget open -na kitty --args --start-as=maximized'''   # NEW terminal window (ctrl+lalt-t)
-ctrl-alt-shift-t = '''exec-and-forget open -na kitty --args --start-as=maximized'''   # new terminal (was +float; alt-z to float)
+ctrl-alt-shift-t = 'move-workspace-to-monitor 1'  # (was a duplicate of ctrl-alt-t new-kitty — that one still works)
 alt-o            = '''exec-and-forget open -a Claude'''         # was ChatGPT (lalt-o)
 alt-a            = '''exec-and-forget open -a Arc'''            # browser (lalt-a)
 alt-c            = '''exec-and-forget open -a "Visual Studio Code"'''   # vscode
