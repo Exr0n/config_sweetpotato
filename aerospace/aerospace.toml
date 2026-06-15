@@ -44,27 +44,29 @@ fantastical = 'built-in'
 # Each app gets its own named workspace → solo = always full-screen. Comms/calendar
 # apps (discord/messages/mail/fantastical) are pinned to the built-in display above.
 # Every rule's first command records $AEROSPACE_WINDOW_ID for alt-u (recently-created).
+# Each rule: record id (alt-u) · move to the app's workspace · float-if-small
+# (tiny popups like the iCloud Passwords sheet stay floating instead of stretched).
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
-run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace discord']
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace discord', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
 [[on-window-detected]]
 if.app-id = 'com.apple.MobileSMS'
-run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace messages']
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace messages', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
 [[on-window-detected]]
 if.app-id = 'com.apple.mail'
-run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace mail']
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace mail', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
 [[on-window-detected]]
 if.app-id = 'com.flexibits.fantastical2.mac'
-run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace fantastical']
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace fantastical', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
 [[on-window-detected]]
 if.app-id = 'com.anthropic.claudefordesktop'
-run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace claude']
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace claude', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
 [[on-window-detected]]
 if.app-id = 'company.thebrowser.Browser'
-run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace arc']
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace arc', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
 [[on-window-detected]]
 if.app-id = 'com.apple.Notes'
-run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace notes']
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace notes', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
 
 # ── floating apps (yabai: Finder manage=off) ───────────────────
 [[on-window-detected]]
@@ -74,9 +76,9 @@ run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest
 if.app-id = 'com.apple.systempreferences'
 run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'layout floating']
 
-# ── catch-all: record every other new window too (for alt-u) ───
+# ── catch-all: record every other new window (alt-u) + float-if-small ───
 [[on-window-detected]]
-run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id']
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
 
 [mode.main.binding]
 
@@ -171,6 +173,7 @@ ctrl-alt-shift-n = 'move-workspace-to-monitor 2'
 alt-b       = 'layout tiles horizontal vertical'   # toggle tiling orientation (~bsp)
 alt-shift-b = 'layout accordion'                   # ~stack
 alt-z       = 'layout floating tiling'             # toggle float (yabai alt-z)
+alt-backslash = 'layout tiling floating'           # re-tile an auto-floated popup (physical cmd-\)
 alt-v       = 'fullscreen'                         # zoom-fullscreen (yabai alt-v)
 alt-shift-v = 'exec-and-forget ~/.config/aerospace/float-center.sh'  # float + golden-ratio center (skhd alt+shift-v)
 alt-m       = 'layout tiles horizontal vertical'   # toggle split dir (yabai alt-m)
