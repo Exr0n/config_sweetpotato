@@ -211,7 +211,7 @@ ctrl-alt-b       = 'layout floating'            # yabai alt+ctrl-b "layout none"
 ctrl-alt-shift-r = 'reload-config'              # ~ restart WM (yabai lalt+ctrl+shift-r)
 alt-tab          = 'focus-back-and-forth'       # focus recently-focused window (yabai alt-tab: window --focus recent)
 alt-u            = 'exec-and-forget ~/.config/aerospace/focus-recently-created.sh'  # focus recently-CREATED window (yabai alt-u)
-alt-shift-semicolon = 'mode service'            # enter service mode
+alt-shift-semicolon = 'exec-and-forget open "raycast://extensions/raycast/emoji-symbols/search-emoji-symbols"'  # Raycast emoji picker (was: mode service)
 
 [mode.service.binding]
 esc          = ['reload-config', 'mode main']
