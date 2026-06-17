@@ -2,14 +2,16 @@
 # gather.sh — collect one or more windows and send them to the same workspace.
 #
 # Flow (driven by aerospace `mode gather`, entered with alt-i):
-#   start          seed the marked set with the focused window
+#   start          clear the marked set (focused window is included at commit time)
 #   mark <dir>     add focused window, focus <dir> (left/down/up/right), add that too
-#   fresh          move the whole marked set to a fresh empty workspace (this monitor)
-#   tag  <tag>     move the whole marked set to the workspace of tagged-window <tag>
+#   fresh          move marked set + focused window to a fresh empty workspace (this monitor)
+#   tag  <tag>     move marked set + focused window to the workspace of tagged-window <tag>
 #                  (fallback: a workspace literally named <tag>)
 #   clear          drop the marked set (cancel)
 #
 # Marked set lives in ~/.caches/aerospace/gather_set (one window-id per line).
+# Commits ALWAYS include the live-focused window and capture the set into memory
+# before moving, so they don't race the async `start`/`mark` writers.
 # Tag resolution reuses the Exr0n/window-tagging helpers.
 set -uo pipefail
 
@@ -33,20 +35,24 @@ add() {  # append an id, keeping the file de-duplicated and order-stable
 
 count() { [[ -f "$STATE" ]] && grep -c . "$STATE" || echo 0; }
 
-# move every id in the marked set into workspace $1
-move_set_to() {
-  local ws="$1" id
-  [[ -f "$STATE" ]] || return 0
+# Capture marked set + the live-focused window, clear the set, move them all to
+# workspace $1. Prints the number of windows moved. Race-proof: the id list is
+# snapshotted into a variable before any async writer can touch the file again.
+commit_to() {
+  local ws="$1" ids id n=0
+  ids="$(cat "$STATE" 2>/dev/null; focused_id)"
+  : > "$STATE"
   while IFS= read -r id; do
-    [[ -n "$id" ]] && aerospace move-node-to-workspace --window-id "$id" "$ws"
-  done < "$STATE"
+    [[ -n "$id" ]] || continue
+    aerospace move-node-to-workspace --window-id "$id" "$ws" && n=$((n + 1))
+  done < <(printf '%s\n' "$ids" | awk 'NF && !seen[$0]++')
+  echo "$n"
 }
 
 case "${1:-}" in
   start)
     : > "$STATE"
-    add "$(focused_id)"
-    wt_notify "gather: 1 window (mark more w/ hjkl)"
+    wt_notify "gather: mark windows w/ hjkl, then tag / shift-i"
     ;;
 
   mark)
@@ -66,11 +72,10 @@ case "${1:-}" in
       fi
     done
     [[ -n "$dest" ]] || { wt_notify "gather: no empty workspace 1-50"; exit 1; }
-    move_set_to "$dest"
+    moved="$(commit_to "$dest")"
     aerospace move-workspace-to-monitor --workspace "$dest" "$mon" 2>/dev/null || true
     aerospace workspace "$dest"
-    wt_notify "gathered $(count) → fresh workspace $dest"
-    : > "$STATE"
+    wt_notify "gathered $moved → fresh workspace $dest"
     ;;
 
   tag)
@@ -83,10 +88,9 @@ case "${1:-}" in
               | awk -F'\t' -v w="$wid" '$1==w{print $2; exit}')"
     fi
     [[ -n "$dest" ]] || dest="$tag"   # fallback: workspace literally named <tag>
-    move_set_to "$dest"
+    moved="$(commit_to "$dest")"
     aerospace workspace "$dest"
-    wt_notify "gathered $(count) → $dest"
-    : > "$STATE"
+    wt_notify "gathered $moved → $dest"
     ;;
 
   clear)
