@@ -192,8 +192,7 @@ alt-0            = '''exec-and-forget open -a Fantastical'''    # calendar (lalt
 alt-shift-0      = '''exec-and-forget open -a "Toggl Track"'''  # toggl (lalt+shift-0)
 ctrl-alt-8       = '''exec-and-forget open -a Zotero'''         # zotero
 alt-shift-q      = '''exec-and-forget open -a Notes'''          # notes (lalt+shift-q)
-alt-x            = '''exec-and-forget open -a Todoist'''        # todoist (lalt-x, restored from memory)
-alt-q            = '''exec-and-forget open -a Todoist'''        # todoist (also on q, per request)
+alt-q            = '''exec-and-forget open -a Todoist'''        # todoist (on q)
 alt-8            = '''exec-and-forget pgrep -x Mail >/dev/null && open -a Mail'''  # mail, only if running (lalt-8)
 # stale / not-installed apps from old skhd — intentionally omitted, uncomment if installed:
 # alt-q          = '''exec-and-forget open -a Obsidian'''       # obsidian (lalt-q)
