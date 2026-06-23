@@ -61,6 +61,8 @@ First run: grant **Accessibility**; **collapse macOS to ONE native Space** or cr
 ## 6. macOS settings
 - Run the **macOS defaults block** in `archive/README-2026-06-03.md` § settings (keyboard repeat, spaces, dock + polish, top-right hot-corner = display sleep, screenshots→clipboard+thumbnail, trackpad 3-finger gestures, Finder column view, autocorrect off, hide AirDrop/Display menu items, symbolichotkeys: ⌘Space/⌘⌥Space/⌃Space/⌃⌥Space disabled, **Show Desktop = ⌥⇧e**).
 - symbolichotkeys apply at login — or hot-activate: `/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u`
+- **Per-app menu shortcut overrides** (System Settings → Keyboard → Shortcuts → App Shortcuts) live in each app's `NSUserKeyEquivalents` dict. Modifier chars: `@`=cmd `^`=ctrl `~`=opt `$`=shift; the key is appended literally (space = a literal space). Quit the app first (it reads them at launch). Examples:
+  - Photos **Start Playback** → ⌃Space (default ⌥Space clashes with Todoist quick-add `Alt+Space`): `defaults write com.apple.Photos NSUserKeyEquivalents -dict-add "Start Playback" '^ '`
 - GUI-only: default browser `defaultbrowser browser` (Arc), wallpaper, Reduce Motion, TCC grants per app.
 - git: `user.name Exr0n`, `user.email mail@exr0n.com`, signingkey `2027A4BB657CDDAD` (gpgsign **off**), `pull.rebase=true`, `push.autoSetupRemote=true`.
 
