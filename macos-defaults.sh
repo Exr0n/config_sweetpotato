@@ -30,6 +30,7 @@ defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
 defaults write -g NSDocumentRevisionsWindowTransformAnimation -bool false
 defaults write -g NSTableViewDefaultSizeMode -int 2           # medium sidebar icons
 defaults write -g AppleEnableSwipeNavigateWithScrolls -bool false  # no 2-finger swipe back/fwd
+defaults write -g AppleInterfaceStyleSwitchesAutomatically -bool true  # auto light/dark by time of day
 
 ### ── pointer / trackpad speed & behavior ─────────────────────────
 defaults write -g com.apple.trackpad.scaling -float 1.5       # trackpad tracking speed
@@ -101,7 +102,6 @@ defaults write -g NSUserDictionaryReplacementItems -array \
 
 # ── REVIEW (uncomment to opt in) ─────────────────────────────────────
 # defaults write -g AppleLanguages -array en-US zh-Hans-US   # re-add Chinese as 2nd language (invasive; affects whole UI order)
-# defaults write -g AppleInterfaceStyleSwitchesAutomatically -bool true  # auto light/dark — conflicts with your ⌥⇧a manual toggle
 # defaults write com.apple.dock wvous-br-corner -int 1       # explicitly disable bottom-right hot corner
 # defaults write com.apple.Safari IncludeDevelopMenu -bool true  # Safari dev menu (you use Arc though)
 # Menu-bar item layout (com.apple.controlcenter "NSStatusItem Visible …") is very
