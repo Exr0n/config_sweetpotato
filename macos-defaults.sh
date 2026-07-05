@@ -92,6 +92,11 @@ defaults write com.apple.universalaccess closeViewSmoothImages -bool true
 defaults write com.apple.universalaccess closeViewHotkeysEnabled -bool true  # ⌥⌘8 / ⌥⌘= zoom hotkeys
 defaults write com.apple.universalaccess closeViewDesiredZoomFactor -float 1.345925331115723
 
+### ── Safari (you mostly use Arc, but keep the dev tools on) ───────
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+
 ### ── screenshots ──────────────────────────────────────────────────
 # NB: old machine had show-thumbnail=0, but you WANT the floating thumbnail — keep it on.
 defaults write com.apple.screencapture show-thumbnail -bool true
@@ -103,7 +108,6 @@ defaults write -g NSUserDictionaryReplacementItems -array \
 # ── REVIEW (uncomment to opt in) ─────────────────────────────────────
 # defaults write -g AppleLanguages -array en-US zh-Hans-US   # re-add Chinese as 2nd language (invasive; affects whole UI order)
 # defaults write com.apple.dock wvous-br-corner -int 1       # explicitly disable bottom-right hot corner
-# defaults write com.apple.Safari IncludeDevelopMenu -bool true  # Safari dev menu (you use Arc though)
 # Menu-bar item layout (com.apple.controlcenter "NSStatusItem Visible …") is very
 # machine/monitor-specific (pixel positions won't match) — set via GUI drag instead.
 
