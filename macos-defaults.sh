@@ -73,11 +73,8 @@ defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
 defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
-### ── Menu-bar clock ───────────────────────────────────────────────
-defaults write com.apple.menuextra.clock IsAnalog -bool true       # analog clock
-defaults write com.apple.menuextra.clock ShowDate -int 2           # never show date
-defaults write com.apple.menuextra.clock ShowDayOfWeek -bool false
-defaults write com.apple.menuextra.clock ShowAMPM -bool false
+# Menu-bar clock: old machine had analog/no-date/no-day, but you prefer the
+# digital clock with day + AM/PM — left at the default, not overridden.
 
 ### ── Stage Manager / desktop (WindowManager) ─────────────────────
 defaults write com.apple.WindowManager GloballyEnabled -bool false            # Stage Manager off
