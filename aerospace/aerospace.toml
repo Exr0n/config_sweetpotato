@@ -184,7 +184,7 @@ alt-e            = '''exec-and-forget open -a kitty'''                          
 ctrl-alt-t       = '''exec-and-forget open -na kitty --args --start-as=maximized'''   # NEW terminal window (ctrl+lalt-t)
 ctrl-alt-shift-t = 'move-workspace-to-monitor 1'  # (was a duplicate of ctrl-alt-t new-kitty — that one still works)
 alt-o            = '''exec-and-forget open -a Claude'''         # claude (lalt-o)
-alt-shift-o      = '''exec-and-forget open -a ChatGPT'''        # Codex/ChatGPT app (shift = the OpenAI sibling of alt-o Claude)
+alt-semicolon    = '''exec-and-forget open -a ChatGPT'''        # Codex/ChatGPT app (physical cmd-;)
 alt-a            = '''exec-and-forget open -a Arc'''            # browser (lalt-a)
 alt-c            = '''exec-and-forget open -a "Visual Studio Code"'''   # vscode
 alt-9            = '''exec-and-forget pgrep -x Discord >/dev/null && open -a Discord'''    # discord, only if running (lalt-9)
@@ -203,7 +203,7 @@ alt-8            = '''exec-and-forget pgrep -x Mail >/dev/null && open -a Mail''
 # semicolon (Dvorak) = Chrome (lalt-0x06) — Chrome not installed; using Arc instead
 
 # ── script commands (skhd raycast-script-commands) ─────────────
-alt-x            = '''exec-and-forget ~/.config/raycast-script-commands/insert-alphanumeric-timestamp.sh'''  # paste alphanumeric timestamp (moved off alt-shift-o, now Codex)
+alt-shift-o      = '''exec-and-forget ~/.config/raycast-script-commands/insert-alphanumeric-timestamp.sh'''  # paste alphanumeric timestamp
 alt-shift-a      = '''exec-and-forget osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to not dark mode' '''  # toggle light/dark (physical cmd+shift+a)
 # NOTE: old ctrl+alt-o transparency toggle was yabai-only (window opacity) — AeroSpace can't set opacity.
 
