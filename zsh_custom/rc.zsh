@@ -14,7 +14,7 @@ source "$XDG_CONFIG_HOME/zsh_custom/lean_p10k.zsh"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="/$HOME/.bun/bin:$PATH"
 
-. "$HOME/.cargo/env"
+[[ -r "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
 export TYPST_FONT_PATHS="$XDG_CONFIG_HOME/fonts"
 
@@ -237,7 +237,11 @@ defaults write -g ApplePressAndHoldEnabled -bool false # turn off accentecd char
 #defaults write com.apple.dock autohide-delay -float 2; killall Dock  # set dock show delay to 2 seconds
 
 
-cd "$(tail -n 1 $XDG_DATA_HOME/recent_dirs.csv | cut -d ',' -f7)"
+if [[ -s "$XDG_DATA_HOME/recent_dirs.csv" ]]; then
+    _recent_dir="$(tail -n 1 "$XDG_DATA_HOME/recent_dirs.csv" | cut -d ',' -f7)"
+    [[ -d "$_recent_dir" ]] && cd "$_recent_dir"
+    unset _recent_dir
+fi
 # Do not inherit NO_COLOR from GUI launchers or automation environments.
 # It disables color in Codex and other terminal tools merely by being present.
 unset NO_COLOR

@@ -14,7 +14,8 @@
 
 local _brew_share="${HOMEBREW_PREFIX:-/opt/homebrew}/share"
 
-[[ -r "$_brew_share/zsh-autocomplete/zsh-autocomplete.plugin.zsh" ]] && \
+[[ "$TERM" != dumb && -n "${terminfo[kcbt]-}" && \
+   -r "$_brew_share/zsh-autocomplete/zsh-autocomplete.plugin.zsh" ]] && \
     source "$_brew_share/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
 
 [[ -r "$_brew_share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && \
