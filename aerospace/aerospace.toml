@@ -40,7 +40,6 @@ outer.right      = 5
 # runs the exrpatch build of AeroSpace 0.21.3-Beta, which bounds the stale-
 # monitor lookup that otherwise stack-overflows during display refreshes.
 [workspace-to-monitor-force-assignment]
-beeper = 'built-in'
 discord = 'built-in'
 mail = 'built-in'
 fantastical = 'built-in'
@@ -50,7 +49,7 @@ fantastical = 'built-in'
 # (tiny popups like the iCloud Passwords sheet stay floating instead of stretched).
 [[on-window-detected]]
 if.app-id = 'com.automattic.beeper.desktop'
-run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace beeper', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace notes', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
 run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace discord', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
@@ -62,7 +61,7 @@ if.app-id = 'com.flexibits.fantastical2.mac'
 run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace fantastical', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
 [[on-window-detected]]
 if.app-id = 'com.anthropic.claudefordesktop'
-run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace claude', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace notes', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
 [[on-window-detected]]
 if.app-id = 'company.thebrowser.Browser'
 run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace arc', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
