@@ -1,0 +1,6 @@
+# Public, machine-restorable SSH host aliases.
+# Private keys remain in ~/.ssh and are restored separately.
+
+Host albot
+  HostName 10.147.20.173
+  User albot

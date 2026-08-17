@@ -1,0 +1,23 @@
+{
+  "name": "Pink Matter configuration standard",
+  "version": 2,
+  "standards": [
+    {
+      "id": "macos.keyboard.caps-control-escape",
+      "title": "Caps Lock and Control swap with tap-for-Escape",
+      "platform": "macOS",
+      "documentation": "standards/macos/caps-control-escape.md",
+      "installer": "./install.sh macos.keyboard.caps-control-escape",
+      "layers": [
+        {
+          "owner": "macOS System Settings",
+          "behavior": "Swap Caps Lock and Control for each keyboard."
+        },
+        {
+          "owner": "Karabiner-Elements",
+          "behavior": "Treat the remapped Control as Control when held and Escape when tapped alone."
+        }
+      ]
+    }
+  ]
+}

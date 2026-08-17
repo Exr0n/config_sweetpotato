@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The public Pink Matter computer configuration standard.">
+    <title>Pink Matter Configuration Standard</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --ink: #221527;
+        --muted: #6d596f;
+        --paper: #fff8fc;
+        --card: #ffffff;
+        --pink: #e93187;
+        --line: #ead8e4;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --ink: #fff5fb;
+          --muted: #cdb8c8;
+          --paper: #170e17;
+          --card: #211420;
+          --line: #4b3145;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font: 17px/1.6 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 85% 10%, color-mix(in srgb, var(--pink) 18%, transparent), transparent 28rem),
+          var(--paper);
+      }
+      main {
+        width: min(760px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: clamp(4rem, 12vw, 8rem) 0;
+      }
+      .eyebrow {
+        color: var(--pink);
+        font-weight: 750;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+      h1 {
+        max-width: 11ch;
+        margin: .3rem 0 1rem;
+        font-size: clamp(3rem, 9vw, 6.5rem);
+        line-height: .92;
+        letter-spacing: -.055em;
+      }
+      .lede {
+        max-width: 38rem;
+        color: var(--muted);
+        font-size: clamp(1.15rem, 3vw, 1.45rem);
+      }
+      section {
+        margin-top: 3rem;
+        padding: clamp(1.25rem, 4vw, 2rem);
+        border: 1px solid var(--line);
+        border-radius: 1.25rem;
+        background: color-mix(in srgb, var(--card) 92%, transparent);
+        box-shadow: 0 1rem 4rem color-mix(in srgb, var(--pink) 8%, transparent);
+      }
+      h2 { margin-top: 0; font-size: 1.15rem; }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: .9em;
+      }
+      pre {
+        overflow-x: auto;
+        margin: 1rem 0 0;
+        padding: 1rem;
+        border-radius: .75rem;
+        color: #fff5fb;
+        background: #291522;
+      }
+      a { color: var(--pink); font-weight: 650; }
+      .setting {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+      kbd {
+        min-width: 6rem;
+        padding: .65rem .8rem;
+        border: 1px solid var(--line);
+        border-bottom-width: 3px;
+        border-radius: .6rem;
+        text-align: center;
+        background: var(--card);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="eyebrow">Pink Matter · macOS</div>
+      <h1>The setup, addressable.</h1>
+      <p class="lede">
+        A public, versioned catalog of the complete Pink Matter computer setup.
+        Point people or coding agents to one stable standard ID at a time.
+      </p>
+
+      <section>
+        <h2><code>macos.keyboard.caps-control-escape</code></h2>
+        <div class="setting">
+          <kbd>Caps Lock</kbd>
+          <span>⇄</span>
+          <kbd>Control</kbd>
+        </div>
+        <p>
+          macOS owns the modifier swap. Karabiner adds only one overlay:
+          tapping the remapped Control key alone emits Escape.
+        </p>
+      </section>
+
+      <section>
+        <h2>Install</h2>
+        <p>Review the public repository, then run:</p>
+        <pre><code>git clone https://github.com/Exr0n/config-standard.git
+cd config-standard
+./install.sh macos.keyboard.caps-control-escape</code></pre>
+      </section>
+
+      <section>
+        <h2>For coding agents</h2>
+        <p>
+          Follow the repository’s
+          <a href="https://github.com/Exr0n/config-standard/blob/main/AGENT-INSTRUCTIONS.md">agent instructions</a>.
+          The installer merges safely into the selected Karabiner profile and
+          preserves unrelated mappings.
+        </p>
+      </section>
+
+      <p>
+        <a href="https://github.com/Exr0n/config-standard">View source on GitHub →</a>
+      </p>
+    </main>
+  </body>
+</html>

@@ -238,3 +238,6 @@ defaults write -g ApplePressAndHoldEnabled -bool false # turn off accentecd char
 
 
 cd "$(tail -n 1 $XDG_DATA_HOME/recent_dirs.csv | cut -d ',' -f7)"
+# Do not inherit NO_COLOR from GUI launchers or automation environments.
+# It disables color in Codex and other terminal tools merely by being present.
+unset NO_COLOR

@@ -73,8 +73,12 @@ defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
 defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
-# Menu-bar clock: old machine had analog/no-date/no-day, but you prefer the
-# digital clock with day + AM/PM — left at the default, not overridden.
+# Native menu-bar clock; do not depend on Letter Clock being open.
+defaults write com.apple.menuextra.clock IsAnalog -bool false
+defaults write com.apple.menuextra.clock ShowAMPM -bool true
+defaults write com.apple.menuextra.clock ShowDate -int 1       # always show date (2 = when space allows)
+defaults write com.apple.menuextra.clock ShowDayOfWeek -bool true
+defaults write com.apple.menuextra.clock DateFormat -string 'EEE, MMMM d, h:mm a'
 
 ### ── Stage Manager / desktop (WindowManager) ─────────────────────
 defaults write com.apple.WindowManager GloballyEnabled -bool false            # Stage Manager off
@@ -98,6 +102,13 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 # NB: old machine had show-thumbnail=0, but you WANT the floating thumbnail — keep it on.
 defaults write com.apple.screencapture show-thumbnail -bool true
 
+### ── Handoff / Universal Clipboard ────────────────────────────────
+# The phone also needs Settings → General → AirPlay & Continuity → Handoff.
+defaults -currentHost write com.apple.coreservices.useractivityd ActivityAdvertisingAllowed -bool true
+defaults -currentHost write com.apple.coreservices.useractivityd ActivityReceivingAllowed -bool true
+defaults write com.apple.coreservices.useractivityd ActivityAdvertisingAllowed -bool true
+defaults write com.apple.coreservices.useractivityd ActivityReceivingAllowed -bool true
+
 ### ── text replacements (⌥⌘ System Settings → Keyboard → Text) ─────
 defaults write -g NSUserDictionaryReplacementItems -array \
   '{ on = 1; replace = tn; with = tonight; }'   # (omw removed per request)
@@ -112,4 +123,6 @@ defaults write -g NSUserDictionaryReplacementItems -array \
 for app in Finder Dock SystemUIServer ControlCenter; do killall "$app" 2>/dev/null; done
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u 2>/dev/null
 killall universalaccessd 2>/dev/null
+killall useractivityd 2>/dev/null
+killall sharingd 2>/dev/null
 echo "macos-defaults.sh applied."

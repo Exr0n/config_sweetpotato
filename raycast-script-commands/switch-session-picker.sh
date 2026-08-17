@@ -15,10 +15,21 @@
 
 set -euo pipefail
 
-BASE_DIR="$HOME/.caches/yabai_custom"
+BASE_DIR="${WINDOW_TAGGING_DATA_DIR:-$HOME/.caches/window-tagging}"
 SESSIONS_DIR="$BASE_DIR/sessions"
 MRU_FILE="$BASE_DIR/session_mru"
-SWITCH_SCRIPT="$HOME/.config/skhd/switch-session.sh"
+ROOT="${WINDOW_TAGGING_ROOT:-$HOME/.config/window-tagging}"
+SWITCH_SCRIPT="$ROOT/src/switch-session.sh"
+
+if [[ -z "${WINDOW_TAGGING_BACKEND:-}" ]]; then
+    if command -v yabai >/dev/null 2>&1 && [[ -f "$ROOT/src/yabai-skhd/backend.sh" ]]; then
+        WINDOW_TAGGING_BACKEND="$ROOT/src/yabai-skhd/backend.sh"
+    elif command -v aerospace >/dev/null 2>&1 && [[ -f "$ROOT/src/aerospace/backend.sh" ]]; then
+        WINDOW_TAGGING_BACKEND="$ROOT/src/aerospace/backend.sh"
+    fi
+fi
+
+export WINDOW_TAGGING_BACKEND
 
 list_sessions() {
     sessions=()
@@ -79,7 +90,7 @@ fi
 [[ -z "$TARGET" ]] && exit 0
 
 if [[ ! -x "$SWITCH_SCRIPT" ]]; then
-    echo "switch-session.sh not executable" >&2
+    echo "switch-session.sh not executable: $SWITCH_SCRIPT" >&2
     exit 1
 fi
 

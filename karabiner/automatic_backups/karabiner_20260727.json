@@ -170,7 +170,7 @@
                 },
                 {
                     "from": { "key_code": "return_or_enter" },
-                    "to": [{ "key_code": "vk_none" }]
+                    "to": [{ "consumer_key_code": "dictation" }]
                 }
             ],
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }

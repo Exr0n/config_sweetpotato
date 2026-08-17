@@ -3,6 +3,7 @@
 # (fallback workspace), alt+shift+<key> tag focused window. Layout = monocle/accordion.
 # Docs: https://nikitabobko.github.io/AeroSpace/guide
 
+config-version = 2
 start-at-login = true
 
 # "windows are the atom": every window full-screen, stacked exactly on top of each
@@ -33,27 +34,28 @@ outer.bottom     = 5
 outer.left       = 5
 outer.right      = 5
 
-# pin comms/calendar app workspaces to the built-in (laptop) display
-[workspace-to-monitor-force-assignment]
-discord     = 'built-in'
-messages    = 'built-in'
-mail        = 'built-in'
-fantastical = 'built-in'
-
 # ── per-app workspaces (always-fullscreen single apps) ─────────
 # Each app gets its own named workspace → solo = always full-screen. Comms/calendar
-# apps (discord/messages/mail/fantastical) are pinned to the built-in display above.
+# apps retain their own workspaces and stay on the built-in monitor. This laptop
+# runs the exrpatch build of AeroSpace 0.21.3-Beta, which bounds the stale-
+# monitor lookup that otherwise stack-overflows during display refreshes.
+[workspace-to-monitor-force-assignment]
+beeper = 'built-in'
+discord = 'built-in'
+mail = 'built-in'
+fantastical = 'built-in'
+
 # Every rule's first command records $AEROSPACE_WINDOW_ID for alt-u (recently-created).
 # Each rule: record id (alt-u) · move to the app's workspace · float-if-small
 # (tiny popups like the iCloud Passwords sheet stay floating instead of stretched).
 [[on-window-detected]]
+if.app-id = 'com.automattic.beeper.desktop'
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace beeper', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
+[[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
 run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace discord', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
 [[on-window-detected]]
-if.app-id = 'com.apple.MobileSMS'
-run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace messages', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
-[[on-window-detected]]
-if.app-id = 'com.apple.mail'
+if.app-id = 'com\.readdle\.SparkDesktop(\.appstore)?'
 run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace mail', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
 [[on-window-detected]]
 if.app-id = 'com.flexibits.fantastical2.mac'
@@ -78,6 +80,7 @@ run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest
 
 # ── catch-all: record every other new window (alt-u) + float-if-small ───
 [[on-window-detected]]
+if = 'true'
 run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
 
 [mode.main.binding]
@@ -187,14 +190,14 @@ alt-o            = '''exec-and-forget open -a Claude'''         # claude (lalt-o
 alt-semicolon    = '''exec-and-forget open -a ChatGPT'''        # Codex/ChatGPT app (physical cmd-;)
 alt-a            = '''exec-and-forget open -a Arc'''            # browser (lalt-a)
 alt-c            = '''exec-and-forget open -a "Visual Studio Code"'''   # vscode
-alt-9            = '''exec-and-forget pgrep -x Discord >/dev/null && open -a Discord'''    # discord, only if running (lalt-9)
-alt-shift-9      = '''exec-and-forget pgrep -x Messages >/dev/null && open -a Messages'''  # messages, only if running (lalt+shift-9)
+alt-9            = '''exec-and-forget open -a Beeper'''     # default messaging client (physical cmd-9)
+alt-shift-9      = '''exec-and-forget open -a Discord'''    # Discord (physical cmd-shift-9)
 alt-0            = '''exec-and-forget open -a Fantastical'''    # calendar (lalt-0)
 alt-shift-0      = '''exec-and-forget open -a "Toggl Track"'''  # toggl (lalt+shift-0)
 ctrl-alt-8       = '''exec-and-forget open -a Zotero'''         # zotero
 alt-shift-q      = '''exec-and-forget open -a Notes'''          # notes (lalt+shift-q)
 alt-q            = '''exec-and-forget open -a Todoist'''        # todoist (on q)
-alt-8            = '''exec-and-forget pgrep -x Mail >/dev/null && open -a Mail'''  # mail, only if running (lalt-8)
+alt-8            = '''exec-and-forget open -a "Spark Desktop"'''  # email (Spark; lalt-8)
 # stale / not-installed apps from old skhd — intentionally omitted, uncomment if installed:
 # alt-q          = '''exec-and-forget open -a Obsidian'''       # obsidian (lalt-q)
 # alt-shift-8    = '''exec-and-forget pgrep -x Telegram >/dev/null && open -a Telegram'''  # telegram (lalt+shift-8)
@@ -204,7 +207,7 @@ alt-8            = '''exec-and-forget pgrep -x Mail >/dev/null && open -a Mail''
 
 # ── script commands (skhd raycast-script-commands) ─────────────
 alt-shift-o      = '''exec-and-forget ~/.config/raycast-script-commands/insert-alphanumeric-timestamp.sh'''  # paste alphanumeric timestamp
-alt-shift-a      = '''exec-and-forget osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to not dark mode' '''  # toggle light/dark (physical cmd+shift+a)
+alt-shift-a      = 'exec-and-forget ~/.config/aerospace/toggle-appearance.sh'  # debounced light/dark toggle (physical cmd+shift+a)
 # NOTE: old ctrl+alt-o transparency toggle was yabai-only (window opacity) — AeroSpace can't set opacity.
 
 # ── extra layout / service (skhd) ──────────────────────────────

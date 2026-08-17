@@ -33,7 +33,7 @@ lalt - 4             : $HOME/.config/skhd/switch_to_window_or_space.sh 4
 lalt - 5             : $HOME/.config/skhd/switch_to_window_or_space.sh 5
 lalt - 6             : $HOME/.config/skhd/switch_to_window_or_space.sh 6
 lalt - 7             : $HOME/.config/skhd/switch_to_window_or_space.sh 7
-#lalt - 8             : $HOME/.config/skhd/switch_to_window_or_space.sh 8	# mail.app
+#lalt - 8             : open -a "Spark Desktop"                           # email (legacy skhd; AeroSpace is canonical)
 #lalt - 9             : $HOME/.config/skhd/switch_to_window_or_space.sh 9	# discord 
 #lalt - 0             : $HOME/.config/skhd/switch_to_window_or_space.sh 10	# fantastical
 lalt - 0x0C          : $HOME/.config/skhd/switch_to_window_or_space.sh 11

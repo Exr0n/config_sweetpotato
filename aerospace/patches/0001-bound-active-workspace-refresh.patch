@@ -1,0 +1,37 @@
+diff --git a/Sources/AppBundle/tree/Workspace.swift b/Sources/AppBundle/tree/Workspace.swift
+index fba1e71..dac74e5 100644
+--- a/Sources/AppBundle/tree/Workspace.swift
++++ b/Sources/AppBundle/tree/Workspace.swift
+@@ -116,14 +116,28 @@ extension Workspace {
+ extension Monitor {
+     @MainActor
+     var activeWorkspace: Workspace {
+-        if let existing = screenPointToVisibleWorkspace[rect.topLeftCorner] {
++        let monitorPoint = rect.topLeftCorner
++        if let existing = screenPointToVisibleWorkspace[monitorPoint] {
+             return existing
+         }
+         // What if monitor configuration changed? (frame.origin is changed)
+         rearrangeWorkspacesOnMonitors()
+-        // Normally, recursion should happen only once more because we must take the value from the cache
+-        // (Unless, monitor configuration data race happens)
+-        return self.activeWorkspace
++        if let existing = screenPointToVisibleWorkspace[monitorPoint] {
++            return existing
++        }
++
++        // `self` can be a stale Monitor value if AppKit publishes a display
++        // refresh between reading the monitor list and resolving its active
++        // workspace. The old implementation recursively retried forever in
++        // that case, eventually overflowing the main-thread stack. Resolve a
++        // stale monitor to the nearest current screen instead. The cache has
++        // just been rebuilt from the current monitor list, so this preserves
++        // the same nearest-screen migration policy as
++        // `rearrangeWorkspacesOnMonitors()` without unbounded recursion.
++        return screenPointToVisibleWorkspace
++            .minBy { ($0.key - monitorPoint).vectorLength }
++            .map(\.value)
++            .orDie("Can't resolve active workspace: no current monitors")
+     }
+ 
+     @MainActor

@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "endpoint": "https://ingest-albot2.exr0n.com/v1/streams",
+  "deviceId": "albert-laptop",
+  "source": "codex-session"
+}
