@@ -14,10 +14,8 @@ export const EXTENSIONS = {
   nglaklhklhcoonedhgnpgddginnjdadi: 'ActivityWatch Web Watcher',
   joggkdfebigddmaagckekihhfncdobff: 'Le Git Graph',
   mmigpkdeeckdeaakmagplioebnoiacdh: 'Claude: Continue from Here',
-  kfjmdhmfemlhdgilboknjknpfnhnlodp: 'Command Palette',
-  ialfjajikhdldpgcfglgndennidgkhik: 'Ctrl+Tab MRU',
 };
-export const SHORTCUT_IDS = ['kfjmdhmfemlhdgilboknjknpfnhnlodp','ialfjajikhdldpgcfglgndennidgkhik'];
+export const SHORTCUT_IDS = []; // Arc is vendored, not a Web Store registration.
 export const registration = {external_update_url:'https://clients2.google.com/service/update2/crx'};
 
 export function stage({root=join(homedir(),'Library/Application Support/net.imput.helium'),ids=Object.keys(EXTENSIONS),dryRun=false}={}) {
@@ -47,5 +45,6 @@ if(process.argv[1] && fileURLToPath(import.meta.url)===process.argv[1]) {
   const args=process.argv.slice(2);
   if(args.some(a=>!['--shortcuts-only','--dry-run'].includes(a))) throw new Error('Supported flags: --shortcuts-only --dry-run');
   console.log(JSON.stringify(stage({ids:args.includes('--shortcuts-only')?SHORTCUT_IDS:undefined,dryRun:args.includes('--dry-run')}),null,2));
-  console.log('No windows, tabs, running Preferences, or browser processes touched. Registration is not live installation. A normal future restart and extension confirmation are required.');
+  if(args.includes('--shortcuts-only')) console.log('Arc unpacked source staged at ~/.config/helium/extensions/arc. Load unpacked once in the next normal session, then activate helium/arc-shortcuts.karabiner.json. NOT installed or active.');
+  console.log('No windows, tabs, running Preferences, or browser processes touched. Registration is not live installation. Web Store registrations require a future normal start and confirmation; vendored Arc requires one-time Load unpacked.');
 }

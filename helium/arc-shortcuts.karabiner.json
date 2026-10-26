@@ -1,0 +1,73 @@
+{
+  "title": "Helium Arc overlay and held MRU, opt-in after unpacked activation",
+  "rules": [
+    {
+      "description": "Helium Command-T opens Arc overlay through Command-Shift-K",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "t",
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "k",
+              "modifiers": [
+                "left_command",
+                "left_shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^net\\.imput\\.helium$"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Helium Control-Tab cycles Arc MRU while physical Control stays held",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "tab",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ],
+              "optional": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "q",
+              "modifiers": [
+                "left_control"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^net\\.imput\\.helium$"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

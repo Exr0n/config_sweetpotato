@@ -1,0 +1,33 @@
+Arc: cannot inject into https://example.com/a Injection unavailable
+Arc: openPopup failed Popup unavailable
+✔ shortcut and toolbar prefer the overlay even when the webpage lacks focus (2.923917ms)
+✔ new tabs and restricted pages use a temporary popup fallback (1.44675ms)
+✔ failed injection uses the popup, and failed popup opening retains the palette-page fallback (0.629584ms)
+✔ scopes isolate sources, include overlapping history and cap results at nine (0.918833ms)
+✔ scope queries never navigate to the web (0.362209ms)
+✔ workspace save captures only this window, preserving order, pins, mute and active tab (1.148916ms)
+✔ workspace rename, replacement and deletion preserve other saved workspaces (0.663041ms)
+✔ invalid and concurrent duplicate saves do not corrupt stored workspaces (0.639792ms)
+✔ workspace restoration creates a window and restores tab properties without closing original tabs (0.490125ms)
+✔ tab menus use live pin/mute state and actions address only the selected tab (0.491167ms)
+✔ scope prefixes are case insensitive, accept empty queries and only match at the start (0.659833ms)
+✔ host prefix beats title match (0.496166ms)
+✔ every token must match (0.14375ms)
+✔ abbreviations match word starts only (0.061125ms)
+✔ word start detection (0.047666ms)
+✔ recency boost orders equal matches by MRU (0.066458ms)
+✔ bookmarks with the same host as a tab are not filtered (0.038917ms)
+✔ Flashquotes bookmark titles rank above address-only matches before the nine-result cutoff (0.144833ms)
+✔ bookmark title substrings beat exact hosts, and all query tokens must still match (0.075459ms)
+✔ limit and empty query (0.069917ms)
+✔ actions match keywords and description (0.076209ms)
+✔ url detection (0.36975ms)
+✔ getHost strips www only as a prefix (0.035459ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 59.139791

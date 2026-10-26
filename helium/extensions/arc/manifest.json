@@ -1,0 +1,62 @@
+{
+  "manifest_version": 3,
+  "name": "Arc",
+  "version": "2.0.0",
+  "description": "Arc-style command palette and quick tab switcher for Chrome",
+  "minimum_chrome_version": "121",
+  "permissions": [
+    "bookmarks",
+    "tabs",
+    "activeTab",
+    "scripting",
+    "favicon",
+    "storage",
+    "history",
+    "sessions"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Arc palette",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "commands": {
+    "toggle-palette": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+K",
+        "mac": "Command+Shift+K"
+      },
+      "description": "Toggle the Arc palette"
+    },
+    "quick-switch": {
+      "suggested_key": {
+        "default": "Ctrl+Q",
+        "mac": "Ctrl+Q"
+      },
+      "description": "Quick switch between recent tabs"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "_favicon/*",
+        "styles.css"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}

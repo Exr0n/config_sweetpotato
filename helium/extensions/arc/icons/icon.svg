@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- A riff on Arc's "A": three rounded strokes with a white sticker outline, transparent background -->
+  <defs>
+    <linearGradient id="coral" gradientUnits="userSpaceOnUse" x1="0" y1="24" x2="0" y2="106">
+      <stop offset="0" stop-color="#ff7d70"/>
+      <stop offset="1" stop-color="#ee3f3b"/>
+    </linearGradient>
+    <linearGradient id="indigo" gradientUnits="userSpaceOnUse" x1="0" y1="24" x2="0" y2="106">
+      <stop offset="0" stop-color="#6f7dff"/>
+      <stop offset="1" stop-color="#4548dc"/>
+    </linearGradient>
+    <linearGradient id="peach" gradientUnits="userSpaceOnUse" x1="48" y1="0" x2="90" y2="0">
+      <stop offset="0" stop-color="#ffc9ae"/>
+      <stop offset="1" stop-color="#ff9a86"/>
+    </linearGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#1e1b4b" flood-opacity="0.32"/>
+    </filter>
+  </defs>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- white sticker outline (same geometry, wider) -->
+    <g stroke="#ffffff" stroke-width="40" filter="url(#shadow)">
+      <path d="M 22 102 L 61 28"/>
+      <path d="M 67 28 L 106 102"/>
+      <path d="M 50 82 L 88 82"/>
+    </g>
+    <!-- coloured strokes -->
+    <g stroke-width="25">
+      <path d="M 67 28 L 106 102" stroke="url(#indigo)"/>
+      <path d="M 22 102 L 61 28" stroke="url(#coral)"/>
+      <path d="M 50 82 L 88 82" stroke="url(#peach)"/>
+    </g>
+    <!-- soft highlights for a rounded, glossy feel -->
+    <g stroke="#ffffff" stroke-opacity="0.32" stroke-width="5">
+      <path d="M 29 94 L 59 38"/>
+      <path d="M 72 38 L 100 92"/>
+      <path d="M 56 78 L 82 78"/>
+    </g>
+  </g>
+</svg>

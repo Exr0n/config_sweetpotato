@@ -1,0 +1,25 @@
+Starting server...
+Launching browser...
+Service worker ready: chrome-extension://aejcnmieckofcicokloicncgbeeaoolb/background.js
+Opening test pages...
+Querying tabs from the worker...
+Setup complete, running checks...
+✔ a webpage without document focus still opens the centered overlay, not the popup
+✔ palette opens on a web page with recent tabs in MRU order
+✔ search ranks tabs, highlights and switches on Enter
+✔ second toggle re-uses the injected script and shows both tab and bookmark for one site
+✔ favicons load inside a page with a strict CSP
+✔ quick switch: hold shows MRU list, release jumps to previous tab
+✔ MRU order survives a service worker restart
+✔ hold the jump modifier to number the rows, tap a digit to jump
+✔ recently closed and history groups: restore a closed tab on Enter
+    (blank tab used the popup)
+✔ new tab: palette opens in the popup (or a palette tab) and Enter switches
+✔ chrome:// page: falls back to the popup or a palette tab
+✔ scope picker, nine-result cap and empty scoped searches
+✔ result actions support keyboard/back, live pin and mute state, mouse and URL copy
+✔ workspace shortcut opens the scope from a search and an action menu
+✔ save, rename and restore a workspace through the palette
+✔ workspace forms show duplicate errors and support delete cancellation
+
+16/16 passed
