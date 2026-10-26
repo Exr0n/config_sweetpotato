@@ -1,0 +1,27 @@
+Helium shortcut extensions, staged October 26, 2026
+
+Command Palette 1.15.1 is a Manifest V3 Web Store extension. Its new-tab override provides a centered tab/history/bookmark/web search page when Command-T opens a tab. It is NOT an overlay on the existing tab; its action popup is a toolbar popup, not a centered overlay. No claim of Arc's exact overlay behavior is made.
+https://chromewebstore.google.com/detail/command-palette/kfjmdhmfemlhdgilboknjknpfnhnlodp
+
+Ctrl+Tab MRU 0.9 is a Manifest V3 Web Store extension. Its source keeps the preview in the current tab, advances selection on the extension next/previous command, and commits only on keyup keyCode 17 (Control). It has an extension-page fallback for restricted pages and PDFs. Uses tabs, scripting, storage and all-site content scripts. No remote requests appear in the reviewed background/content sources; favicons use the visited pages' favicon URLs.
+https://chromewebstore.google.com/detail/ctrl+tab-mru/ialfjajikhdldpgcfglgndennidgkhik
+
+The installer defaults to noninteractive registration only. It never uses CDP, opens tabs, focuses windows, writes Preferences, or restarts anything.
+node ~/.config/helium/install-extensions.mjs --shortcuts-only
+node --test ~/.config/helium/install-extensions.test.mjs
+
+External registration is a request for the next normal browser start, not a live install. On macOS a confirmation may be required. Command Palette opens its settings on first install, so do not force installation while working.
+Chromium documentation https://developer.chrome.com/docs/extensions/how-to/distribute/install-extensions
+
+After the next normal restart, confirm both extensions. In chrome://extensions/shortcuts assign Ctrl+Tab MRU Next to Control-Y and Previous to Control-Shift-Y. On macOS the suggested default Ctrl+Y may resolve to Command-Y, so explicitly use the physical Control modifier. Do not use Command-Y because the content script waits for Control release.
+Then copy helium/ctrl-tab-mru.karabiner.json into ~/.config/karabiner/assets/complex_modifications/ and enable that rule in Karabiner. The asset is deliberately not merged into the existing dirty karabiner.json or enabled before these bindings exist. Optional Shift passes through. The rule is scoped to net.imput.helium.
+The MRU keyboard shortcut has NOT been tested live on the active profile and is not active yet.
+
+Security review
+Command Palette has tabs, history, topSites, sessions, storage, bookmarks, alarms, contextMenus and favicon permissions; optional host permissions cover search providers. It can read and delete browsing history through user actions, maintains local domain/selection ranking, and probes Google connectivity plus a speed-test endpoint. This is broader than MRU alone. No optional search-provider access was granted by setup.
+Ctrl+Tab MRU can execute content scripts across sites. Source review confirms modifier-release switching and restricted-page fallback, not a guarantee against future malicious updates.
+Alternatives inspected from current Web Store CRX manifests were TabGlance 1.5.13 and MRU Tab Switcher 0.0.2. The latter uses Control-backquote and cannot work on browser-internal pages because it has no command/fallback page. It was not selected.
+CRX packages were downloaded to isolated sandbox /home/kit/helium-ext-review for review, not installed into the user's profile.
+
+Verification receipts
+Five installer tests pass on sweetpotato3, including full readback, idempotency, invalid-ID rejection, conflict preservation and no Preferences edits. install-extensions.smoke.mjs runs a separate headless Helium process with a fresh disposable profile and downloaded unpacked store extensions; it never uses the active profile. Both actual MV3 workers loaded and MRU order changed correctly on real tab activation. An attempted headless content-key-release probe could not establish the content-script connection on the local test pages, so physical shortcut/overlay behavior is source-reviewed but NOT end-to-end verified. No change to the active user profile was made to bypass that limitation.
