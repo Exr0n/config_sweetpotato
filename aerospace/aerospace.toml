@@ -78,8 +78,9 @@ if.app-id = 'com.apple.systempreferences'
 run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'layout floating']
 
 # ── catch-all: record every other new window (alt-u) + float-if-small ───
-# NOTE: a catch-all omits `if` entirely; AeroSpace rejects `if = 'true'` (if must be a table).
+# NOTE: stock AeroSpace 0.21.3 requires `if = 'true'` on a catch-all; pinktop's older exrpatch build rejected it. Keep it.
 [[on-window-detected]]
+if = 'true'
 run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
 
 [mode.main.binding]
