@@ -170,3 +170,10 @@ defaults write com.apple.Photos NSUserKeyEquivalents -dict-add "Start Playback" 
 _td="$HOME/Library/Application Support/Todoist/settings.json"
 if [ -f "$_td" ] && command -v jq >/dev/null; then jq '.global_shortcuts.quick_add_ramble=""' "$_td" > "$_td.tmp" && mv "$_td.tmp" "$_td"; fi
 unset _td
+
+
+# Browser appearance must track macOS too. After installing Helium extensions,
+# run the separate, opt-in browser step in README.md (Personal extension settings):
+# node ~/.config/helium/restore-personalization.mjs
+# This restores Dark Reader automation (system/OnOff) and the saved Tampermonkey
+# scripts. Deliberately do not quit or manipulate an active browser from here.

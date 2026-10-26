@@ -1,0 +1,557 @@
+{
+  "!extdb.@meta#1c94c6b6-ec09-48f3-adc0-799af00207db": {
+    "origin": "normal",
+    "value": {
+      "antifeatures": {},
+      "author": null,
+      "blockers": [],
+      "connects": [],
+      "copyright": null,
+      "description": "Scrape your own Amazon order history (order-level totals + item list) to CSV. Fetch-based, read-only, auto-paginates.",
+      "description_i18n": {},
+      "downloadURL": null,
+      "enabled": true,
+      "evilness": 0,
+      "excludes": [],
+      "fileURL": null,
+      "grant": [
+        "none"
+      ],
+      "header": "// ==UserScript==\n// @name         Amazon Order History → CSV\n// @namespace    albert.amazon.orders\n// @version      1.0\n// @description  Scrape your own Amazon order history (order-level totals + item list) to CSV. Fetch-based, read-only, auto-paginates.\n// @match        *://www.amazon.com/your-orders*\n// @match        *://www.amazon.com/gp/your-account/order-history*\n// @match        *://www.amazon.com/gp/css/order-history*\n// @run-at       document-idle\n// @grant        none\n// ==/UserScript==",
+      "homepage": null,
+      "icon": null,
+      "icon64": null,
+      "includes": [],
+      "lastModified": 1783047744865,
+      "matches": [
+        "*://www.amazon.com/your-orders*",
+        "*://www.amazon.com/gp/your-account/order-history*",
+        "*://www.amazon.com/gp/css/order-history*"
+      ],
+      "name": "Amazon Order History → CSV",
+      "name_i18n": {},
+      "namespace": "albert.amazon.orders",
+      "options": {
+        "check_for_updates": true,
+        "comment": null,
+        "compat_foreach": false,
+        "compat_metadata": false,
+        "compat_powerful_this": null,
+        "compat_wrappedjsobject": false,
+        "compatopts_for_requires": true,
+        "noframes": null,
+        "override": {
+          "merge_connects": true,
+          "merge_excludes": true,
+          "merge_includes": true,
+          "merge_matches": true,
+          "orig_connects": [],
+          "orig_excludes": [],
+          "orig_includes": [],
+          "orig_matches": [
+            "*://www.amazon.com/your-orders*",
+            "*://www.amazon.com/gp/your-account/order-history*",
+            "*://www.amazon.com/gp/css/order-history*"
+          ],
+          "orig_noframes": null,
+          "orig_run_at": "document-idle",
+          "orig_run_in": [],
+          "orig_tags": [],
+          "use_blockers": [],
+          "use_connects": [],
+          "use_excludes": [],
+          "use_includes": [],
+          "use_matches": []
+        },
+        "run_at": null,
+        "run_in": null,
+        "sandbox": null,
+        "tags": [],
+        "unwrap": null,
+        "user_modified": null
+      },
+      "position": 5,
+      "requires": [],
+      "resources": [],
+      "supportURL": null,
+      "sync": {},
+      "tfd": {
+        "objUrl": {
+          "url": "blob:chrome-extension://dhdgffkkebhmkfjojejmpbldmpobfkfo/40c3a407-9887-4ad6-928a-fc1cb8aacde1"
+        }
+      },
+      "updateURL": null,
+      "uuid": "1c94c6b6-ec09-48f3-adc0-799af00207db",
+      "version": "1.0",
+      "webRequest": null
+    }
+  },
+  "!extdb.@meta#3446066f-ec64-47a1-89ac-22620a2f2bb6": {
+    "origin": "normal",
+    "value": {
+      "antifeatures": {},
+      "author": null,
+      "blockers": [],
+      "connects": [],
+      "copyright": null,
+      "description": "On google.com/travel/flights results: filter to Nonstop first (faster), then sort by Arrival time once the sort button is ready.",
+      "description_i18n": {},
+      "downloadURL": null,
+      "enabled": true,
+      "evilness": 0,
+      "excludes": [],
+      "fileURL": null,
+      "grant": [
+        "none"
+      ],
+      "header": "// ==UserScript==\n// @name         Google Flights: nonstop + sort by arrival\n// @namespace    http://tampermonkey.net/\n// @version      0.2\n// @description  On google.com/travel/flights results: filter to Nonstop first (faster), then sort by Arrival time once the sort button is ready.\n// @match        *://www.google.com/travel/flights*\n// @run-at       document-idle\n// @grant        none\n// ==/UserScript==",
+      "homepage": null,
+      "icon": null,
+      "icon64": null,
+      "includes": [],
+      "lastModified": 1776925348000,
+      "matches": [
+        "*://www.google.com/travel/flights*"
+      ],
+      "name": "Google Flights: nonstop + sort by arrival",
+      "name_i18n": {},
+      "namespace": "http://tampermonkey.net/",
+      "options": {
+        "check_for_updates": true,
+        "comment": null,
+        "compat_foreach": false,
+        "compat_metadata": false,
+        "compat_powerful_this": null,
+        "compat_wrappedjsobject": false,
+        "compatopts_for_requires": true,
+        "noframes": null,
+        "override": {
+          "merge_connects": true,
+          "merge_excludes": true,
+          "merge_includes": true,
+          "merge_matches": true,
+          "orig_connects": [],
+          "orig_excludes": [],
+          "orig_includes": [],
+          "orig_matches": [
+            "*://www.google.com/travel/flights*"
+          ],
+          "orig_noframes": null,
+          "orig_run_at": "document-idle",
+          "orig_run_in": [],
+          "orig_tags": [],
+          "use_blockers": [],
+          "use_connects": [],
+          "use_excludes": [],
+          "use_includes": [],
+          "use_matches": []
+        },
+        "run_at": null,
+        "run_in": null,
+        "sandbox": null,
+        "tags": [],
+        "unwrap": null,
+        "user_modified": 1776925348001
+      },
+      "position": 4,
+      "requires": [],
+      "resources": [],
+      "supportURL": null,
+      "sync": {
+        "imported": 9
+      },
+      "tfd": {
+        "objUrl": {
+          "url": "blob:chrome-extension://dhdgffkkebhmkfjojejmpbldmpobfkfo/6965272c-95ac-4cf6-9042-b86998d1cd51"
+        }
+      },
+      "updateURL": null,
+      "uuid": "3446066f-ec64-47a1-89ac-22620a2f2bb6",
+      "version": "0.2",
+      "webRequest": null
+    }
+  },
+  "!extdb.@meta#43f8dc75-327b-41db-9511-93a0ec0d328a": {
+    "origin": "normal",
+    "value": {
+      "antifeatures": {},
+      "author": null,
+      "blockers": [],
+      "connects": [],
+      "copyright": null,
+      "description": "Sets grocery tip to $0 and picks a preferred One-Hour Windows slot on Amazon checkout. Human-paced delays to avoid bot detection.",
+      "description_i18n": {},
+      "downloadURL": null,
+      "enabled": true,
+      "evilness": 0,
+      "excludes": [],
+      "fileURL": null,
+      "grant": [
+        "none"
+      ],
+      "header": "// ==UserScript==\n// @name         Amazon checkout: tip -> $0 + preferred delivery window\n// @namespace    http://tampermonkey.net/\n// @version      0.5\n// @description  Sets grocery tip to $0 and picks a preferred One-Hour Windows slot on Amazon checkout. Human-paced delays to avoid bot detection.\n// @match        *://www.amazon.com/checkout*\n// @match        *://amazon.com/checkout*\n// @run-at       document-idle\n// @grant        none\n// ==/UserScript==",
+      "homepage": null,
+      "icon": null,
+      "icon64": null,
+      "includes": [],
+      "lastModified": 1776324178096,
+      "matches": [
+        "*://www.amazon.com/checkout*",
+        "*://amazon.com/checkout*"
+      ],
+      "name": "Amazon checkout: tip -> $0 + preferred delivery window",
+      "name_i18n": {},
+      "namespace": "http://tampermonkey.net/",
+      "options": {
+        "check_for_updates": true,
+        "comment": null,
+        "compat_foreach": false,
+        "compat_metadata": false,
+        "compat_powerful_this": null,
+        "compat_wrappedjsobject": false,
+        "compatopts_for_requires": true,
+        "noframes": null,
+        "override": {
+          "merge_connects": true,
+          "merge_excludes": true,
+          "merge_includes": true,
+          "merge_matches": true,
+          "orig_connects": [],
+          "orig_excludes": [],
+          "orig_includes": [],
+          "orig_matches": [
+            "*://www.amazon.com/checkout*",
+            "*://amazon.com/checkout*"
+          ],
+          "orig_noframes": null,
+          "orig_run_at": "document-idle",
+          "orig_run_in": [],
+          "orig_tags": [],
+          "use_blockers": [],
+          "use_connects": [],
+          "use_excludes": [],
+          "use_includes": [],
+          "use_matches": []
+        },
+        "run_at": null,
+        "run_in": null,
+        "sandbox": null,
+        "tags": [],
+        "unwrap": null,
+        "user_modified": null
+      },
+      "position": 2,
+      "requires": [],
+      "resources": [],
+      "supportURL": null,
+      "sync": {
+        "imported": 9
+      },
+      "tfd": {
+        "objUrl": {
+          "url": "blob:chrome-extension://dhdgffkkebhmkfjojejmpbldmpobfkfo/10203b49-9089-48fe-bd3f-6cb174b60659"
+        }
+      },
+      "updateURL": null,
+      "uuid": "43f8dc75-327b-41db-9511-93a0ec0d328a",
+      "version": "0.5",
+      "webRequest": null
+    }
+  },
+  "!extdb.@meta#6026c729-743f-4f17-b3f5-34af9bbb4eef": {
+    "origin": "normal",
+    "value": {
+      "antifeatures": {},
+      "author": "https://www.reddit.com/r/desmos/comments/124wsa2/comment/je93lm8/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button",
+      "blockers": [],
+      "connects": [],
+      "copyright": null,
+      "description": "try to take over the world!",
+      "description_i18n": {},
+      "downloadURL": null,
+      "enabled": false,
+      "evilness": 0,
+      "excludes": [],
+      "fileURL": null,
+      "grant": [
+        "none"
+      ],
+      "header": "// ==UserScript==\n// @name         Desmos Reverse Contrast\n// @namespace    http://tampermonkey.net/\n// @version      2024-07-01\n// @description  try to take over the world!\n// @author       https://www.reddit.com/r/desmos/comments/124wsa2/comment/je93lm8/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button\n// @match        https://www.desmos.com/calculator\n// @icon         https://www.google.com/s2/favicons?sz=64&domain=desmos.com\n// @grant        none\n// ==/UserScript==",
+      "homepage": null,
+      "icon": "https://www.google.com/s2/favicons?sz=64&domain=desmos.com",
+      "icon64": null,
+      "includes": [],
+      "lastModified": 1721317170944,
+      "matches": [
+        "https://www.desmos.com/calculator"
+      ],
+      "name": "Desmos Reverse Contrast",
+      "name_i18n": {},
+      "namespace": "http://tampermonkey.net/",
+      "options": {
+        "check_for_updates": true,
+        "comment": null,
+        "compat_foreach": false,
+        "compat_metadata": false,
+        "compat_powerful_this": null,
+        "compat_wrappedjsobject": false,
+        "compatopts_for_requires": true,
+        "noframes": null,
+        "override": {
+          "merge_connects": true,
+          "merge_excludes": true,
+          "merge_includes": true,
+          "merge_matches": true,
+          "orig_connects": [],
+          "orig_excludes": [],
+          "orig_includes": [],
+          "orig_matches": [
+            "https://www.desmos.com/calculator"
+          ],
+          "orig_noframes": null,
+          "orig_run_at": "document-idle",
+          "orig_run_in": [],
+          "use_blockers": [],
+          "use_connects": [],
+          "use_excludes": [],
+          "use_includes": [],
+          "use_matches": []
+        },
+        "run_at": null,
+        "run_in": null,
+        "sandbox": null,
+        "tab_types": null,
+        "tags": [],
+        "unwrap": null,
+        "user_modified": null
+      },
+      "position": 1,
+      "requires": [],
+      "resources": [],
+      "supportURL": null,
+      "sync": {
+        "imported": 9
+      },
+      "updateURL": null,
+      "uuid": "6026c729-743f-4f17-b3f5-34af9bbb4eef",
+      "version": "2024-07-01",
+      "webRequest": null
+    }
+  },
+  "!extdb.@meta#6c3fa420-4b9e-4764-ac76-d1fb0caac1b6": {
+    "origin": "normal",
+    "value": {
+      "antifeatures": {},
+      "author": null,
+      "blockers": [],
+      "connects": [],
+      "copyright": null,
+      "description": "On the Google flights widget, switch Round trip -> One way, pick earliest available date, click Done, then Show flights.",
+      "description_i18n": {},
+      "downloadURL": null,
+      "enabled": true,
+      "evilness": 0,
+      "excludes": [],
+      "fileURL": null,
+      "grant": [
+        "none"
+      ],
+      "header": "// ==UserScript==\n// @name         Google Flights: one-way + earliest date\n// @namespace    http://tampermonkey.net/\n// @version      0.1\n// @description  On the Google flights widget, switch Round trip -> One way, pick earliest available date, click Done, then Show flights.\n// @match        *://www.google.com/search*\n// @match        *://www.google.com/travel/flights*\n// @run-at       document-idle\n// @grant        none\n// ==/UserScript==",
+      "homepage": null,
+      "icon": null,
+      "icon64": null,
+      "includes": [],
+      "lastModified": 1776925423682,
+      "matches": [
+        "*://www.google.com/search*",
+        "*://www.google.com/travel/flights*"
+      ],
+      "name": "Google Flights: one-way + earliest date",
+      "name_i18n": {},
+      "namespace": "http://tampermonkey.net/",
+      "options": {
+        "check_for_updates": true,
+        "comment": null,
+        "compat_foreach": false,
+        "compat_metadata": false,
+        "compat_powerful_this": null,
+        "compat_wrappedjsobject": false,
+        "compatopts_for_requires": true,
+        "noframes": null,
+        "override": {
+          "merge_connects": true,
+          "merge_excludes": true,
+          "merge_includes": true,
+          "merge_matches": true,
+          "orig_connects": [],
+          "orig_excludes": [],
+          "orig_includes": [],
+          "orig_matches": [
+            "*://www.google.com/search*",
+            "*://www.google.com/travel/flights*"
+          ],
+          "orig_noframes": null,
+          "orig_run_at": "document-idle",
+          "orig_run_in": [],
+          "orig_tags": [],
+          "use_blockers": [],
+          "use_connects": [],
+          "use_excludes": [],
+          "use_includes": [],
+          "use_matches": []
+        },
+        "run_at": null,
+        "run_in": null,
+        "sandbox": null,
+        "tags": [],
+        "unwrap": null,
+        "user_modified": null
+      },
+      "position": 3,
+      "requires": [],
+      "resources": [],
+      "supportURL": null,
+      "sync": {
+        "imported": 9
+      },
+      "tfd": {
+        "objUrl": {
+          "url": "blob:chrome-extension://dhdgffkkebhmkfjojejmpbldmpobfkfo/e1e7de81-5972-4654-a162-ab8e5a5fa754"
+        }
+      },
+      "updateURL": null,
+      "uuid": "6c3fa420-4b9e-4764-ac76-d1fb0caac1b6",
+      "version": "0.1",
+      "webRequest": null
+    }
+  },
+  "!extdb.@re#1c94c6b6-ec09-48f3-adc0-799af00207db": {
+    "origin": "normal",
+    "value": {
+      "exc": [],
+      "inc": [],
+      "match": [
+        "*://www.amazon.com/your-orders*",
+        "*://www.amazon.com/gp/your-account/order-history*",
+        "*://www.amazon.com/gp/css/order-history*"
+      ]
+    }
+  },
+  "!extdb.@re#3446066f-ec64-47a1-89ac-22620a2f2bb6": {
+    "origin": "normal",
+    "value": {
+      "exc": [],
+      "inc": [],
+      "match": [
+        "*://www.google.com/travel/flights*"
+      ]
+    }
+  },
+  "!extdb.@re#43f8dc75-327b-41db-9511-93a0ec0d328a": {
+    "origin": "normal",
+    "value": {
+      "exc": [],
+      "inc": [],
+      "match": [
+        "*://www.amazon.com/checkout*",
+        "*://amazon.com/checkout*"
+      ]
+    }
+  },
+  "!extdb.@re#6026c729-743f-4f17-b3f5-34af9bbb4eef": {
+    "origin": "normal",
+    "value": {
+      "exc": [],
+      "inc": [],
+      "match": [
+        "https://www.desmos.com/calculator"
+      ]
+    }
+  },
+  "!extdb.@re#6c3fa420-4b9e-4764-ac76-d1fb0caac1b6": {
+    "origin": "normal",
+    "value": {
+      "exc": [],
+      "inc": [],
+      "match": [
+        "*://www.google.com/search*",
+        "*://www.google.com/travel/flights*"
+      ]
+    }
+  },
+  "!extdb.@source#1c94c6b6-ec09-48f3-adc0-799af00207db": {
+    "origin": "normal",
+    "value": "// ==UserScript==\n// @name         Amazon Order History → CSV\n// @namespace    albert.amazon.orders\n// @version      1.0\n// @description  Scrape your own Amazon order history (order-level totals + item list) to CSV. Fetch-based, read-only, auto-paginates.\n// @match        *://www.amazon.com/your-orders*\n// @match        *://www.amazon.com/gp/your-account/order-history*\n// @match        *://www.amazon.com/gp/css/order-history*\n// @run-at       document-idle\n// @grant        none\n// ==/UserScript==\n\n(function () {\n  'use strict';\n\n  const ASIN_RE = /\\/(?:dp|gp\\/product)\\/([A-Z0-9]{10})/;  // matches /dp/ASIN and /gp/product/ASIN in hrefs\n  const DELAY_MS = 400;   // politeness gap between page fetches so we don't hammer Amazon\n  const MAX_PAGES = 300;  // hard safety cap (~3000 orders) in case end-detection ever fails\n\n  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));\n\n  // --- parse one order card into a structured record -----------------------\n  function parseCard(card) {\n    const orderId = card.querySelector('.yohtmlc-order-id span[dir=\"ltr\"]')?.textContent.trim() || '';\n\n    let date = '', totalRaw = '';\n    // header columns are captioned (\"Order placed\" / \"Total\" / \"Ship to\"); key off the caption, not position\n    card.querySelectorAll('.order-header .a-column').forEach((col) => {\n      const cap = col.querySelector('.a-text-caps')?.textContent.trim().toLowerCase();\n      const val = col.querySelector('.a-size-base')?.textContent.trim() || '';\n      if (cap === 'order placed') date = val;\n      else if (cap === 'total') totalRaw = val;\n    });\n\n    const status = card.querySelector('.yohtmlc-shipment-status-primaryText')?.textContent.trim() || '';\n\n    // items: both the standard left-image layout and the Whole Foods grid put product links in .delivery-box.\n    // dedupe by ASIN — the image <a> (alt-text title, carries qty) and the title <a> (visible title) share an ASIN.\n    const items = [];\n    const seen = new Set();\n    card.querySelectorAll('.delivery-box a[href*=\"/dp/\"], .delivery-box a[href*=\"/gp/product/\"]').forEach((a) => {\n      const m = a.getAttribute('href').match(ASIN_RE);\n      if (!m) return;\n      const asin = m[1];\n      if (seen.has(asin)) return;  // first hit per ASIN wins (image link comes first, carries the qty badge)\n      let title = a.textContent.trim();\n      if (!title) title = a.querySelector('img[alt]')?.getAttribute('alt').trim() || '';  // grocery grid: title is in img alt\n      if (!title) return;\n      seen.add(asin);\n      const box = a.closest('.product-image, .product-grid-image');  // qty badge lives in the image container\n      const qtyTxt = box?.querySelector('.product-image__qty')?.textContent.trim();\n      const qty = qtyTxt && !isNaN(parseInt(qtyTxt, 10)) ? parseInt(qtyTxt, 10) : 1;\n      items.push({ asin, title, qty });\n    });\n\n    return { orderId, date, totalRaw, status, items };\n  }\n\n  function parseDoc(doc) {\n    return [...doc.querySelectorAll('.order-card.js-order-card')].map(parseCard);\n  }\n\n  // --- CSV assembly --------------------------------------------------------\n  const esc = (v) => {\n    const s = String(v ?? '');\n    return /[\",\\n]/.test(s) ? '\"' + s.replace(/\"/g, '\"\"') + '\"' : s;  // RFC-4180 quoting only when needed\n  };\n\n  function toCSV(orders) {\n    const header = ['order_id', 'order_date', 'order_total_usd', 'order_total_raw',\n                    'delivery_status', 'item_title', 'asin', 'quantity', 'order_url'];\n    const rows = [header.join(',')];\n    for (const o of orders) {\n      const totalNum = o.totalRaw.replace(/[^0-9.]/g, '');  // \"$105.19\" -> \"105.19\"\n      const url = `https://www.amazon.com/your-orders/order-details?orderID=${o.orderId}`;\n      const items = o.items.length ? o.items : [{ asin: '', title: '', qty: '' }];  // keep zero-item orders as one row\n      items.forEach((it, i) => {\n        // order-level fields emitted ONLY on the first item row so SUM(order_total_usd) == true spend, no double count\n        const first = i === 0;\n        rows.push([\n          o.orderId, o.date,\n          first ? totalNum : '', first ? o.totalRaw : '', first ? o.status : '',\n          it.title, it.asin, it.qty, url,\n        ].map(esc).join(','));\n      });\n    }\n    return '\\uFEFF' + rows.join('\\r\\n');  // BOM so Excel reads UTF-8 titles correctly\n  }\n\n  function download(csv, filename) {\n    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));\n    const a = document.createElement('a');\n    a.href = url; a.download = filename;\n    document.body.appendChild(a); a.click(); a.remove();\n    URL.revokeObjectURL(url);\n  }\n\n  // --- scrape loop ---------------------------------------------------------\n  async function scrapeAll(timeFilter, onProgress) {\n    const byId = new Map();  // dedupe across pages by orderId\n    for (let page = 0; page < MAX_PAGES; page++) {\n      const idx = page * 10;\n      const url = `/your-orders/orders?timeFilter=${encodeURIComponent(timeFilter)}&startIndex=${idx}`;\n      const res = await fetch(url, { credentials: 'same-origin' });\n      const doc = new DOMParser().parseFromString(await res.text(), 'text/html');\n\n      if (/sign.?in/i.test(doc.title) && !doc.querySelector('.order-card')) {\n        throw new Error('Hit a sign-in wall — reload Your Orders, confirm you are logged in, and retry.');\n      }\n      const orders = parseDoc(doc);\n      if (orders.length === 0) break;  // past the last page\n      for (const o of orders) if (o.orderId) byId.set(o.orderId, o);\n      onProgress(page + 1, byId.size);\n      await sleep(DELAY_MS);\n    }\n    return [...byId.values()];\n  }\n\n  // --- control panel -------------------------------------------------------\n  function buildPanel() {\n    if (document.getElementById('aoc-panel')) return;\n    const live = document.querySelector('#time-filter');  // mirror the page's own time-filter options\n    const opts = live\n      ? [...live.options].map((o) => `<option value=\"${o.value}\"${o.selected ? ' selected' : ''}>${o.textContent.trim()}</option>`).join('')\n      : '<option value=\"year-2026\">this year</option>';\n\n    const panel = document.createElement('div');\n    panel.id = 'aoc-panel';\n    panel.style.cssText =\n      'position:fixed;top:80px;right:16px;z-index:99999;background:#fff;border:1px solid #ccc;' +\n      'border-radius:8px;padding:12px;font:13px/1.4 Arial,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.2);width:230px';\n    panel.innerHTML =\n      '<div style=\"font-weight:700;margin-bottom:8px\">Orders → CSV</div>' +\n      '<label style=\"display:block;margin-bottom:6px\">Period:<br>' +\n      `<select id=\"aoc-filter\" style=\"width:100%;margin-top:2px\">${opts}</select></label>` +\n      '<button id=\"aoc-run\" style=\"width:100%;padding:6px;cursor:pointer\">Scrape &amp; download CSV</button>' +\n      '<div id=\"aoc-status\" style=\"margin-top:8px;color:#555;min-height:18px\"></div>';\n    document.body.appendChild(panel);\n\n    const status = panel.querySelector('#aoc-status');\n    panel.querySelector('#aoc-run').addEventListener('click', async () => {\n      const tf = panel.querySelector('#aoc-filter').value;\n      const btn = panel.querySelector('#aoc-run');\n      btn.disabled = true;\n      status.textContent = 'Starting…';\n      try {\n        const orders = await scrapeAll(tf, (p, n) => { status.textContent = `Page ${p} · ${n} orders`; });\n        if (!orders.length) { status.textContent = 'No orders found for that period.'; }\n        else {\n          download(toCSV(orders), `amazon-orders-${tf}.csv`);\n          const spend = orders.reduce((s, o) => s + (parseFloat(o.totalRaw.replace(/[^0-9.]/g, '')) || 0), 0);\n          status.textContent = `Done: ${orders.length} orders · $${spend.toFixed(2)} total`;\n        }\n      } catch (e) {\n        status.textContent = e.message;\n      } finally {\n        btn.disabled = false;\n      }\n    });\n  }\n\n  buildPanel();\n})();"
+  },
+  "!extdb.@source#3446066f-ec64-47a1-89ac-22620a2f2bb6": {
+    "origin": "normal",
+    "value": "// ==UserScript==\n// @name         Google Flights: nonstop + sort by arrival\n// @namespace    http://tampermonkey.net/\n// @version      0.2\n// @description  On google.com/travel/flights results: filter to Nonstop first (faster), then sort by Arrival time once the sort button is ready.\n// @match        *://www.google.com/travel/flights*\n// @run-at       document-idle\n// @grant        none\n// ==/UserScript==\n\n(function () {\n  'use strict';\n\n  // ===========================================================================\n  // DECLARATIVE STEP ARRAY\n  // Order: nonstop filter first (stops chip appears quickly), then sort change\n  // (sort button \"Sorted by top flights\" appears only after results hydrate,\n  // so it gets a longer trigger timeout).\n  // ===========================================================================\n\n  const STEPS = [\n    {\n      name: 'open Stops filter',\n      wait: { ms: 30 },\n      trigger: { selector: 'div[data-filtertype=\"10\"] button[aria-label^=\"Stops,\"]' },\n      action: { type: 'click', selector: 'div[data-filtertype=\"10\"] button[aria-label^=\"Stops,\"]' },\n    },\n    {\n      name: 'select Nonstop only',\n      // Material hides the <input>; click the <label> (for=id triggers the radio).\n      wait: { ms: 40, jitter: 1 },\n      trigger: { selector: 'label.VfPpkd-V67aGc', textContains: 'Nonstop only' },\n      action: { type: 'click', selector: 'label.VfPpkd-V67aGc', textContains: 'Nonstop only' },\n    },\n    {\n      name: 'close Stops dialog',\n      wait: { ms: 80, jitter: 1 },  // extra: list refreshes after stops filter\n      trigger: { selector: 'button[jsname=\"tHuhgf\"][aria-label=\"Close dialog\"]' },\n      action: { type: 'click', selector: 'button[jsname=\"tHuhgf\"][aria-label=\"Close dialog\"]' },\n    },\n    {\n      name: 'open sort-order dropdown',\n      // \"Sorted by top flights\" text in the aria-label only appears once the\n      // results list has finished its first render — use it as a readiness gate.\n      // Longer timeout because this is the slow step the user hit.\n      wait: { ms: 30 },\n      trigger: {\n        selector: 'button[jsname=\"AefGQb\"][aria-label*=\"Sorted by\"]',\n        timeout: 20000,\n      },\n      action: { type: 'click', selector: 'button[jsname=\"AefGQb\"][aria-label*=\"Sorted by\"]' },\n    },\n    {\n      name: 'select Arrival time',\n      // Sort menu data-value enum: 1=Top, 2=Price, 3=Departure, 4=Arrival, 5=Duration, 6=Emissions\n      wait: { ms: 40, jitter: 1 },\n      trigger: { selector: 'li[role=\"menuitemradio\"][data-value=\"4\"]' },\n      action: { type: 'click', selector: 'li[role=\"menuitemradio\"][data-value=\"4\"]' },\n    },\n  ];\n\n  const CONFIG = {\n    DEBUG: true,\n    STARTUP_DELAY_MS: 200,\n    TRIGGER_TIMEOUT_MS: 8000,\n    TRIGGER_POLL_MS: 100,\n    STOP_ON_ERROR: true,\n    GATE_SELECTOR: 'div[data-filtertype=\"10\"]',  // filter row = results page is live\n  };\n\n  // ===========================================================================\n  // Engine — copied from gflights-auto\n  // ===========================================================================\n\n  const log = (...a) => CONFIG.DEBUG && console.log('[gflights-sortfilter]', ...a);\n  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));\n  const jittered = (ms, jitter) => ms + (jitter ? Math.floor(Math.random() * jitter) : 0);\n  const txt = (el) => (el?.textContent || '').replace(/\\s+/g, ' ').trim();\n\n  function isVisible(el) {\n    if (!el) return false;\n    const s = window.getComputedStyle(el);\n    if (s.display === 'none' || s.visibility === 'hidden') return false;\n    if (el.offsetParent === null) {\n      const r = el.getBoundingClientRect();\n      if (r.width === 0 && r.height === 0) return false;\n    }\n    return true;\n  }\n\n  function specMatches(el, spec) {\n    if (!el) return false;\n    if (spec.textContains && !txt(el).toLowerCase().includes(spec.textContains.toLowerCase())) return false;\n    if (spec.text && txt(el) !== spec.text) return false;\n    return true;\n  }\n\n  function findAll(spec) {\n    return Array.from(document.querySelectorAll(spec.selector))\n      .filter(isVisible)\n      .filter((el) => specMatches(el, spec));\n  }\n\n  function findOne(spec) {\n    return findAll(spec)[0] || null;\n  }\n\n  async function waitForElement(spec, timeoutMs) {\n    const t0 = Date.now();\n    while (Date.now() - t0 < timeoutMs) {\n      const el = findOne(spec);\n      if (el) return el;\n      await sleep(CONFIG.TRIGGER_POLL_MS);\n    }\n    return null;\n  }\n\n  const ACTIONS = {\n    click(spec) {\n      const el = findOne(spec);\n      if (!el) return { ok: false, reason: `no match: ${spec.selector}` };\n      el.click();\n      return { ok: true, note: txt(el).slice(0, 40) };\n    },\n    clickFirst(spec) {\n      const all = findAll(spec);\n      if (all.length === 0) return { ok: false, reason: `no match: ${spec.selector}` };\n      all[0].click();\n      return { ok: true, note: `first of ${all.length}: \"${txt(all[0])}\"` };\n    },\n    focus(spec) {\n      const el = findOne(spec);\n      if (!el) return { ok: false, reason: `no match: ${spec.selector}` };\n      el.focus();\n      return { ok: true };\n    },\n    focusClick(spec) {\n      const el = findOne(spec);\n      if (!el) return { ok: false, reason: `no match: ${spec.selector}` };\n      el.focus();\n      el.click();\n      return { ok: true };\n    },\n  };\n\n  async function runStep(step, i) {\n    log(`[${i + 1}/${STEPS.length}] ${step.name}`);\n\n    if (step.wait?.ms != null) {\n      const ms = jittered(step.wait.ms, step.wait.jitter);\n      log(`  wait ${ms}ms`);\n      await sleep(ms);\n    }\n\n    if (step.trigger) {\n      const timeout = step.trigger.timeout || CONFIG.TRIGGER_TIMEOUT_MS;\n      const el = await waitForElement(step.trigger, timeout);\n      if (!el) return { ok: false, reason: `trigger timeout (${timeout}ms): ${step.trigger.selector}` };\n      log(`  trigger ok — \"${txt(el).slice(0, 60)}\"`);\n    }\n\n    const fn = ACTIONS[step.action.type];\n    if (!fn) return { ok: false, reason: `unknown action: ${step.action.type}` };\n    const result = fn(step.action);\n    log(`  action ${result.ok ? 'ok' : 'FAIL'}${result.note ? ' — ' + result.note : ''}${result.reason ? ' — ' + result.reason : ''}`);\n    return result;\n  }\n\n  async function run() {\n    if (!document.querySelector(CONFIG.GATE_SELECTOR)) {\n      log('no filter row on page, skipping');\n      return;\n    }\n    log(`startup delay ${CONFIG.STARTUP_DELAY_MS}ms`);\n    await sleep(CONFIG.STARTUP_DELAY_MS);\n\n    for (let i = 0; i < STEPS.length; i += 1) {\n      const result = await runStep(STEPS[i], i);\n      if (!result.ok && CONFIG.STOP_ON_ERROR) {\n        log(`stopped at \"${STEPS[i].name}\": ${result.reason}`);\n        return;\n      }\n    }\n    log('all steps complete');\n  }\n\n  run().catch((err) => console.error('[gflights-sortfilter] fatal', err));\n})();"
+  },
+  "!extdb.@source#43f8dc75-327b-41db-9511-93a0ec0d328a": {
+    "origin": "normal",
+    "value": "// ==UserScript==\n// @name         Amazon checkout: tip -> $0 + preferred delivery window\n// @namespace    http://tampermonkey.net/\n// @version      0.5\n// @description  Sets grocery tip to $0 and picks a preferred One-Hour Windows slot on Amazon checkout. Human-paced delays to avoid bot detection.\n// @match        *://www.amazon.com/checkout*\n// @match        *://amazon.com/checkout*\n// @run-at       document-idle\n// @grant        none\n// ==/UserScript==\n\n(function () {\n  'use strict';\n\n  const CONFIG = {\n    DEBUG: true,\n\n    // Tip\n    SET_TIP_TO_ZERO: true,\n\n    // Delivery\n    SET_DELIVERY_WINDOW: true,\n    DELIVERY_MODE_LABEL: 'One-Hour Windows',\n    EXPAND_MORE_TIMES: true,\n    PREFERRED_TIME_TEXT: '8 AM - 9 AM',\n\n    // Timing — human-paced to avoid bot detection\n    ACTION_DELAY_MS: 300,    // minimum gap between any two actions\n    POLL_INTERVAL_MS: 300,   // check condition every 300ms\n    POLL_TIMEOUT_MS: 1500,   // wait up to 1.5s for server-side updates\n    RETRY_MS: 500,           // main loop retry\n    MAX_ATTEMPTS: 15,        // 15 * 500ms = 7.5s total budget\n    STARTUP_DELAY_MS: 2500,  // initial page load settling\n  };\n\n  const STATE = {\n    tipDone: false,\n    deliveryDone: false,\n    finished: false,\n    running: false,\n    attempts: 0,\n    started: false,\n  };\n\n  const log = (...args) => CONFIG.DEBUG && console.log('[amazon-checkout-auto]', ...args);\n\n  function sleep(ms) {\n    return new Promise((r) => setTimeout(r, ms));\n  }\n\n  async function pollFor(fn, label) {\n    const t0 = Date.now();\n    while (Date.now() - t0 < CONFIG.POLL_TIMEOUT_MS) {\n      if (fn()) { log(label, 'ok'); return true; }\n      await sleep(CONFIG.POLL_INTERVAL_MS);\n    }\n    log(label, 'timed out');\n    return false;\n  }\n\n  function isVisible(el) {\n    if (!el) return false;\n    const style = window.getComputedStyle(el);\n    return style.display !== 'none' && style.visibility !== 'hidden' && el.offsetParent !== null;\n  }\n\n  function textOf(el) {\n    return (el?.textContent || '').replace(/\\s+/g, ' ').trim();\n  }\n\n  function click(el, label = 'element') {\n    if (!el) return false;\n    log('Clicking', label);\n    el.click();\n    return true;\n  }\n\n  function setNativeValue(input, value) {\n    const proto = Object.getPrototypeOf(input);\n    const descriptor = Object.getOwnPropertyDescriptor(proto, 'value');\n    if (descriptor && descriptor.set) {\n      descriptor.set.call(input, value);\n    } else {\n      input.value = value;\n    }\n  }\n\n  function fireInputEvents(input) {\n    input.dispatchEvent(new Event('input', { bubbles: true }));\n    input.dispatchEvent(new Event('change', { bubbles: true }));\n    input.dispatchEvent(new Event('blur', { bubbles: true }));\n  }\n\n  // --------------------\n  // Tip logic\n  // --------------------\n\n  function findTipWidget() {\n    return document.querySelector('#tw.tip-widget');\n  }\n\n  function findTipEditLink(widget) {\n    if (!widget) return null;\n    return Array.from(widget.querySelectorAll('.tip-widget--edit-control')).find((el) =>\n      /edit/i.test(textOf(el))\n    );\n  }\n\n  function findTipInput(widget) {\n    return widget?.querySelector('#tip-widget--edit-form--amount-input') || null;\n  }\n\n  function findTipApply(widget) {\n    return widget?.querySelector('#tip-widget--submit-update') || null;\n  }\n\n  function tipAlreadyZero() {\n    const hidden = document.querySelector('input#subtotal-line-type[value=\"FRESH_TIP\"]');\n    const row = hidden?.closest('.order-summary-grid');\n    const valueNode = row?.querySelector('.order-summary-line-definition .aok-nowrap');\n    const text = textOf(valueNode);\n    return text === '$0.00' || text === '$0';\n  }\n\n  async function handleTip() {\n    if (!CONFIG.SET_TIP_TO_ZERO) { STATE.tipDone = true; return true; }\n    if (tipAlreadyZero()) { log('Tip already zero'); STATE.tipDone = true; return true; }\n\n    const widget = findTipWidget();\n    if (!widget) { log('Tip widget not found yet'); return false; }\n\n    let input = findTipInput(widget);\n\n    if (!isVisible(input)) {\n      const edit = findTipEditLink(widget);\n      if (!edit) { log('Tip Edit link not found'); return false; }\n      click(edit, 'tip Edit');\n      await sleep(CONFIG.ACTION_DELAY_MS);\n      return false;  // let main loop re-enter after input appears\n    }\n\n    const apply = findTipApply(widget);\n    if (!input || !apply) { log('Tip input/apply not ready'); return false; }\n\n    if (String(input.value) !== '0') {\n      input.focus();\n      await sleep(CONFIG.ACTION_DELAY_MS);\n      input.select?.();\n      setNativeValue(input, '0');\n      fireInputEvents(input);\n      log('Set tip input to 0');\n      await sleep(CONFIG.ACTION_DELAY_MS);\n    }\n\n    click(apply, 'tip Apply');\n    STATE.tipDone = await pollFor(tipAlreadyZero, 'tip→zero');\n    return STATE.tipDone;\n  }\n\n  // --------------------\n  // Delivery logic\n  // --------------------\n\n  function findOneHourModeLabel() {\n    return Array.from(document.querySelectorAll('span.delivery-promise-text, span[id$=\"PromiseReferenceForRadioLabel\"]'))\n      .find((el) => textOf(el) === CONFIG.DELIVERY_MODE_LABEL);\n  }\n\n  function findOneHourModeRadioRoot() {\n    const label = findOneHourModeLabel();\n    return label?.closest('[data-a-input-name=\"deliveryOptionRadioButton\"]') || null;\n  }\n\n  function oneHourModeSelected() {\n    const root = findOneHourModeRadioRoot();\n    if (!root) return false;\n    return root.getAttribute('data-isselected') === 'true' ||\n      !!root.querySelector('input[type=\"radio\"]:checked');\n  }\n\n  async function selectOneHourMode() {\n    const root = findOneHourModeRadioRoot();\n    if (!root) { log('One-Hour Windows root not found yet'); return false; }\n    if (oneHourModeSelected()) { log('One-Hour Windows already selected'); return true; }\n\n    const clickable = root.querySelector('label, input[type=\"radio\"]') || root;\n    click(clickable, 'One-Hour Windows option');\n    return await pollFor(oneHourModeSelected, 'one-hour-mode');\n  }\n\n  function findExpanderLink() {\n    return document.querySelector('#checkout-extra-scheduled-slots-expander-link-scheduled-one-houdini');\n  }\n\n  function isExpanderExpanded() {\n    const link = findExpanderLink();\n    return link?.getAttribute('aria-expanded') === 'true';\n  }\n\n  async function expandMoreTimes() {\n    if (!CONFIG.EXPAND_MORE_TIMES) return true;\n\n    const link = findExpanderLink();\n    if (!link || isExpanderExpanded() || !isVisible(link)) return true;\n    if (!/See more delivery times/i.test(textOf(link))) return true;\n\n    click(link, 'See more delivery times');\n    await sleep(CONFIG.ACTION_DELAY_MS);\n    return true;\n  }\n\n  function getAllSlotButtons() {\n    return Array.from(\n      document.querySelectorAll(\n        '[data-action=\"checkout-grocery-select-ship-option-delivery-slot\"] button.a-button-text'\n      )\n    ).filter(isVisible);\n  }\n\n  function findPreferredSlotButton() {\n    const target = CONFIG.PREFERRED_TIME_TEXT.replace(/\\s+/g, ' ').trim().toLowerCase();\n    return getAllSlotButtons().find((btn) => textOf(btn).toLowerCase().includes(target)) || null;\n  }\n\n  function preferredSlotSelected() {\n    return getAllSlotButtons().some((btn) => {\n      const txt = textOf(btn).toLowerCase();\n      return txt.includes(CONFIG.PREFERRED_TIME_TEXT.toLowerCase()) &&\n        (btn.getAttribute('aria-pressed') === 'true' ||\n         btn.closest('.a-button-selected') !== null);\n    });\n  }\n\n  async function selectPreferredSlot() {\n    const btn = findPreferredSlotButton();\n    if (!btn) {\n      log('Preferred slot not found yet:', CONFIG.PREFERRED_TIME_TEXT);\n      const seen = getAllSlotButtons().map(textOf);\n      if (seen.length) log('Visible slots:', seen);\n      return false;\n    }\n    if (preferredSlotSelected()) { log('Preferred slot already selected'); return true; }\n\n    click(btn, `slot ${CONFIG.PREFERRED_TIME_TEXT}`);\n    return await pollFor(preferredSlotSelected, 'slot-selected');\n  }\n\n  async function handleDelivery() {\n    if (!CONFIG.SET_DELIVERY_WINDOW) { STATE.deliveryDone = true; return true; }\n\n    const modeOk = await selectOneHourMode();\n    if (!modeOk) return false;\n\n    await sleep(CONFIG.ACTION_DELAY_MS);\n    await expandMoreTimes();\n\n    await sleep(CONFIG.ACTION_DELAY_MS);\n    const slotOk = await selectPreferredSlot();\n    if (!slotOk) return false;\n\n    STATE.deliveryDone = true;\n    log('Delivery slot selected');\n    return true;\n  }\n\n  // --------------------\n  // Main loop\n  // --------------------\n\n  async function runOnce() {\n    if (!STATE.tipDone) await handleTip();\n\n    if (!STATE.tipDone) return false;\n    await sleep(CONFIG.ACTION_DELAY_MS);\n\n    if (!STATE.deliveryDone) await handleDelivery();\n\n    if (STATE.tipDone && STATE.deliveryDone) {\n      STATE.finished = true;\n      log('All tasks complete');\n      return true;\n    }\n    return false;\n  }\n\n  async function main() {\n    if (STATE.running || STATE.finished) return;\n\n    STATE.running = true;\n    try {\n      while (!STATE.finished && STATE.attempts < CONFIG.MAX_ATTEMPTS) {\n        STATE.attempts += 1;\n        log(`Attempt ${STATE.attempts}/${CONFIG.MAX_ATTEMPTS}`);\n\n        await runOnce();\n\n        if (STATE.finished) break;\n        await sleep(CONFIG.RETRY_MS);\n      }\n\n      if (!STATE.finished) {\n        log('Stopped after max attempts', { state: { ...STATE } });\n      }\n    } catch (err) {\n      console.error('[amazon-checkout-auto] error', err);\n    } finally {\n      STATE.running = false;\n    }\n  }\n\n  async function startOnce() {\n    if (STATE.started) return;\n    STATE.started = true;\n    log('Startup delay...');\n    await sleep(CONFIG.STARTUP_DELAY_MS);\n    await main();\n  }\n\n  startOnce();\n})();"
+  },
+  "!extdb.@source#6026c729-743f-4f17-b3f5-34af9bbb4eef": {
+    "origin": "normal",
+    "value": "// ==UserScript==\n// @name         Desmos Reverse Contrast\n// @namespace    http://tampermonkey.net/\n// @version      2024-07-01\n// @description  try to take over the world!\n// @author       https://www.reddit.com/r/desmos/comments/124wsa2/comment/je93lm8/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button\n// @match        https://www.desmos.com/calculator\n// @icon         https://www.google.com/s2/favicons?sz=64&domain=desmos.com\n// @grant        none\n// ==/UserScript==\n\n(function() {\n    'use strict';\n    window.onmousemove = () => {\n        Calc.controller.graphSettings.config.invertedColors = true;\n        Calc.controller.updateViews();\n        window.onmousemove = null;\n    }\n})();"
+  },
+  "!extdb.@source#6c3fa420-4b9e-4764-ac76-d1fb0caac1b6": {
+    "origin": "normal",
+    "value": "// ==UserScript==\n// @name         Google Flights: one-way + earliest date\n// @namespace    http://tampermonkey.net/\n// @version      0.1\n// @description  On the Google flights widget, switch Round trip -> One way, pick earliest available date, click Done, then Show flights.\n// @match        *://www.google.com/search*\n// @match        *://www.google.com/travel/flights*\n// @run-at       document-idle\n// @grant        none\n// ==/UserScript==\n\n(function () {\n  'use strict';\n\n  // ===========================================================================\n  // DECLARATIVE STEP ARRAY\n  // Each step: optional `wait` (time pacing), optional `trigger` (element\n  // readiness), then an `action`. Tweak delays / reorder / add steps here.\n  // ===========================================================================\n\n  const STEPS = [\n    {\n      name: 'open ticket-type dropdown',\n      wait: { ms: 30 },\n      trigger: { selector: 'div[role=\"combobox\"][aria-label=\"Change ticket type.\"]' },\n      action: { type: 'click', selector: 'div[role=\"combobox\"][aria-label=\"Change ticket type.\"]' },\n    },\n    {\n      name: 'select One way',\n      wait: { ms: 40, jitter: 1 },\n      trigger: { selector: 'div[role=\"option\"][data-v=\"oneway\"]' },\n      action: { type: 'click', selector: 'div[role=\"option\"][data-v=\"oneway\"]' },\n    },\n    {\n      name: 'open departure date picker',\n      wait: { ms: 40, jitter: 1 },\n      trigger: { selector: 'input[jsname=\"Zfev4\"]' },\n      action: { type: 'focusClick', selector: 'input[jsname=\"Zfev4\"]' },\n    },\n    {\n      name: 'select earliest available date',\n      wait: { ms: 30, jitter: 1 },\n      // Available days lack aria-disabled=\"true\"; past days have it. First\n      // visible match = today if bookable, else next available day.\n      trigger: { selector: 'calendar-day[data-day]:not([aria-disabled=\"true\"])' },\n      action: {\n        type: 'clickFirst',\n        selector: 'calendar-day[data-day]:not([aria-disabled=\"true\"])',\n      },\n    },\n    {\n      name: 'click Done',\n      wait: { ms: 30, jitter: 1 },\n      trigger: { selector: 'div[role=\"button\"].expUPd', textContains: 'Done' },\n      action: { type: 'click', selector: 'div[role=\"button\"].expUPd', textContains: 'Done' },\n    },\n    {\n      name: 'click Show flights',\n      wait: { ms: 100, jitter: 1 },\n      trigger: { selector: 'div[jsname=\"yePe5c\"][aria-label*=\"Show flights\"]' },\n      action: { type: 'click', selector: 'div[jsname=\"yePe5c\"][aria-label*=\"Show flights\"]' },\n    },\n  ];\n\n  const CONFIG = {\n    DEBUG: true,\n    STARTUP_DELAY_MS: 100,       // let the widget hydrate before touching it\n    TRIGGER_TIMEOUT_MS: 8000,     // max wait for any trigger element\n    TRIGGER_POLL_MS: 100,         // poll interval while waiting\n    STOP_ON_ERROR: true,          // abort run on first step failure\n    GATE_SELECTOR: 'div[role=\"combobox\"][aria-label=\"Change ticket type.\"]',\n  };\n\n  // ===========================================================================\n  // Engine — generic wait/trigger/action runner\n  // ===========================================================================\n\n  const log = (...a) => CONFIG.DEBUG && console.log('[gflights-auto]', ...a);\n  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));  // basic pacing primitive\n  const jittered = (ms, jitter) => ms + (jitter ? Math.floor(Math.random() * jitter) : 0);\n  const txt = (el) => (el?.textContent || '').replace(/\\s+/g, ' ').trim();\n\n  function isVisible(el) {\n    if (!el) return false;\n    const s = window.getComputedStyle(el);\n    if (s.display === 'none' || s.visibility === 'hidden') return false;\n    if (el.offsetParent === null) {  // catches ancestor display:none\n      const r = el.getBoundingClientRect();\n      if (r.width === 0 && r.height === 0) return false;\n    }\n    return true;\n  }\n\n  function specMatches(el, spec) {\n    if (!el) return false;\n    if (spec.textContains && !txt(el).toLowerCase().includes(spec.textContains.toLowerCase())) return false;\n    if (spec.text && txt(el) !== spec.text) return false;\n    return true;\n  }\n\n  function findAll(spec) {\n    return Array.from(document.querySelectorAll(spec.selector))\n      .filter(isVisible)\n      .filter((el) => specMatches(el, spec));\n  }\n\n  function findOne(spec) {\n    return findAll(spec)[0] || null;\n  }\n\n  async function waitForElement(spec, timeoutMs) {\n    const t0 = Date.now();\n    while (Date.now() - t0 < timeoutMs) {\n      const el = findOne(spec);\n      if (el) return el;\n      await sleep(CONFIG.TRIGGER_POLL_MS);\n    }\n    return null;\n  }\n\n  // --- action implementations ---\n  const ACTIONS = {\n    click(spec) {\n      const el = findOne(spec);\n      if (!el) return { ok: false, reason: `no match: ${spec.selector}` };\n      el.click();\n      return { ok: true, note: txt(el).slice(0, 40) };\n    },\n    clickFirst(spec) {\n      const all = findAll(spec);\n      if (all.length === 0) return { ok: false, reason: `no match: ${spec.selector}` };\n      all[0].click();\n      return { ok: true, note: `first of ${all.length}: \"${txt(all[0])}\"` };\n    },\n    focus(spec) {\n      const el = findOne(spec);\n      if (!el) return { ok: false, reason: `no match: ${spec.selector}` };\n      el.focus();\n      return { ok: true };\n    },\n    focusClick(spec) {\n      const el = findOne(spec);\n      if (!el) return { ok: false, reason: `no match: ${spec.selector}` };\n      el.focus();\n      el.click();\n      return { ok: true };\n    },\n  };\n\n  // --- runner ---\n  async function runStep(step, i) {\n    log(`[${i + 1}/${STEPS.length}] ${step.name}`);\n\n    if (step.wait?.ms != null) {\n      const ms = jittered(step.wait.ms, step.wait.jitter);\n      log(`  wait ${ms}ms`);\n      await sleep(ms);\n    }\n\n    if (step.trigger) {\n      const timeout = step.trigger.timeout || CONFIG.TRIGGER_TIMEOUT_MS;\n      const el = await waitForElement(step.trigger, timeout);\n      if (!el) return { ok: false, reason: `trigger timeout (${timeout}ms): ${step.trigger.selector}` };\n      log(`  trigger ok — \"${txt(el).slice(0, 60)}\"`);\n    }\n\n    const fn = ACTIONS[step.action.type];\n    if (!fn) return { ok: false, reason: `unknown action: ${step.action.type}` };\n    const result = fn(step.action);\n    log(`  action ${result.ok ? 'ok' : 'FAIL'}${result.note ? ' — ' + result.note : ''}${result.reason ? ' — ' + result.reason : ''}`);\n    return result;\n  }\n\n  async function run() {\n    // Gate: only run if the flight widget exists on this page.\n    if (!document.querySelector(CONFIG.GATE_SELECTOR)) {\n      log('no flight widget on page, skipping');\n      return;\n    }\n    log(`startup delay ${CONFIG.STARTUP_DELAY_MS}ms`);\n    await sleep(CONFIG.STARTUP_DELAY_MS);\n\n    for (let i = 0; i < STEPS.length; i += 1) {\n      const result = await runStep(STEPS[i], i);\n      if (!result.ok && CONFIG.STOP_ON_ERROR) {\n        log(`stopped at \"${STEPS[i].name}\": ${result.reason}`);\n        return;\n      }\n    }\n    log('all steps complete');\n  }\n\n  run().catch((err) => console.error('[gflights-auto] fatal', err));\n})();"
+  },
+  "!extdb.@st#1c94c6b6-ec09-48f3-adc0-799af00207db": {
+    "origin": "normal",
+    "value": {
+      "data": {},
+      "ts": 1783047744881
+    }
+  },
+  "!extdb.@st#3446066f-ec64-47a1-89ac-22620a2f2bb6": {
+    "origin": "normal",
+    "value": {
+      "data": {},
+      "ts": 1776925197613
+    }
+  },
+  "!extdb.@st#43f8dc75-327b-41db-9511-93a0ec0d328a": {
+    "origin": "normal",
+    "value": {
+      "data": {},
+      "ts": 1773294092764
+    }
+  },
+  "!extdb.@st#6026c729-743f-4f17-b3f5-34af9bbb4eef": {
+    "origin": "normal",
+    "value": {
+      "data": {},
+      "ts": 1721317170947
+    }
+  },
+  "!extdb.@st#6c3fa420-4b9e-4764-ac76-d1fb0caac1b6": {
+    "origin": "normal",
+    "value": {
+      "data": {},
+      "ts": 1776324197455
+    }
+  },
+  "!extdb.@uid#1c94c6b6-ec09-48f3-adc0-799af00207db": {
+    "origin": "normal",
+    "value": "Amazon Order History → CSV"
+  },
+  "!extdb.@uid#3446066f-ec64-47a1-89ac-22620a2f2bb6": {
+    "origin": "normal",
+    "value": "Google Flights: nonstop + sort by arrival"
+  },
+  "!extdb.@uid#43f8dc75-327b-41db-9511-93a0ec0d328a": {
+    "origin": "normal",
+    "value": "Amazon checkout: tip -> $0 + preferred delivery window"
+  },
+  "!extdb.@uid#6026c729-743f-4f17-b3f5-34af9bbb4eef": {
+    "origin": "normal",
+    "value": "Desmos Reverse Contrast"
+  },
+  "!extdb.@uid#6c3fa420-4b9e-4764-ac76-d1fb0caac1b6": {
+    "origin": "normal",
+    "value": "Google Flights: one-way + earliest date"
+  }
+}

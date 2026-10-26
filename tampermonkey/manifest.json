@@ -1,0 +1,40 @@
+{
+  "source": "pinktop Arc Default",
+  "scripts": [
+    {
+      "uuid": "1c94c6b6-ec09-48f3-adc0-799af00207db",
+      "name": "Amazon Order History → CSV",
+      "enabled": true,
+      "file": "amazon-order-history-csv.user.js",
+      "sha256": "8e404f1cec6c6fd63c2e19b1a50087b8e8cb0190ac94dc98cb30033c9cfbef11"
+    },
+    {
+      "uuid": "3446066f-ec64-47a1-89ac-22620a2f2bb6",
+      "name": "Google Flights: nonstop + sort by arrival",
+      "enabled": true,
+      "file": "google-flights-nonstop-sort-by-arrival.user.js",
+      "sha256": "f7df4fb593efd723e9d27ae5bed248ac00a6e19433414fa9c95766e143b46897"
+    },
+    {
+      "uuid": "43f8dc75-327b-41db-9511-93a0ec0d328a",
+      "name": "Amazon checkout: tip -> $0 + preferred delivery window",
+      "enabled": true,
+      "file": "amazon-checkout-tip-0-preferred-delivery-window.user.js",
+      "sha256": "21dfda7e35a84de3572f9946b47668646d4f5014d350553f92dad2c5657e40ed"
+    },
+    {
+      "uuid": "6026c729-743f-4f17-b3f5-34af9bbb4eef",
+      "name": "Desmos Reverse Contrast",
+      "enabled": false,
+      "file": "desmos-reverse-contrast.user.js",
+      "sha256": "d285ea2ca1a135f85880c510ccefe0fdb2f21c2aa67dcabc5485403126d0a148"
+    },
+    {
+      "uuid": "6c3fa420-4b9e-4764-ac76-d1fb0caac1b6",
+      "name": "Google Flights: one-way + earliest date",
+      "enabled": true,
+      "file": "google-flights-one-way-earliest-date.user.js",
+      "sha256": "88af93e3f8e922ed421b1be50972cf9a2da17ccbaeb96b2ebf037ce5d89afff7"
+    }
+  ]
+}

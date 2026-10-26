@@ -217,4 +217,41 @@ Copy to local first: ☐ `DATA/Messages` (74 GB — or verified iCloud Keep-Fore
 ## browser extensions (Helium, 2026-10-25)
 Install with `helium/install-extensions.mjs` (the ID list lives there). Relaunch Helium with CDP (`osascript -e 'quit app "Helium"'; open -a Helium --args --remote-debugging-port=9222`, which works on the default profile), run `node ~/.config/helium/install-extensions.mjs`, and click **Add extension** in each native confirm dialog. CDP can't reach that dialog, and synthetic keystrokes need Accessibility for the terminal.
 Installed: Tampermonkey · Dark Reader · Zotero Connector · iCloud Passwords · Google Docs Offline · Unhook · ActivityWatch Web Watcher · Le Git Graph · Claude Continue-from-Here. uBlock Origin is built into Helium.
-Dropped from the Arc list: DownThemAll, Matter, uBlock Origin Lite. Not yet re-found: SheetKeys, YT Playback Speed. Tampermonkey scripts (desmos darkmode) were lost with the stolen laptop.
+Dropped from the Arc list: DownThemAll, Matter, uBlock Origin Lite. Not yet re-found: SheetKeys, YT Playback Speed. Tampermonkey scripts were recovered from pinktop Arc on 2026-10-26; the earlier claim that Desmos was lost was incorrect.
+
+
+### Personal extension settings and userscripts
+
+After installing the extension set, restore personal settings too. Dark Reader
+must follow the system color scheme, not stay permanently on. Tampermonkey's
+five reviewed scripts and original enabled states live in `tampermonkey/`
+(four enabled; Desmos Reverse Contrast disabled). The manifest records source
+hashes; script storage records preserve UUIDs, ordering and per-script options.
+The restore merges missing scripts, refuses to replace changed sources, keeps
+unrelated scripts/settings, and writes private backups outside this public repo.
+It does not run the userscript source or visit Amazon checkout to test it.
+
+Only quit Helium when you are ready; save any unfinished forms first. Start a
+temporary loopback-only debugging session with session restore (use any free
+high port; keep the same value in the environment variable and launch flag).
+
+```sh
+export HELIUM_CDP_URL=http://127.0.0.1:49371
+osascript -e 'quit app "Helium"'
+# Wait for Helium to exit gracefully; do not force-kill it.
+open -a Helium --args --restore-last-session --remote-debugging-address=127.0.0.1 --remote-debugging-port=49371
+node ~/.config/helium/restore-personalization.mjs
+node ~/.config/helium/restore-personalization.mjs --verify-only
+```
+
+The restore uses Dark Reader's own UI message protocol and reads persisted
+settings back. It merges Tampermonkey's per-script records through the extension
+storage API, then reloads Tampermonkey so its in-memory index sees the scripts.
+Open the Tampermonkey dashboard and confirm all five names and enabled toggles.
+On a fresh Chromium install, also enable **Allow user scripts** on Tampermonkey's
+extension-details page if the browser requires it. Keep existing site permissions.
+Reload already-open pages when you want the migrated scripts to apply.
+
+Debugging access is powerful, even on loopback. When convenient, quit Helium
+normally and reopen without debugging flags; do not leave a permanent debugging
+server or a public tunnel. Backups are under `~/.local/state/helium-setup/`.
