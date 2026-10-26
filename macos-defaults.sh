@@ -134,3 +134,7 @@ killall universalaccessd 2>/dev/null
 killall useractivityd 2>/dev/null
 killall sharingd 2>/dev/null
 echo "macos-defaults.sh applied."
+
+# Show Desktop = opt+shift+e (dvorak e = keycode 2 = physical D, char 101; 655360 = opt+shift). Was only in archive/README-2026-06-03.md, so fresh installs lost it.
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 36 "{enabled = 1; value = {parameters = (101, 2, 655360); type = standard;};}"
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
