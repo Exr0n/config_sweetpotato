@@ -37,6 +37,27 @@ CLT and shadows the `/usr/bin/git` stub that pops the CLT dialog), `gh auth logi
 `cd ~/.config && git init -b main && git remote add origin https://github.com/Exr0n/config_sweetpotato.git && git fetch origin main && git reset origin/main`
 (mixed reset keeps the working tree; `git diff` then shows only real local edits).
 
+### GitHub authentication before the first push
+
+Install the CLI explicitly, even if a package batch was interrupted:
+
+```sh
+brew install git gh
+~/.config/git/setup-github.sh
+```
+
+The helper runs `gh auth login --hostname github.com --git-protocol https --web`
+only when needed, then `gh auth setup-git --hostname github.com` and verifies the
+signed-in account through the GitHub API. Approve the device code in your signed-in
+browser. For unattended setup, use `~/.config/git/setup-github.sh --check`;
+it never launches a browser or waits for approval. A failed check means sign-in
+is still pending, not that provisioning authenticated successfully.
+
+Use an HTTPS remote until SSH keys are restored. Before calling a migration
+complete, run `git push` and verify `git status -sb` has no ahead commits.
+`gh/hosts.yml` is deliberately ignored because this repository is public;
+credentials belong in the macOS keychain, never in tracked setup files.
+
 ## 2. shell
 ```sh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
