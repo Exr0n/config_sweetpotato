@@ -69,7 +69,7 @@ brew install pass coreutils zoxide moreutils lsd rm-improved the_silver_searcher
   imagemagick wget rsync watch poppler ghostscript graphviz cloudflared libimobiledevice \
   ideviceinstaller libheif iperf3 xcodegen pnpm radare2 julia ruby python@3.11 platformio \
   git-annex zsh-autocomplete zsh-autosuggestions zsh-syntax-highlighting mas defaultbrowser \
-  pinentry-mac duti
+  pinentry-mac duti jakehilborn/jakehilborn/displayplacer
 brew install --cask kitty raycast zotero fantastical claude beeper visual-studio-code \
   nikitabobko/tap/aerospace font-iosevka-term-nerd-font todoist-app orbstack \
   readdle-spark chatgpt discord google-chrome helium-browser
@@ -119,6 +119,7 @@ previous config/keybind state in place and can make switching appear to stop.
 - symbolichotkeys apply at login — or hot-activate: `/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u`
 - **Per-app menu shortcut overrides** (System Settings → Keyboard → Shortcuts → App Shortcuts) live in each app's `NSUserKeyEquivalents` dict. Modifier chars: `@`=cmd `^`=ctrl `~`=opt `$`=shift; the key is appended literally (space = a literal space). Quit the app first (it reads them at launch). Examples:
   - Photos **Start Playback** → ⌃Space (default ⌥Space clashes with Todoist quick-add `Alt+Space`): `defaults write com.apple.Photos NSUserKeyEquivalents -dict-add "Start Playback" '^ '`
+- `macos-defaults.sh` also: empties the Dock's pinned apps, hides the Spotlight + Raycast menu-bar icons, and sets the built-in display to "More Space" (1800x1169 @120Hz via displayplacer).
 - GUI-only: default browser `defaultbrowser helium` (Helium, 2026-10-25; Arc sunsets 2026-12-22; Chrome stays installed for albot's browser control), wallpaper, Reduce Motion, TCC grants per app.
 - **Handoff / Universal Clipboard:** `macos-defaults.sh` enables both advertising
   and receiving, then restarts the continuity services. Also enable Handoff on
@@ -179,5 +180,6 @@ all. Restore only recent sessions on a new laptop and keep the rest under
 ## 10. before wiping the backup drive — checklist
 Copy to local first: ☐ `DATA/Messages` (74 GB — or verified iCloud Keep-Forever) ☐ `CONFIG/` (27 MB) ☐ `README.md` + `MAINTENANCE.md` ☐ `SECRETS.tar.gz.enc` (encrypted safety net — contains the not-yet-restored Chrome profile + Safari data). And don't shred the local `~/secrets_restore` until those are squared away.
 
-## browser extensions (Arc era, from backup manifest; carry-over list to Helium not yet decided)
-uBlock Origin (+Lite) · Tampermonkey (+desmos darkmode script) · SheetKeys · Dark Reader · Zotero Connector · YT Playback Speed · Le Git Graph · Unhook · Matter · Claude Continue-from-Here · ActivityWatch Watcher · DownThemAll · iCloud Passwords · Google Docs Offline
+## browser extensions (Helium, 2026-10-25)
+Installed: Tampermonkey · Dark Reader · Zotero Connector · iCloud Passwords · Google Docs Offline · Unhook · ActivityWatch Web Watcher · Le Git Graph · Claude Continue-from-Here. uBlock Origin is built into Helium.
+Dropped from the Arc list: DownThemAll, Matter, uBlock Origin Lite. Not yet re-found: SheetKeys, YT Playback Speed. Tampermonkey scripts (desmos darkmode) were lost with the stolen laptop.

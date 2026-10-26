@@ -1,5 +1,8 @@
 {
   "trustedcasks": [
     "nikitabobko/tap/aerospace"
+  ],
+  "trustedformulae": [
+    "jakehilborn/jakehilborn/displayplacer"
   ]
 }

@@ -61,6 +61,14 @@ defaults write com.apple.dock "expose-animation-duration" -float 0.001   # insta
 defaults write com.apple.dock tilesize -int 39
 defaults write com.apple.dock wvous-tr-corner -int 10               # top-right hot corner = display sleep
 defaults write com.apple.dock wvous-tr-modifier -int 0
+defaults write com.apple.dock persistent-apps -array               # no pinned apps (AeroSpace/Raycast launch everything); Downloads stack kept
+
+### ── menu bar: hide Spotlight + Raycast icons (both launched by hotkey) ──
+defaults write com.apple.Spotlight "NSStatusItem VisibleCC Item-0" -bool false
+defaults write com.raycast.macos "NSStatusItem VisibleCC Item-0" -bool false  # unverified key; else Raycast Settings → General → uncheck "Show Raycast in menu bar"
+
+### ── display: built-in screen at "More Space" (needs `brew install jakehilborn/jakehilborn/displayplacer`) ──
+command -v displayplacer >/dev/null && displayplacer "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1800x1169 hz:120 color_depth:8 enabled:true scaling:on origin:(0,0) degree:0"
 
 ### ── Finder ────────────────────────────────────────────────────────
 defaults write com.apple.finder FXPreferredViewStyle -string clmv   # column view default
@@ -120,7 +128,7 @@ defaults write -g NSUserDictionaryReplacementItems -array \
 # machine/monitor-specific (pixel positions won't match) — set via GUI drag instead.
 
 ### ── restart affected UI services ────────────────────────────────
-for app in Finder Dock SystemUIServer ControlCenter; do killall "$app" 2>/dev/null; done
+for app in Finder Dock SystemUIServer ControlCenter Spotlight; do killall "$app" 2>/dev/null; done
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u 2>/dev/null
 killall universalaccessd 2>/dev/null
 killall useractivityd 2>/dev/null
