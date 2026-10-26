@@ -236,7 +236,14 @@ all. Restore only recent sessions on a new laptop and keep the rest under
 Copy to local first: ☐ `DATA/Messages` (74 GB — or verified iCloud Keep-Forever) ☐ `CONFIG/` (27 MB) ☐ `README.md` + `MAINTENANCE.md` ☐ `SECRETS.tar.gz.enc` (encrypted safety net — contains the not-yet-restored Chrome profile + Safari data). And don't shred the local `~/secrets_restore` until those are squared away.
 
 ## browser extensions (Helium, 2026-10-25)
-Install with `helium/install-extensions.mjs` (the ID list lives there). Relaunch Helium with CDP (`osascript -e 'quit app "Helium"'; open -a Helium --args --remote-debugging-port=9222`, which works on the default profile), run `node ~/.config/helium/install-extensions.mjs`, and click **Add extension** in each native confirm dialog. CDP can't reach that dialog, and synthetic keystrokes need Accessibility for the terminal.
+Stage the curated Web Store IDs with `node ~/.config/helium/install-extensions.mjs`.
+The installer writes external registrations only. It does not open tabs, focus
+windows, edit running browser preferences, or restart Helium. Registrations
+are not live installations. At the next normal restart, review and confirm any
+extension prompts, then verify the extensions are enabled.
+For keyboard-navigation extensions, exact bindings, reviewed permissions, and
+remaining activation steps are recorded in [helium/SHORTCUTS.txt](helium/SHORTCUTS.txt).
+Do not interrupt an active browser session just to run setup.
 Installed: Tampermonkey · Dark Reader · Zotero Connector · iCloud Passwords · Google Docs Offline · Unhook · ActivityWatch Web Watcher · Le Git Graph · Claude Continue-from-Here. uBlock Origin is built into Helium.
 Dropped from the Arc list: DownThemAll, Matter, uBlock Origin Lite. Not yet re-found: SheetKeys, YT Playback Speed. Tampermonkey scripts were recovered from pinktop Arc on 2026-10-26; the earlier claim that Desmos was lost was incorrect.
 
