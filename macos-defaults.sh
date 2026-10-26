@@ -162,3 +162,11 @@ defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 "{ena
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 61 "{enabled = 0;}"  # Ctrl-Opt-Space input source off
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 killall Dock Finder ControlCenter SystemUIServer 2>/dev/null || true
+
+# Photos "Start Playback" = Ctrl-Space (default Opt-Space clashes with Todoist quick add). Albert 2026-06-23. Quit Photos first.
+defaults write com.apple.Photos NSUserKeyEquivalents -dict-add "Start Playback" '^ '
+
+# Todoist: disable the Ramble global shortcut (eats physical cmd-shift-p = alt-shift-p window tag). Albert 2026-06-19. Quit Todoist first; skipped if Todoist has never run.
+_td="$HOME/Library/Application Support/Todoist/settings.json"
+if [ -f "$_td" ] && command -v jq >/dev/null; then jq '.global_shortcuts.quick_add_ramble=""' "$_td" > "$_td.tmp" && mv "$_td.tmp" "$_td"; fi
+unset _td
