@@ -1,6 +1,6 @@
 # sweetpotato — machine migration recipe
 
-_Last updated: **2026-08-08** (after the 2026-06 laptop migration)._
+_Last updated: **2026-10-25** (sweetpotato3 migration; workflow now mostly through albot)._
 _This file evolves; dated snapshots of previous READMEs live in `archive/`._
 
 Compact, ordered recipe to rebuild this machine (macOS 15+, Apple Silicon) from nothing.
@@ -71,12 +71,13 @@ brew install pass coreutils zoxide moreutils lsd rm-improved the_silver_searcher
   git-annex zsh-autocomplete zsh-autosuggestions zsh-syntax-highlighting mas defaultbrowser \
   pinentry-mac duti
 brew install --cask kitty raycast zotero fantastical claude beeper visual-studio-code \
-  nikitabobko/tap/aerospace font-iosevka-term-nerd-font dayflow todoist-app orbstack \
-  readdle-spark
+  nikitabobko/tap/aerospace font-iosevka-term-nerd-font todoist-app orbstack \
+  readdle-spark chatgpt discord google-chrome helium-browser
 ```
 - **sudo .pkg casks — run in a real terminal** (they prompt for password): `brew install --cask karabiner-elements mactex`
-- **App Store (manual click):** Amphetamine, Toggl Track. The native menu-bar clock is configured as `Mon, July 2, 3:04 PM`; Letter Clock is not required.
-- globals: `bun add -g @letta-ai/letta-code corepack` · `rustup default stable && cargo install witty-phrase-generator`
+- **App Store (manual click):** Amphetamine. (Toggl Track and Dayflow dropped 2026-10-25.) The native menu-bar clock is configured as `Mon, July 2, 3:04 PM`; Letter Clock is not required.
+- globals: `rustup default stable` (Letta dropped 2026-10-25). Also kept: Rust, Julia, MacTeX (`brew install --cask mactex`, 6.5 GB: do it on real Wi-Fi).
+- **No Command Line Tools?** On macOS 26.x Apple's update server may not offer them. Install Homebrew from its tarball instead (`curl -fL https://github.com/Homebrew/brew/tarball/main | tar xz --strip-components 1 -C /opt/homebrew`, branch `main`, `master` is rejected), use `HOMEBREW_NO_AUTO_UPDATE=1`, and fetch repos as tarballs: casks and bottled formulae need neither git nor a compiler. skhd (source build) is not needed; AeroSpace replaces it.
 - VSCode extensions: `for e in $(<list); do code --install-extension $e; done` (curated = backup `inventory/vscode_extensions.txt` minus matlab/wpilib/java-pack/flutter/ocaml/jsonnet). NB: in zsh use `${=VAR}` to word-split.
 - STALE — do not install: yabai, felixkratz/borders, alacritty (replaced by AeroSpace + kitty)
 
@@ -118,7 +119,7 @@ previous config/keybind state in place and can make switching appear to stop.
 - symbolichotkeys apply at login — or hot-activate: `/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u`
 - **Per-app menu shortcut overrides** (System Settings → Keyboard → Shortcuts → App Shortcuts) live in each app's `NSUserKeyEquivalents` dict. Modifier chars: `@`=cmd `^`=ctrl `~`=opt `$`=shift; the key is appended literally (space = a literal space). Quit the app first (it reads them at launch). Examples:
   - Photos **Start Playback** → ⌃Space (default ⌥Space clashes with Todoist quick-add `Alt+Space`): `defaults write com.apple.Photos NSUserKeyEquivalents -dict-add "Start Playback" '^ '`
-- GUI-only: default browser `defaultbrowser browser` (Arc), wallpaper, Reduce Motion, TCC grants per app.
+- GUI-only: default browser `defaultbrowser helium` (Helium, 2026-10-25; Arc sunsets 2026-12-22; Chrome stays installed for albot's browser control), wallpaper, Reduce Motion, TCC grants per app.
 - **Handoff / Universal Clipboard:** `macos-defaults.sh` enables both advertising
   and receiving, then restarts the continuity services. Also enable Handoff on
   the iPhone under **Settings → General → AirPlay & Continuity → Handoff**.
@@ -178,5 +179,5 @@ all. Restore only recent sessions on a new laptop and keep the rest under
 ## 10. before wiping the backup drive — checklist
 Copy to local first: ☐ `DATA/Messages` (74 GB — or verified iCloud Keep-Forever) ☐ `CONFIG/` (27 MB) ☐ `README.md` + `MAINTENANCE.md` ☐ `SECRETS.tar.gz.enc` (encrypted safety net — contains the not-yet-restored Chrome profile + Safari data). And don't shred the local `~/secrets_restore` until those are squared away.
 
-## browser extensions (Arc, from backup manifest)
+## browser extensions (Arc era, from backup manifest; carry-over list to Helium not yet decided)
 uBlock Origin (+Lite) · Tampermonkey (+desmos darkmode script) · SheetKeys · Dark Reader · Zotero Connector · YT Playback Speed · Le Git Graph · Unhook · Matter · Claude Continue-from-Here · ActivityWatch Watcher · DownThemAll · iCloud Passwords · Google Docs Offline
