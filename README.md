@@ -244,6 +244,16 @@ node ~/.config/helium/restore-personalization.mjs
 node ~/.config/helium/restore-personalization.mjs --verify-only
 ```
 
+AppleScript JavaScript is intentionally enabled permanently on Albert's machine.
+In Helium, use **View → Developer → Allow JavaScript from Apple Events**.
+For a scripted fresh setup, only while Helium is completely quit, set
+`browser.allow_javascript_apple_events=true` in the Default profile's
+`Preferences` JSON, preserving every other key. Do not edit browser preferences
+while Helium is running. Verify after reopening with
+`osascript -e 'tell application "Helium" to execute active tab of front window javascript "1+1"'`;
+the result must be `2`. This permission lets authorized local automation execute
+JavaScript in open tabs, so it is a deliberate personal-machine setting.
+
 The restore uses Dark Reader's own UI message protocol and reads persisted
 settings back. It merges Tampermonkey's per-script records through the extension
 storage API, then reloads Tampermonkey so its in-memory index sees the scripts.
