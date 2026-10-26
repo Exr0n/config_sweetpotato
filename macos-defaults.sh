@@ -138,3 +138,27 @@ echo "macos-defaults.sh applied."
 # Show Desktop = opt+shift+e (dvorak e = keycode 2 = physical D, char 101; 655360 = opt+shift). Was only in archive/README-2026-06-03.md, so fresh installs lost it.
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 36 "{enabled = 1; value = {parameters = (101, 2, 655360); type = standard;};}"
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+
+# --- Restored from archive/README-2026-06-03.md (pinktop settings never carried into this script) ---
+defaults write com.apple.dock workspaces-auto-swoosh -bool false  # do not jump to a space with open windows when switching app
+defaults write com.apple.dock expose-group-apps -bool false       # do not group windows by application in Mission Control
+defaults write com.apple.spaces spans-displays -bool false        # displays have separate spaces (needs logout)
+defaults write com.apple.universalaccess reduceMotion -bool true
+defaults write com.apple.Accessibility ReduceMotionEnabled -int 1
+defaults write com.apple.dock autohide-time-modifier -float 0     # instant Dock show/hide
+defaults write com.apple.dock persistent-others -array            # no pinned folders/stacks
+defaults write com.apple.dock expose-animation-duration -float 0.001  # near-instant Mission Control
+defaults write com.apple.finder ShowPathbar -bool true
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGesture -int 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerVertSwipeGesture -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerVertSwipeGesture -int 2
+defaults write com.apple.screencapture target clipboard           # screenshots to clipboard
+defaults write com.apple.controlcenter "NSStatusItem Visible AirDrop" -bool false
+defaults write com.apple.controlcenter "NSStatusItem Visible Display" -bool false
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{enabled = 0;}"  # Cmd-Space Spotlight off
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "{enabled = 0;}"  # Cmd-Opt-Space Finder search off
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 "{enabled = 0;}"  # Ctrl-Space input source off
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 61 "{enabled = 0;}"  # Ctrl-Opt-Space input source off
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+killall Dock Finder ControlCenter SystemUIServer 2>/dev/null || true
