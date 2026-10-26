@@ -187,14 +187,13 @@ ctrl-alt-t       = '''exec-and-forget open -na kitty --args --start-as=maximized
 ctrl-alt-shift-t = 'move-workspace-to-monitor 1'  # (was a duplicate of ctrl-alt-t new-kitty — that one still works)
 alt-o            = '''exec-and-forget open -a Claude'''         # claude (lalt-o)
 alt-semicolon    = '''exec-and-forget open -a ChatGPT'''        # Codex/ChatGPT app (physical cmd-;)
-alt-a            = '''exec-and-forget open -a Arc'''            # browser (lalt-a)
+alt-a            = '''exec-and-forget open -a Helium'''         # browser (lalt-a)
 alt-c            = '''exec-and-forget open -a "Visual Studio Code"'''   # vscode
 alt-9            = '''exec-and-forget open -a Beeper'''     # default messaging client (physical cmd-9)
 alt-shift-9      = '''exec-and-forget open -a Discord'''    # Discord (physical cmd-shift-9)
 alt-0            = '''exec-and-forget open -a Fantastical'''    # calendar (lalt-0)
 alt-shift-0      = '''exec-and-forget open -a "Toggl Track"'''  # toggl (lalt+shift-0)
 ctrl-alt-8       = '''exec-and-forget open -a Zotero'''         # zotero
-alt-shift-q      = '''exec-and-forget open -a Notes'''          # notes (lalt+shift-q)
 alt-q            = '''exec-and-forget open -a Todoist'''        # todoist (on q)
 alt-8            = '''exec-and-forget open -a "Spark Desktop"'''  # email (Spark; lalt-8)
 # stale / not-installed apps from old skhd — intentionally omitted, uncomment if installed:
@@ -202,7 +201,7 @@ alt-8            = '''exec-and-forget open -a "Spark Desktop"'''  # email (Spark
 # alt-shift-8    = '''exec-and-forget pgrep -x Telegram >/dev/null && open -a Telegram'''  # telegram (lalt+shift-8)
 # ctrl-alt-8 was Mochi (lalt+ctrl-8) — repurposed to Zotero above
 # alt-ctrl-0     = '''exec-and-forget open -a cao'''            # cao (lalt+ctrl-0)
-# semicolon (Dvorak) = Chrome (lalt-0x06) — Chrome not installed; using Arc instead
+# semicolon (Dvorak) = Chrome (lalt-0x06) — Chrome is installed (albot drives it) but unbound; browser is Helium on alt-a
 
 # ── script commands (skhd raycast-script-commands) ─────────────
 alt-shift-o      = '''exec-and-forget ~/.config/raycast-script-commands/insert-alphanumeric-timestamp.sh'''  # paste alphanumeric timestamp
