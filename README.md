@@ -24,6 +24,18 @@ the rest of this repository.
 git clone git@github.com:Exr0n/config_sweetpotato.git ~/.config
 cd ~/.config && git submodule update --init        # window-tagging
 ```
+**No git yet (no Command Line Tools, no GitHub key):** take the tarball, then the
+`window-tagging` submodule at its pinned commit (a repo tarball leaves it empty, and
+every tag keybind silently fails):
+```sh
+mkdir -p ~/.config && curl -fL https://github.com/Exr0n/config_sweetpotato/tarball/main | tar xz --strip-components 1 -C ~/.config
+sha=$(curl -fsS https://api.github.com/repos/Exr0n/config_sweetpotato/contents/window-tagging | jq -r .sha)
+curl -fL https://github.com/Exr0n/window-tagging/tarball/$sha | tar xz --strip-components 1 -C ~/.config/window-tagging
+```
+Later, turn it back into a checkout: `brew install git` (Homebrew's git needs no
+CLT and shadows the `/usr/bin/git` stub that pops the CLT dialog), `gh auth login -w && gh auth setup-git`, then
+`cd ~/.config && git init -b main && git remote add origin https://github.com/Exr0n/config_sweetpotato.git && git fetch origin main && git reset origin/main`
+(mixed reset keeps the working tree; `git diff` then shows only real local edits).
 
 ## 2. shell
 ```sh
@@ -32,8 +44,25 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.config/zsh_c
 curl -fsSL https://bun.sh/install | bash           # use `bun add -g` for global JS — NOT npm (EACCES on shared brew)
 mkdir -p ~/.caches                                  # rc.zsh expects this
 ```
-`~/.zshrc`: p10k instant-prompt, `export ZSH_CUSTOM="$HOME/.config/zsh_custom"`,
-`ZSH_THEME="powerlevel10k/powerlevel10k"`, source oh-my-zsh (zsh_custom auto-loads `rc.zsh` + `lean_p10k.zsh` + `modern_shell.zsh`), then brew's zsh-autosuggestions + zsh-syntax-highlighting.
+`~/.zshrc` (zsh_custom auto-loads `rc.zsh` + `lean_p10k.zsh` + `modern_shell.zsh`; the bun installer only appends PATH lines, so write this yourself):
+```zsh
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export PATH="$HOME/.local/bin:/opt/homebrew/opt/rustup/bin:$PATH"   # brew rustup is keg-only
+export BUN_INSTALL="$HOME/.bun"; export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+export ZSH="$HOME/.oh-my-zsh" ZSH_CUSTOM="$HOME/.config/zsh_custom"
+ZSH_THEME="powerlevel10k/powerlevel10k"; plugins=(git)
+source "$ZSH/oh-my-zsh.sh"
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+```
+`rc.zsh` also expects `~/.cargo/env` (brew's rustup never creates it) and `~/.caches/recent_dirs.csv`:
+`mkdir -p ~/.cargo/bin && printf 'export PATH="$HOME/.cargo/bin:$PATH"\n' > ~/.cargo/env && touch ~/.caches/recent_dirs.csv`.
+No CLT means no git for the oh-my-zsh installer / p10k clone: use tarballs
+(`curl -fL https://github.com/ohmyzsh/ohmyzsh/tarball/master | tar xz --strip-components 1 -C ~/.oh-my-zsh`, same for `romkatv/powerlevel10k` into `zsh_custom/themes/powerlevel10k`).
 `rc.zsh` deliberately runs `unset NO_COLOR`: GUI apps inherit their launch
 environment, and an AeroSpace process once inherited `NO_COLOR=1` and passed it
 to every kitty/Codex process it launched. If an already-running launcher is
@@ -75,7 +104,8 @@ brew install --cask kitty raycast zotero fantastical claude beeper visual-studio
   readdle-spark chatgpt discord google-chrome helium-browser
 ```
 - **sudo .pkg casks — run in a real terminal** (they prompt for password): `brew install --cask karabiner-elements mactex`
-- **App Store (manual click):** Amphetamine. (Toggl Track and Dayflow dropped 2026-10-25.) The native menu-bar clock is configured as `Mon, July 2, 3:04 PM`; Letter Clock is not required.
+- **Flaky network (phone hotspot):** big GitHub-hosted downloads (Karabiner's dmg) die with `curl: (92) HTTP/2 stream ... PROTOCOL_ERROR`; retry with `HOMEBREW_CURL_RETRIES=10`. Install casks in parallel (one `brew install --cask X &` each) rather than one serial loop; formulae sharing dependencies can hit `already locked` errors when parallel, so retry those.
+- **App Store:** Amphetamine: `mas install 937984704` (worked once the Mac's Apple Account was signed in). (Toggl Track and Dayflow dropped 2026-10-25.) The native menu-bar clock is configured as `Mon, July 2, 3:04 PM`; Letter Clock is not required.
 - globals: `rustup default stable` (Letta dropped 2026-10-25). Also kept: Rust, Julia, MacTeX (`brew install --cask mactex`, 6.5 GB: do it on real Wi-Fi).
 - **No Command Line Tools?** On macOS 26.x Apple's update server may not offer them. Install Homebrew from its tarball instead (`curl -fL https://github.com/Homebrew/brew/tarball/main | tar xz --strip-components 1 -C /opt/homebrew`, branch `main`, `master` is rejected), use `HOMEBREW_NO_AUTO_UPDATE=1`, and fetch repos as tarballs: casks and bottled formulae need neither git nor a compiler. skhd (source build) is not needed; AeroSpace replaces it.
 - VSCode extensions: `for e in $(<list); do code --install-extension $e; done` (curated = backup `inventory/vscode_extensions.txt` minus matlab/wpilib/java-pack/flutter/ocaml/jsonnet). NB: in zsh use `${=VAR}` to word-split.
@@ -96,16 +126,20 @@ The last command should report `Spark Desktop`. AeroSpace's Option-8 launcher
 also opens Spark directly; Apple Mail is not part of the standard setup.
 
 ## 4. keyboard (karabiner) — load order matters
-Config auto-loads from `~/.config/karabiner/`. Approve **driver** in Privacy & Security + enable **Input Monitoring**.
+Config auto-loads from `~/.config/karabiner/`. Approvals, in this order (none can be scripted):
+1. System Settings → General → **Login Items & Extensions → Allow in the Background**: Karabiner-Elements **Privileged Daemons v2** + **Non-Privileged Agents v2** (without these the core service never starts).
+2. Same pane → **Extensions → Driver Extensions** (ⓘ): enable **Karabiner-DriverKit-VirtualHIDDevice**. Check: `systemextensionsctl list | grep -i karabiner` shows `[activated enabled]`.
+3. Privacy & Security → **Input Monitoring**: **Karabiner-Core-Service** (add it with + from `/Library/Application Support/org.pqrs/Karabiner-Elements/` if it isn't listed).
+Verify: `sudo tail /var/log/karabiner/core_service.log` shows `Apple Internal Keyboard ... (grabbed)`. Until then it logs `device_grabber is not started because the required permissions are not granted`.
 - Simple mods now swap **BOTH** cmd↔option pairs (the old Mac did the right side via a macOS-level
   per-keyboard mapping that doesn't migrate — it's been folded into karabiner.json, self-contained now).
-- Resulting layer: physical cmd (either side) = **option** · physical option = **cmd** (left tap = Delete, right tap = Return) · capslock held = **control**, physical ctrl = capslock · physical delete = **sleep** · physical return = disabled.
+- Resulting layer: physical cmd (either side) = **option** · physical option = **cmd** (left tap = Delete, right tap = Return) · capslock held = **control**, physical ctrl = capslock · physical delete = **sleep** · physical return = **dictation**.
 
 ## 5. window manager (AeroSpace + window-tagging)
 Config `aerospace/aerospace.toml` uses **`config-version = 2`** (required by
 current AeroSpace); every `on-window-detected` block, including the catch-all,
 must have an explicit `if` condition (`if = 'true'` for the catch-all).
-It has a **dvorak key-mapping preset** (letter binds follow Dvorak char positions; window-tag `',.p` keys are written `quote/comma/period/p` = physical QWER), monocle (accordion pad 0 + yabai gaps), window-tagging `1-7` + `',.p`, per-app workspaces (Beeper/Discord/Spark/fantastical/claude/arc/notes), Finder + System Settings float, cursor-follows-focus (`window-force-center`). **Physical Cmd-9** opens Beeper as the default messaging client; **Cmd-Shift-9** opens Discord. This laptop uses `0.21.3-Beta-exrpatch.1`: upstream's `Monitor.activeWorkspace` recursively retries a stale monitor forever during display refresh, causing the repeat crashes seen on 2026-08-10 and 2026-08-12. The source fix in `aerospace/patches/0001-bound-active-workspace-refresh.patch` replaces that recursion with one cache refresh and a nearest-current-monitor fallback. It is signed with Albert's Apple Development identity, so a newly installed build needs one Accessibility approval. The untouched upstream app is retained in `~/Library/Application Support/AeroSpaceRollback/`.
+It has a **dvorak key-mapping preset** (letter binds follow Dvorak char positions; window-tag `',.p` keys are written `quote/comma/period/p` = physical QWER), monocle (accordion pad 0 + yabai gaps), window-tagging `1-7` + `',.p`, per-app workspaces (Beeper/Discord/Spark/fantastical/claude/arc/notes), Finder + System Settings float, cursor-follows-focus (`window-force-center`). **Physical Cmd-9** opens Beeper as the default messaging client; **Cmd-Shift-9** opens Discord. This laptop uses `0.21.3-Beta-exrpatch.1`: upstream's `Monitor.activeWorkspace` recursively retries a stale monitor forever during display refresh, causing the repeat crashes seen on 2026-08-10 and 2026-08-12. The source fix in `aerospace/patches/0001-bound-active-workspace-refresh.patch` replaces that recursion with one cache refresh and a nearest-current-monitor fallback. It is signed with Albert's Apple Development identity, so a newly installed build needs one Accessibility approval. The untouched upstream app is retained in `~/Library/Application Support/AeroSpaceRollback/`. **sweetpotato3 (2026-10-25) runs the stock cask `0.21.3-Beta d56e163`, not the patched build.** Rebuild with the patch if the crashes come back. `start-at-login = true` in the config handles its login item.
 Binds beyond the old skhd: `⌥⇧i` pop-to-fresh-workspace · `⌥i` **gather mode** (see below) · `⌥u` recently-created (via `$AEROSPACE_WINDOW_ID` catch-all rule) · `⌥⇧v` golden-ratio center-float · `⌥⇧a` **toggle light/dark** (`toggle-appearance.sh` debounces duplicate key-repeat events) · `⌥q` Todoist · `⌥o` Claude · `⌥;` ChatGPT-Codex (physical cmd-;) · `⌥⇧o` timestamp-paste script · `⌃⌥⇧hjkl` **join-with** (nested containers; then `⌥b`/`⌥⇧b` set the sub-layout)
 - **Auto-float tiny popups** (`float-if-small.sh` + `win-vs-screen.js`): every `on-window-detected` rule (and the catch-all) runs a size check — if a new window is smaller than **⅓ × ⅓ of its monitor** (iCloud Passwords sheet, auth dialogs), it's set to `layout floating` instead of being stretched into a tile. Re-tile one manually with **`⌥\`** (`alt-backslash`, physical cmd-\). Geometry trick: **AeroSpace window-id == CoreGraphics window number**, so `win-vs-screen.js` reads exact per-window bounds via `CGWindowListCopyWindowInfo` (cast with `ObjC.castRefToObject`) + the containing `NSScreen` — reliable regardless of focus/Space, unlike System Events' fragile "frontmost window". Both window and screen are in points, so the ⅓ ratio is Retina-safe. Browser popups still get moved to the `arc` workspace (where the browser lives = where you are), just floating not tiled.
 - **Gather mode** (`gather.sh` + `[mode.gather.binding]`): `⌥i` enters the mode (the focused window is always part of the commit); inside the mode `⌥hjkl` marks current+neighbor (chain to grab more on the same workspace), then `⌥<tag>` (1-7 / `',.p`=q/w/e/r) sends the marked set **+ the focused window** to that **tag's workspace** (same window-id→workspace resolution as the tag jumps, falling back to a workspace literally named `<tag>`), or `⌥⇧i` sends them to a **fresh** empty workspace on the current monitor; `esc`/`⌥i` cancels. Solves "I popped one window out, now how do I send its partner to join it." **Race-proof:** the commit always adds the live-focused window and snapshots the set into memory before moving — it does *not* depend on the async `start`/`mark` writers having finished (the original bug: pressing `⌥i` then a tag quickly moved nothing because `start` hadn't seeded the file yet). Marked-set state in `~/.caches/aerospace/gather_set`; progress shown via notifications (monocle has no visual selection). · monitor focus/move `t/s/n` (+shift moves window AND follows; `⌃⌥⇧t/s/n` moves the **whole workspace** to that monitor) · pop-to-fresh pins the new workspace to the **current** monitor (else empty workspaces materialize on monitor 1). Monitors are bound **by enumeration order** — this laptop enumerates Dell/LG opposite to expectation, so 2/3 are swapped in config; if it bites again, switch to name patterns (`focus-monitor 'dell'`).
@@ -169,7 +203,7 @@ finish before indexing or searching the restored data.
 7. **"Can't switch away from app X after undocking"** (its full-screen window stays drawn on top; other/tagged spaces switch fine): X's window got **orphaned on a disconnected monitor's Space**, so AeroSpace can't see it — check `aerospace list-windows --workspace <x>` (empty despite the app running) and `... --all | grep X` (absent). `reload-config` and even a full AeroSpace restart **won't** recover it (the window's on a phantom Space). Fix: **quit & reopen app X** so it recreates its window on the live Space → AeroSpace re-detects it. Originally seen with Discord after external monitors disconnect; the default messaging client is now Beeper.
 
 ## 9. sign-ins & onboarding (manual, last)
-Raycast (then export .rayconfig!), Fantastical accounts, Spark email accounts, Toggl, Zotero, VS Code Settings Sync, Arc, Dayflow onboarding, `gh auth login`. Gatekeeper "malware" flags (e.g. Codex): System Settings → Privacy & Security → Open Anyway.
+Raycast (then export .rayconfig!; its own "Launch at login" registers a login item, so no LaunchAgent is needed), Fantastical accounts, Spark email accounts, Zotero, VS Code Settings Sync, Claude, ChatGPT, Beeper, Discord, Todoist, Helium profile, `gh auth login -w` (device code; follow with `gh auth setup-git`). Accessibility: AeroSpace, Raycast. Gatekeeper "malware" flags (e.g. Codex): System Settings → Privacy & Security → Open Anyway.
 
 Codex resume performance depends on the active history under
 `~/.codex/sessions`. Archive old sessions instead of deleting them; keeping
@@ -181,5 +215,6 @@ all. Restore only recent sessions on a new laptop and keep the rest under
 Copy to local first: ☐ `DATA/Messages` (74 GB — or verified iCloud Keep-Forever) ☐ `CONFIG/` (27 MB) ☐ `README.md` + `MAINTENANCE.md` ☐ `SECRETS.tar.gz.enc` (encrypted safety net — contains the not-yet-restored Chrome profile + Safari data). And don't shred the local `~/secrets_restore` until those are squared away.
 
 ## browser extensions (Helium, 2026-10-25)
+Install with `helium/install-extensions.mjs` (the ID list lives there). Relaunch Helium with CDP (`osascript -e 'quit app "Helium"'; open -a Helium --args --remote-debugging-port=9222`, which works on the default profile), run `node ~/.config/helium/install-extensions.mjs`, and click **Add extension** in each native confirm dialog. CDP can't reach that dialog, and synthetic keystrokes need Accessibility for the terminal.
 Installed: Tampermonkey · Dark Reader · Zotero Connector · iCloud Passwords · Google Docs Offline · Unhook · ActivityWatch Web Watcher · Le Git Graph · Claude Continue-from-Here. uBlock Origin is built into Helium.
 Dropped from the Arc list: DownThemAll, Matter, uBlock Origin Lite. Not yet re-found: SheetKeys, YT Playback Speed. Tampermonkey scripts (desmos darkmode) were lost with the stolen laptop.
