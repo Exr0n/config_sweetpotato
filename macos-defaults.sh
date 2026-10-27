@@ -68,7 +68,15 @@ defaults write com.apple.Spotlight "NSStatusItem VisibleCC Item-0" -bool false
 defaults write com.raycast.macos "NSStatusItem VisibleCC Item-0" -bool false  # unverified key; else Raycast Settings → General → uncheck "Show Raycast in menu bar"
 
 ### ── display: built-in screen at "More Space" (needs `brew install jakehilborn/jakehilborn/displayplacer`) ──
-command -v displayplacer >/dev/null && displayplacer "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1800x1169 hz:120 color_depth:8 enabled:true scaling:on origin:(0,0) degree:0"
+_dp_list="$(command -v displayplacer >/dev/null && displayplacer list)"
+if printf %s "$_dp_list" | grep -q 80A3E46A-943C-4144-8B81-681F692C36E3 && printf %s "$_dp_list" | grep -q 329244EA-4610-4EB4-AC3C-6BE3F853F5C0; then
+  # desk (matches pinktop, Albert 2026-10-26): Dell U4025QW native 5K2K up-right of laptop; 27in portrait (rot 270) right of Dell
+  displayplacer "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1800x1169 hz:120 color_depth:8 enabled:true scaling:on origin:(0,0) degree:0" "id:80A3E46A-943C-4144-8B81-681F692C36E3 res:5120x2160 hz:120 color_depth:8 enabled:true origin:(1800,-1102) degree:0" "id:329244EA-4610-4EB4-AC3C-6BE3F853F5C0 res:1692x3008 hz:60 color_depth:8 enabled:true scaling:on origin:(6920,-1545) degree:270"
+elif [ -n "$_dp_list" ]; then
+  displayplacer "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1800x1169 hz:120 color_depth:8 enabled:true scaling:on origin:(0,0) degree:0"
+fi
+unset _dp_list
+### delete key = sleep display (karabiner complex rule "delete: sleep display + lock"; system sleep is refused because pmset disablesleep=1 keeps albot alive lid-closed)
 
 ### ── Finder ────────────────────────────────────────────────────────
 defaults write com.apple.finder FXPreferredViewStyle -string clmv   # column view default
@@ -146,7 +154,8 @@ defaults write com.apple.spaces spans-displays -bool false        # displays hav
 defaults write com.apple.universalaccess reduceMotion -bool true
 defaults write com.apple.Accessibility ReduceMotionEnabled -int 1
 defaults write com.apple.dock autohide-time-modifier -float 0     # instant Dock show/hide
-defaults write com.apple.dock persistent-others -array            # no pinned folders/stacks
+# Dock right side: only the Downloads stack (sorted by date added, shown as a stack)
+defaults write com.apple.dock persistent-others -array "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>file://$HOME/Downloads/</string><key>_CFURLStringType</key><integer>15</integer></dict><key>file-label</key><string>Downloads</string><key>file-type</key><integer>2</integer><key>arrangement</key><integer>2</integer><key>displayas</key><integer>0</integer><key>showas</key><integer>0</integer></dict><key>tile-type</key><string>directory-tile</string></dict>"
 defaults write com.apple.dock expose-animation-duration -float 0.001  # near-instant Mission Control
 defaults write com.apple.finder ShowPathbar -bool true
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGesture -int 2
