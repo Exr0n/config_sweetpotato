@@ -225,6 +225,8 @@ finish before indexing or searching the restored data.
 7. **"Can't switch away from app X after undocking"** (its full-screen window stays drawn on top; other/tagged spaces switch fine): X's window got **orphaned on a disconnected monitor's Space**, so AeroSpace can't see it — check `aerospace list-windows --workspace <x>` (empty despite the app running) and `... --all | grep X` (absent). `reload-config` and even a full AeroSpace restart **won't** recover it (the window's on a phantom Space). Fix: **quit & reopen app X** so it recreates its window on the live Space → AeroSpace re-detects it. Originally seen with Discord after external monitors disconnect; the default messaging client is now Beeper.
 
 ## 9. sign-ins & onboarding (manual, last)
+**Required: sign into every account inside each app.** Installing an app does not carry over its accounts. After the packages land, open each app and log in, e.g. Spark (add every email account), Fantastical (add every calendar account), plus the rest below. Not done until each app shows your data.
+
 Raycast (then export .rayconfig!; its own "Launch at login" registers a login item, so no LaunchAgent is needed), Fantastical accounts, Spark email accounts, Zotero, VS Code Settings Sync, Claude, ChatGPT, Beeper, Discord, Todoist, Helium profile, `gh auth login -w` (device code; follow with `gh auth setup-git`). Accessibility: AeroSpace, Raycast. Gatekeeper "malware" flags (e.g. Codex): System Settings → Privacy & Security → Open Anyway.
 
 Codex resume performance depends on the active history under
