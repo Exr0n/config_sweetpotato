@@ -109,3 +109,19 @@ Lock and sleep events have no window or capture and `end` is nil. Matching
 unlock/wake events provide the boundary. Capture suspends during idle and
 excludes protected/lock surfaces. Existing tests establish producer behavior;
 no live forced-lock or idle interaction was injected into the owner's session.
+
+## Performance and consent boundary
+
+A short post-install check showed 5.56 seconds process CPU over 89 seconds
+elapsed, not a battery benchmark. Native diagnostics showed about 6% rolling
+process CPU, idle encoder, seven frames with seven completed OCR jobs, and no
+enrichment failures. This does not establish sustained energy cost. Keep one
+native capture process and no duplicate screenshot/OCR poller. Stream upload
+acknowledgements and uploadedVideos are separate metrics. Zero uploadedVideos
+does not prove lightweight stream replication failed.
+
+The exporter deliberately fails closed when noninteractive Keychain lookup is
+not authorized. Normal app-owned consent and GUI-session launchd execution
+are required. Never dump keys into files or broaden access to all applications.
+Verified export probes used the signed bundled helper in Aqua, not an SSH
+key-lookup workaround.
