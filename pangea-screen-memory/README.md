@@ -125,3 +125,19 @@ not authorized. Normal app-owned consent and GUI-session launchd execution
 are required. Never dump keys into files or broaden access to all applications.
 Verified export probes used the signed bundled helper in Aqua, not an SSH
 key-lookup workaround.
+
+## Incremental tracker spool
+GUI LaunchAgent com.exr0n.pangea-screen-export-spool runs every 60 seconds.
+It executes export-spool.py with the signed bundled helper, never the unsigned
+build output. No capture restart or new Keychain authorization is required.
+Private state is ~/.local/state/pangea-screen-memory/export-spool (0700).
+Enumerate page-*/commit.json, then read the sibling snapshot.jsonl and
+snapshot.jsonl.manifest.json. Only committed pages are consumable.
+Deduplicate records by id and revision because crash recovery can replay a page.
+Pages are incremental, not full-history replacements, and are retained indefinitely.
+Independent activity/OCR cursors advance only after a validated immutable page.
+Pagination continues until complete, up to 100 pages per tick.
+Read latest with readlink once, then access that resolved directory for an
+atomic snapshot/manifest pair. latest may be an empty successful incremental page.
+status.json reports last success and cursor; error.json records the last error
+(if present it can be older than status.json). Compare timestamps for freshness.
