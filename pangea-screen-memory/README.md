@@ -87,3 +87,25 @@ Diagnostics are at
 `~/Library/Application Support/PangeaScreenMemory/evidence/diagnostics-latest.json`.
 Send SIGUSR1 to the existing app PID for a fresh diagnostic snapshot.
 Launchd logs are under `~/.local/state/pangea-screen-memory/`.
+
+## Idle, lock, and lifecycle contract
+
+Parse `metadata.payloadJSON` for activity records. It contains the native
+ActivityEvent with `kind`, millisecond-epoch `at`, optional `end`,
+`reason`, window context, and display stream key. Outer `occurredAt` is ISO8601.
+Relevant kinds are idleBegan/idleEnded, lock/unlock, sleep/wake,
+permissionUnavailable, and longGap.
+
+Idle is detected after 60 seconds without keyboard/mouse/tablet input, but
+idleBegan.at is backdated to the last input time. Consequently a newly exported
+record can revise an already observed interval. Consumers must reconcile event
+time, not assume increasing cursor means increasing occurredAt. Close idle
+only on idleEnded; wake/unlock alone does not necessarily prove active input.
+Do not fill work through open idle/lock/sleep/permission gaps. Preserve each
+independent exclusion state, and leave unknown coverage unknown. Screen-only
+observation cannot establish whether the owner was working away from the Mac.
+
+Lock and sleep events have no window or capture and `end` is nil. Matching
+unlock/wake events provide the boundary. Capture suspends during idle and
+excludes protected/lock surfaces. Existing tests establish producer behavior;
+no live forced-lock or idle interaction was injected into the owner's session.
