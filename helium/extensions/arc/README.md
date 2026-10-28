@@ -36,6 +36,20 @@ No build step, no dependencies, no analytics. Six files.
 | `⌥W` (Mac) / `Alt+W` | Open Workspaces while the palette is open |
 | `Esc` | Clear the query, then close |
 
+### Shared pinned tabs (local customization)
+
+Pinned tabs share one ordered list across all normal windows in this profile.
+Pin, unpin, and reorder in any window; newly opened windows receive the same pins.
+Replicas stay inactive and are discarded after their first navigation commits.
+Chrome cannot create a tab pre-discarded, so a replica can briefly start loading.
+Popups and incognito windows are excluded.
+
+Each window keeps its own page state. Navigating a pin does not change its saved
+URL. The pin-time URL and order survive browser restarts. Unpinning also unpins
+its copies, but keeps all pages open. Duplicate pinned copies are unpinned rather
+than closed. Closing a pinned tab recreates its saved pin; unpin it first to remove
+it from the shared list.
+
 ### Saved workspaces
 
 Click **Workspaces** in the palette footer, press **`⌥W`** on Mac (**`Alt+W`** elsewhere) while the palette is open, or type `@workspaces`. Choose **Save Workspace**, give it a name, and press `Enter`. You can also find the save command by searching for “save workspace”.
@@ -101,6 +115,7 @@ node --test test/*.test.js           # search, actions and workspace tests
 # module path and a Chromium build that still supports --load-extension
 # (Chrome for Testing, Chromium, Canary; the branded Chrome 137+ does not).
 CHROME_PATH=/path/to/chromium node test/smoke.js
+CHROME_PATH=/path/to/chromium node test/pinned-smoke.js
 ```
 
 A real shortcut press grants `activeTab`; a programmatic command does not, so the smoke test runs a temporary copy of the extension with a host permission for its local test server. The shipped manifest is untouched. The test covers injection and re-use, search and highlighting, tab-plus-bookmark results, favicons under CSP, quick switch by modifier release, MRU persistence across a worker restart, the new-tab takeover, the `chrome://` fallback, scopes and the nine-result cap, result actions, and saving, renaming, restoring and deleting workspaces.

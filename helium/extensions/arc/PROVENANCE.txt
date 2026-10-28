@@ -9,3 +9,22 @@ Audit scope background.js, palette.js, search.js, manifest, HTML and stylesheet.
 Permissions include bookmarks, tabs, activeTab, scripting, favicon, storage, history, sessions. All local browser data; user-selected search URLs navigate externally. No network analytics found. Runtime trusted code is vendored and pinned, not auto-updated.
 
 Verification on sweetpotato3 in separate headless Helium fresh throwaway profile: 23/23 unit tests; 16/16 end-to-end checks. Actual centered shadowDOM overlay on current page (within 2px horizontally), input/search/Enter switching, no popup on ordinary pages, Control-held repeat MRU cycling and Control-keyup commit, service-worker MRU state reset, strict CSP icons, fallbacks and workspaces. Screenshot /tmp/arc-review/overlay.png. Smoke grants localhost-only host permission in temporary COPY because programmatic command does not grant activeTab. Shipped manifest unchanged. Command dispatch driven via actual worker handleCommand, keyboard input through Puppeteer; native global Command-T/Karabiner path not verified. No active browser, tabs, focus, Preferences, or Karabiner config touched.
+
+2026-10-27 local customization: pinned-tabs.js shares an ordered pin-time URL
+list through chrome.storage.local and live tab identities through storage.session.
+background.js starts it and serializes workspace restoration with pin reconciliation.
+No new permissions, UI, remote code, or network API. Replica tabs start navigation
+then are discarded once their URL commits (Helium loses the URL if discarded
+immediately, and may change the tab ID on discard). Extra pinned duplicates are
+un-pinned, never closed. Navigated URLs are mapped locally to canonical URLs for
+browser-session restore; a newly pinned tab still captures its current URL.
+
+Verification: 33 unit tests, including a deterministic 80-operation pin/reorder
+mutation sequence; 7 real headless shared-pin e2e checks in fresh profiles, including
+full browser restart/session restoration with a navigated pin; 16 existing palette,
+MRU and workspace e2e checks. Live Helium reload through extensions manager without
+browser restart. Temporary packaged live probe verified propagation into both
+existing windows and a newly created temporary third window, discarded replica,
+global unpin, and original tabs preserved. Probe window/tab/files removed afterward.
+Receipts on sweetpotato /tmp/arc-pins-review/live-receipt.json. Temporary probes are
+not shipped. The native global keyboard remaps are outside this change's scope.

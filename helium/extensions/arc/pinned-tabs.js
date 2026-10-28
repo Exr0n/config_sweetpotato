@@ -218,7 +218,7 @@
       }
       await reconcile();
     }).catch(() => {});
-    return { idle: async () => { let current; do { current = queue; await current; } while (queue !== current); } };
+    return { withPausedSync: fn => enqueue(fn), idle: async () => { let current; do { current = queue; await current; } while (queue !== current); } };
   }
   root.ArcPinnedTabs = { start };
   if (typeof module !== 'undefined') module.exports = { start };

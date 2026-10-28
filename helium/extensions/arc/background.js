@@ -504,7 +504,11 @@ function handleWorkspaceEdit(message, ctx) {
   return edit;
 }
 
-async function openWorkspace({ id }) {
+function openWorkspace(message) {
+  return sharedPins.withPausedSync(() => restoreWorkspace(message));
+}
+
+async function restoreWorkspace({ id }) {
   const workspace = await readWorkspace(id);
   const opened = await chrome.windows.create({ url: workspace.tabs.map(t => t.url), focused: false, incognito: !!workspace.incognito });
   const tabs = opened.tabs || await chrome.tabs.query({ windowId: opened.id });
