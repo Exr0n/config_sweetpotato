@@ -186,3 +186,8 @@ unset _td
 # node ~/.config/helium/restore-personalization.mjs
 # This restores Dark Reader automation (system/OnOff) and the saved Tampermonkey
 # scripts. Deliberately do not quit or manipulate an active browser from here.
+
+# hostname (alb wants "sweetpotato")
+sudo scutil --set ComputerName sweetpotato
+sudo scutil --set HostName sweetpotato
+sudo scutil --set LocalHostName sweetpotato
