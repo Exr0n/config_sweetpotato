@@ -1,16 +1,29 @@
-Helium centered overlay and exact modifier-held MRU
+Helium Arc overlay and held-Control MRU
 
-Chosen: pinned albus-flashquotes/arc MV3 source in helium/extensions/arc.
-Palette overlays the current normal webpage, not a new-tab replacement. Cmd-Shift-K opens it. Ctrl-Q previews recent tabs, repeated Q cycles while Control stays held, releasing physical Control commits selection. MRU is session-stored and survives service-worker suspension, not guaranteed across full browser exit.
+Activated in the normal Helium profile on 2026-10-27.
+Unpacked source lives at /Users/exr0n/.config/helium/extensions/arc.
+Extension id dhikdbjadociahdcpkmndjopihnhpicn.
 
-One-time activation, during your next normal browser session:
-1. Open chrome://extensions in Helium yourself, enable Developer mode, choose Load unpacked and select /Users/exr0n/.config/helium/extensions/arc.
-2. Open chrome://extensions/shortcuts and verify Arc toggle-palette is Command-Shift-K, quick-switch is Control-Q. Resolve conflicts first.
-3. Only after both work, import helium/arc-shortcuts.karabiner.json into Karabiner as an opt-in complex modification. This asset is NOT added to the dirty running karabiner.json. Enable its two Helium-scoped rules. Cmd-T becomes Cmd-Shift-K; Control-Tab becomes Control-Q with optional Shift preserved. Native input remapping remains to be verified after activation.
-4. Test Cmd-T over an ordinary page, type a tab title, Enter. Test holding Control and tapping Tab repeatedly, releasing Control to commit; Shift-Tab reverses, Escape cancels.
+Command-Shift-K opens a centered overlay on normal webpages.
+Control-Q opens the MRU preview. Hold Control, tap Q to cycle, release Control to switch.
+Control-Shift-Q cycles backward. Escape cancels.
 
-Browser-internal pages, blank new tabs, Web Store and noninjectable pages cannot host webpage overlays; upstream uses toolbar popup or extension-page fallback there. This is a Chromium limitation, not a claim of universal centered overlay.
+Two Helium-only Karabiner rules are enabled in the selected profile.
+Command-T sends Command-Shift-K, and Control-Tab sends Control-Q.
+Optional Shift is preserved for reverse cycling.
+Rules have separate Dvorak and default physical-key mappings.
+Source asset helium/arc-shortcuts.karabiner.json is also installed at
+karabiner/assets/complex_modifications/helium-arc.json.
 
-Current status: source staged and tested, NOT installed/accepted/active in your normal profile. Wrong newtab-only Command Palette and compromise Ctrl+Tab MRU external registrations removed, but no installed extensions removed and no active Preferences edited. Existing other Web Store registrations remain available through install-extensions.mjs. --shortcuts-only now reports the vendored Arc path and stages no store extension.
+Live verification passed for the centered overlay and held-Control switching
+between two ordinary tabs, in both directions. Shortcut registrations and
+Karabiner configuration reload were checked. Synthetic input bypasses the
+physical-device Karabiner path, so physical Command-T and Control-Tab
+remain unverified, not assumed working.
 
-23/23 unit tests and 16/16 actual isolated headless Helium end-to-end checks pass. Cmd-T physical remap plus native shortcut activeTab grant remain one-time activation verification. See extensions/arc/PROVENANCE.txt for exact revision, audit, licensing declaration and test modifications.
+Restricted browser pages cannot host an injected webpage overlay.
+Upstream uses toolbar-popup or extension-page fallback on those pages.
+MRU is session-stored, not guaranteed across full browser exit.
+
+Source audit and isolated browser-test receipts are in extensions/arc/PROVENANCE.txt
+and helium/verification. No browser restart was used for activation.
