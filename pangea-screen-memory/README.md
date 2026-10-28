@@ -126,18 +126,19 @@ are required. Never dump keys into files or broaden access to all applications.
 Verified export probes used the signed bundled helper in Aqua, not an SSH
 key-lookup workaround.
 
-## Incremental tracker spool
+## Calendar full-snapshot publisher
 GUI LaunchAgent com.exr0n.pangea-screen-export-spool runs every 60 seconds.
-It executes export-spool.py with the signed bundled helper, never the unsigned
-build output. No capture restart or new Keychain authorization is required.
-Private state is ~/.local/state/pangea-screen-memory/export-spool (0700).
-Enumerate page-*/commit.json, then read the sibling snapshot.jsonl and
-snapshot.jsonl.manifest.json. Only committed pages are consumable.
-Deduplicate records by id and revision because crash recovery can replay a page.
-Pages are incremental, not full-history replacements, and are retained indefinitely.
-Independent activity/OCR cursors advance only after a validated immutable page.
-Pagination continues until complete, up to 100 pages per tick.
-Read latest with readlink once, then access that resolved directory for an
-atomic snapshot/manifest pair. latest may be an empty successful incremental page.
-status.json reports last success and cursor; error.json records the last error
-(if present it can be older than status.json). Compare timestamps for freshness.
+It runs export-spool.py with the existing signed bundled helper, account albert.
+No capture restart or additional Keychain authorization is required.
+Stable pointer ~/.local/state/pangea-screen-memory/calendar-export/latest.json
+contains absolute path and manifest fields. Read the pointer once, then fetch
+those two immutable files. Each publication starts with no cursors and pages
+both independent streams at limit 1000 until complete, without a page cap.
+Only a validated full combined JSONL and standard export-format manifest are
+published. Manifest sha256 covers the exact combined JSONL bytes; sourceCounts
+are combined actual row counts. The pointer is atomically replaced last.
+Directories are 0700 and files 0600. Previous snapshots stay available for read
+races and snapshots older than 24 hours are cleaned after successful publication.
+status.json reports latest successful poll; error.json is historical and its at
+timestamp must be compared with status.checkedAt. Old incremental spool files
+are preserved but are no longer the consumer contract.
