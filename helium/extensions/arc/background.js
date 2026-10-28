@@ -1,5 +1,6 @@
 // Arc - Background Service Worker
-importScripts('search.js');
+importScripts('search.js', 'pinned-tabs.js');
+const sharedPins = self.ArcPinnedTabs.start(chrome);
 
 const { rank, isLikelyUrl, toNavigableUrl, getHost, parseQuery, SCOPES } = self.ArcSearch;
 

@@ -48,7 +48,7 @@ function harness() {
     sessions: { async getRecentlyClosed() { return []; } },
     commands: { onCommand: event }
   };
-  const context = vm.createContext({ self: { ArcSearch: search }, chrome, crypto: webcrypto, importScripts() {}, console, URL, setTimeout });
+  const context = vm.createContext({ self: { ArcSearch: search, ArcPinnedTabs: { start() {} } }, chrome, crypto: webcrypto, importScripts() {}, console, URL, setTimeout });
   vm.runInContext(fs.readFileSync(require.resolve('../background.js'), 'utf8'), context);
   return { context, local, calls, tabs, chrome, toolbarListeners, ctx: { tabId: 2, windowId: 10 } };
 }
