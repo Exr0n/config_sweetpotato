@@ -63,9 +63,39 @@ defaults write com.apple.dock wvous-tr-corner -int 10               # top-right 
 defaults write com.apple.dock wvous-tr-modifier -int 0
 defaults write com.apple.dock persistent-apps -array               # no pinned apps (AeroSpace/Raycast launch everything); Downloads stack kept
 
-### ── menu bar: hide Spotlight + Raycast icons (both launched by hotkey) ──
+### ── menu bar: hide Spotlight and unwanted app icons ──
 defaults write com.apple.Spotlight "NSStatusItem VisibleCC Item-0" -bool false
-defaults write com.raycast.macos "NSStatusItem VisibleCC Item-0" -bool false  # unverified key; else Raycast Settings → General → uncheck "Show Raycast in menu bar"
+# macOS 26's System Settings > Menu Bar > Allow in the Menu Bar store.
+# Preserve all unrelated entries and prefs. Do not restart apps or ControlCenter.
+# Run after these apps have first launched; absent registrations are reported.
+python3 - <<'PY_MENUBAR'
+import plistlib,subprocess,pathlib,sys
+targets={'com.raycast.macos','com.flexibits.fantastical2.mac','com.readdle.SparkDesktop','com.automattic.beeper.desktop'}
+domain=str(pathlib.Path.home()/'Library/Group Containers/group.com.apple.controlcenter/Library/Preferences/group.com.apple.controlcenter')
+result=subprocess.run(['defaults','export',domain,'-'],capture_output=True)
+if result.returncode:
+    print('Menu bar preferences not created yet; rerun after first app launch.')
+    sys.exit(0)
+outer=plistlib.loads(result.stdout)
+if 'trackedApplications' not in outer:
+    print('Menu bar apps not registered yet; rerun after their first launch.')
+    sys.exit(0)
+items=plistlib.loads(outer['trackedApplications'])
+changed=[]
+for item in items:
+    bundle=item.get('location',{}).get('bundle',{}).get('_0')
+    if bundle in targets:
+        item['isAllowed']=False
+        changed.append(bundle)
+if targets-set(changed):
+    print('Not registered yet; rerun after first launch: '+', '.join(sorted(targets-set(changed))))
+new=plistlib.dumps(items,fmt=plistlib.FMT_BINARY)
+subprocess.run(['defaults','write',domain,'trackedApplications','-data',new.hex()],check=True)
+actual=plistlib.loads(subprocess.check_output(['defaults','export',domain,'-']))
+assert plistlib.loads(actual['trackedApplications'])==items
+assert {k:v for k,v in actual.items() if k!='trackedApplications'}=={k:v for k,v in outer.items() if k!='trackedApplications'}
+print('Verified menu bar permissions disabled for '+', '.join(sorted(changed)))
+PY_MENUBAR
 
 ### ── display: built-in screen at "More Space" (needs `brew install jakehilborn/jakehilborn/displayplacer`) ──
 _dp_list="$(command -v displayplacer >/dev/null && displayplacer list)"
