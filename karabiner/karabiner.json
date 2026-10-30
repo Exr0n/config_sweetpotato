@@ -134,6 +134,32 @@
                         ]
                     },
                     {
+                        "description": "delete: sleep display + lock",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "delete_or_backspace",
+                                    "modifiers": {
+                                        "optional": [
+                                            "caps_lock"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "vk_none"
+                                    }
+                                ],
+                                "to_after_key_up": [
+                                    {
+                                        "shell_command": "/bin/sleep 0.3; /usr/bin/pmset displaysleepnow"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
                         "description": "Helium Command-T opens Arc overlay through Command-Shift-K",
                         "manipulators": [
                             {
@@ -377,18 +403,6 @@
                     "to": [
                         {
                             "key_code": "left_control"
-                        }
-                    ]
-                },
-                {
-                    "from": {
-                        "key_code": "delete_or_backspace"
-                    },
-                    "to": [
-                        {
-                            "software_function": {
-                                "iokit_power_management_sleep_system": {}
-                            }
                         }
                     ]
                 },

@@ -325,10 +325,28 @@ Debugging access is powerful, even on loopback. When convenient, quit Helium
 normally and reopen without debugging flags; do not leave a permanent debugging
 server or a public tunnel. Backups are under `~/.local/state/helium-setup/`.
 
-## 11. display tools
+## 11. display tools: BetterDisplay
 
 ```
 brew install --cask betterdisplay
+open -a BetterDisplay
 ```
 
-Open once, grant Accessibility + launch at login. Enable XDR/HDR extra brightness on the built-in display, DDC brightness control for external monitors.
+First launch prompts (click through):
+1. Welcome / setup wizard: Continue, pick free version or start Pro trial (XDR upscaling + protection are Pro).
+2. "BetterDisplay would like to control this computer using accessibility features": Open System Settings > Privacy & Security > Accessibility, toggle BetterDisplay on. Needed for brightness keys controlling external monitors.
+3. Allow notifications if asked (optional).
+
+Login item (hidden):
+```
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/BetterDisplay.app", hidden:true}'
+```
+
+Settings (apply after app is running):
+```
+betterdisplaycli set --name="Built-in Display" --brightnessUpscaling=on
+betterdisplaycli set --UUID=80A3E46A-943C-4144-8B81-681F692C36E3 --protectResolution=on   # Dell U4025QW
+betterdisplaycli set --displayWithMainStatus --layoutProtection=on
+```
+
+In the app UI: Settings > Displays > enable DDC hardware brightness for DELL U4025QW and Odyssey G81SF; Settings > Keyboard > brightness keys control all displays (sync); enable "dim below minimum" (software dimming) per display.
