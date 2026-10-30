@@ -93,3 +93,22 @@ key control, Samsung DDC selection and full UI inventory remain unverified.
 They were not attempted through a foreground path. Preserve the current
 BetterDisplay configuration until its safe background control is actually
 available on the laptop.
+
+
+## Laptop onboarding investigation, 2026-10-29T21:07:45-07:00
+
+Read-only inspection found no already-running, externally callable background UI agent that can safely finish onboarding under the current restrictions. No laptop UI action was attempted.
+
+Pangea Screen Memory is running, but its inspected Swift app source exposes capture, listen-only interaction/AX observation, export and diagnostics, not a remote AX mutation or child-process control endpoint. Its SIGUSR1 handler only refreshes diagnostics. No listening TCP socket was found for the running Pangea PID. Modifying its app bundle, injecting code, or restarting it to add an embedded driver is not an acceptable workaround.
+
+No Cua daemon, Codex Computer Use/SkyComputerUseService, AlbotPermissionHost or albot-ui process was running on this laptop at inspection. The mini's corresponding grants and processes do not transfer to this machine. Cua's read-only permissions status still reports daemon_running=false and status=unknown; this is not a determination that every grant is denied.
+
+Raycast and AeroSpace are running. Raycast has registered URL schemes and local scripts, including a Python-evaluation script, but no already-proven remote execution route that guarantees no activation or visible window. No URL was invoked and no script was changed. AeroSpace's window management interface is not a permission-onboarding UI agent. Installed app presence is not proof of current Accessibility or Screen Recording authorization.
+
+Cua's documented embedded-host mode is legitimate when the already-authorized owning app directly launches its own private worker. Setting a host bundle ID in an SSH process, or launching via open/NSWorkspace, does not lend that app's grants. There is no existing callable host integration here. The driver-owned-only promoted wrapper deliberately would not accept host-attributed grants without separate tests and an explicit policy change.
+
+Normal standalone onboarding uses permissions grant and macOS Settings, may display Accessibility, Screen Recording and direct-capture consent, and can require restarting the responsible app. Running it, opening Settings in the background, or trying a LaunchServices URL without proof of invariance would violate the present no-visible-window/no-focus/no-restart boundary. Therefore stop here. No TCC edits or resets, permission prompts, app launches, URL invocations, focus changes or restarts were performed during this investigation.
+
+Remaining BetterDisplay work stays OPEN, not completed by staging Cua. Full settings inventory/wiki review, Samsung normal-controller DDC selection/read-write proof, always-built-in brightness key targeting, real native key tests, intermediate nits matching and below-minimum dimming need a verified permitted control path. Precision luminance calibration additionally needs actual measurement, not nominal specs.
+
+Sources checked on this pass are https://cua.ai/docs/cua-driver/guides/use-the-sdk and https://cua.ai/docs/cua-driver/reference/cli/serve-and-configure . The embedding reference explicitly documents parent-process responsibility, read-only embedded permission checks and restart-on-grant-change behavior.
