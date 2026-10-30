@@ -327,26 +327,37 @@ server or a public tunnel. Backups are under `~/.local/state/helium-setup/`.
 
 ## 11. display tools: BetterDisplay
 
-```
-brew install --cask betterdisplay
-open -a BetterDisplay
+Install with `brew install --cask betterdisplay`, launch BetterDisplay, complete first-run setup, and grant Accessibility under System Settings > Privacy & Security > Accessibility. Notifications are optional. Add BetterDisplay as a hidden login item if needed. Some synchronization and XDR features may require Pro; verify license/trial status.
+
+Current setup on sweetpotato3, 2026-10-29. Detailed categorized inventory and limitations are in `notes/betterdisplay.md`.
+
+- Built-in tag ID 2, Samsung Odyssey G81SF tag ID 3 (UUID FE7E11B1-2BA3-4C2E-ADFA-FBBC1E8123D6), Dell U4025QW tag ID 4 (UUID 80A3E46A-943C-4144-8B81-681F692C36E3). Tag IDs are local to this BetterDisplay installation.
+- The default group (tag -1001) has layout protection and synchronization on. General Brightness rule is enabled, with nits and externally triggered changes enabled. Only tag 2 is a sync source; all members are potential targets.
+- Brightness keys target the display under the pointer, since All suitable screens bypasses group sync. To target built-in from another display, BetterDisplay documents Control + brightness key; this key sequence has not yet been tested. No always-built-in target has been established. A CLI adjustment of the built-in propagated to both external displays at the high end, but mid-range sync and visual matching remain unverified.
+- All three showed software video adjustments and combined brightness enabled. Built-in uses Apple control, Dell uses DDC; Samsung has DDC configured but its active combined brightness path uses Apple. End-to-end dim-below-minimum and Samsung DDC-selected sync have not been verified.
+- Dell manual nits range is 25-450; Samsung manual max 250. These are rough placeholders based on typical SDR manufacturer specs, not calibration. Samsung's active reported brightness at max was 255 nits even with manual 250 saved; check whether Apple reporting overrides the manual range. Built-in UI showed 1-600 hardware and 500-1600 HDR; 1600 is peak HDR, not sustained full-screen. Built-in software XDR upscaling is enabled, but physical luminance has not been measured.
+- At the high end Dell's DDC luminance read 100/100 and Samsung read 50/50, its reported DDC maximum. Changing the Samsung's nominal DDC command to 100 read back 50/50.
+- Accessibility access is granted. The app reported it was listening to native brightness keys. Dell resolution protection and group layout protection were previously enabled; built-in/Samsung resolution protection previously failed.
+
+Diagnostic commands (read-only, apart from the optional original settings commands):
+
+```sh
+C=/opt/homebrew/bin/betterdisplaycli
+"$C" get -tagID=-1001 -synchronization
+"$C" get -tagID=-1001 -layoutProtection
+for t in 2 3 4; do
+  "$C" get -tagID="$t" -brightness
+  "$C" get -tagID="$t" -hardwareBrightness
+  "$C" get -tagID="$t" -softwareBrightness
+done
+"$C" get -tagID=3 -ddc -vcp=luminance -value
+"$C" get -tagID=3 -ddc -vcp=luminance -max
+"$C" get -tagID=4 -ddc -vcp=luminance -value
+"$C" get -tagID=4 -ddc -vcp=luminance -max
+defaults read pro.betterdisplay.BetterDisplay | grep -E 'SyncConfiguration|syncConfiguration|videoKeyboardControl|nitsMax|nitsMin'
 ```
 
-First launch prompts (click through):
-1. Welcome / setup wizard: Continue, pick free version or start Pro trial (XDR upscaling + protection are Pro).
-2. "BetterDisplay would like to control this computer using accessibility features": Open System Settings > Privacy & Security > Accessibility, toggle BetterDisplay on. Needed for brightness keys controlling external monitors.
-3. Allow notifications if asked (optional).
+Observed settings keys: `videoKeyboardControl=displayWithMouse`, `enabled@SyncConfiguration:mostAppropriateBrightness@DisplayGroup:-1001=1`, `nits@SyncConfiguration:mostAppropriateBrightness@DisplayGroup:-1001=1`, `allowExternallyInduced@SyncConfiguration:mostAppropriateBrightness@DisplayGroup:-1001=1`, `allSource@SyncConfiguration:mostAppropriateBrightness@DisplayGroup:-1001=0`, `sourceFilterList@SyncConfiguration:mostAppropriateBrightness@DisplayGroup:-1001=1`, `sourceTagIDs@SyncConfiguration:mostAppropriateBrightness@DisplayGroup:-1001=[2]`, `nitsMax@Display:3=250`, `nitsMin@Display:4=25`, `nitsMax@Display:4=450`, `upscaleOnHDR@Display:2=1`. These display tag IDs and app settings are installation-specific; export or verify on a new machine rather than blindly copying.
 
-Login item (hidden):
-```
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/BetterDisplay.app", hidden:true}'
-```
+Deferred to non-focus-stealing computer use: full settings pane inventory, Samsung DDC selection, always-built-in brightness key targeting and end-to-end keyboard/dim/mid-range synchronization tests.
 
-Settings (apply after app is running):
-```
-betterdisplaycli set --name="Built-in Display" --brightnessUpscaling=on
-betterdisplaycli set --UUID=80A3E46A-943C-4144-8B81-681F692C36E3 --protectResolution=on   # Dell U4025QW
-betterdisplaycli set --displayWithMainStatus --layoutProtection=on
-```
-
-In the app UI: Settings > Displays > enable DDC hardware brightness for DELL U4025QW and Odyssey G81SF; Settings > Keyboard > brightness keys control all displays (sync); enable "dim below minimum" (software dimming) per display.
