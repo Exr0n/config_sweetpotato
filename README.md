@@ -236,6 +236,33 @@ thousands of multi-GB active sessions makes the resume picker inventory them
 all. Restore only recent sessions on a new laptop and keep the rest under
 `~/.codex/archived_sessions`.
 
+
+### Privacy & Security permissions (snapshot of sweetpotato3 TCC, 2026-10-29)
+Grant these in System Settings → Privacy & Security after installing each app. Each app asks on first use; new signatures (e.g. re-patched AeroSpace) need a fresh grant.
+
+| Permission | Apps |
+|---|---|
+| Accessibility | AeroSpace, Raycast (emoji shortcut needs it), Karabiner-Core-Service, Beeper, Terminal, sshd-keygen-wrapper (remote SSH automation) |
+| Input Monitoring | Karabiner-Core-Service |
+| Screen & System Audio Recording | Terminal, Discord, Zoom, PangeaScreenMemory |
+| Full Disk Access | sshd-keygen-wrapper (enable via Sharing → Remote Login → "Allow full disk access for remote users") |
+| Automation (Apple Events) | AeroSpace, Beeper, Terminal, ZeroTier UI, sshd-keygen-wrapper |
+| Camera | Helium, Zoom |
+| Microphone | Helium, Discord, Zoom |
+| Contacts | Beeper, Fantastical, Spark |
+| Calendars, Reminders | Fantastical |
+| Bluetooth | org.albot.presencescan |
+| Files & Folders (Desktop, Documents, Downloads) | Terminal; Downloads also Zoom Launcher |
+| Photos, Media Library, App Management | Terminal |
+| Focus status | Messages |
+| Passkeys / WebAuthn | Helium |
+
+Karabiner also needs its driver/system extension approved under Login Items & Extensions (see section 4). Re-dump with:
+```
+sudo sqlite3 -readonly "/Library/Application Support/com.apple.TCC/TCC.db" "select service,client from access where auth_value=2"
+sqlite3 -readonly ~/Library/Application\ Support/com.apple.TCC/TCC.db "select service,client from access where auth_value=2"
+```
+
 ## 10. before wiping the backup drive — checklist
 Copy to local first: ☐ `DATA/Messages` (74 GB — or verified iCloud Keep-Forever) ☐ `CONFIG/` (27 MB) ☐ `README.md` + `MAINTENANCE.md` ☐ `SECRETS.tar.gz.enc` (encrypted safety net — contains the not-yet-restored Chrome profile + Safari data). And don't shred the local `~/secrets_restore` until those are squared away.
 
