@@ -361,3 +361,7 @@ Observed settings keys: `videoKeyboardControl=displayWithMouse`, `enabled@SyncCo
 
 Deferred to non-focus-stealing computer use: full settings pane inventory, Samsung DDC selection, always-built-in brightness key targeting and end-to-end keyboard/dim/mid-range synchronization tests.
 
+
+## 12. background computer use (staged, not deployed)
+
+See `notes/bg-computer-use.md` for the migration recipe, permissions, safety boundary, prototype wrapper and versioned tool reference. Cua Driver is installed on the mini only; macOS grants and end-to-end no-focus/no-cursor tests have not been verified. It is not installed or authorized on sweetpotato3. Do not use the staged wrapper for laptop GUI work until the mini test and laptop deployment are complete. When validated, prefer this background window-scoped method for laptop GUI work and stop on unsupported actions rather than bringing windows forward.
