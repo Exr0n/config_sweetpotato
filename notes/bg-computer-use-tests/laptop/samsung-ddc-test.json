@@ -1,0 +1,71 @@
+[
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-ddc",
+      "-vcp=0x10"
+    ],
+    "exit": 0,
+    "stdout": "50",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-ddc",
+      "-vcp=0x10",
+      "-max"
+    ],
+    "exit": 0,
+    "stdout": "50",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "set",
+      "-tagID=3",
+      "-ddc",
+      "-vcp=0x10",
+      "-value=49"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-ddc",
+      "-vcp=0x10"
+    ],
+    "exit": 0,
+    "stdout": "49",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "set",
+      "-tagID=3",
+      "-ddc",
+      "-vcp=0x10",
+      "-value=50"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-ddc",
+      "-vcp=0x10"
+    ],
+    "exit": 0,
+    "stdout": "50",
+    "stderr": ""
+  }
+]

@@ -1,26 +1,51 @@
 # BetterDisplay notes
 
-Snapshot of BetterDisplay 5.2.1 on sweetpotato3, 2026-10-29. This is a categorized feature inventory based on the official guide and a partial inspection of the installed settings UI, not an exhaustive pane-by-pane audit or a full reading of the wiki.
+Verified snapshot on sweetpotato3, 2026-10-29. This is a partial live settings/CLI audit plus scoped official-guide research, not an exhaustive click-through or complete wiki review.
 
-## Applied and verified
+## Verified current configuration and tests
 
-- Three members of the default group: built-in tag 2, Samsung Odyssey G81SF tag 3, Dell U4025QW tag 4. Group layout protection and synchronization are enabled.
-- General Brightness synchronization has nits sync and externally triggered updates enabled. Only built-in tag 2 is selected as a synchronization source; all group members are eligible targets. A 1%-down/up CLI adjustment on the built-in changed both targets to their ceilings at the high end. Intermediate brightness matching is not verified.
-- Nits anchors stored: Dell manual 25-450; Samsung manual max 250 (the minimum shown was 25). These are manufacturer typical maximum figures, not measurement/calibration. Samsung reports 255 nits via Apple brightness at maximum even with the 250 manual maximum saved, indicating the active controller's reporting can override that manual figure. Built-in UI showed 1-600 for hardware and 500-1600 for HDR. Built-in measured full-screen nits are not verified. Estimated equal nits do not guarantee equal perceived brightness.
-- Brightness keys target the screen with mouse pointer, not all screens, so a change on the built-in can propagate through the group. Control plus brightness key targets the built-in according to the official native-key documentation; actual keypress behavior was not tested. Ordinary keys with pointer on an external adjust that external, not the group. All-screen mode bypasses group sync.
-- Software video adjustments and combined brightness were shown enabled on each display. Built-in uses Apple brightness, Dell uses DDC, Samsung's active combined controller was Apple, with DDC configured too. Below-minimum behavior has not been tested end-to-end.
-- At the high-end source test, DDC luminance reads Dell 100/100 and Samsung 50/50. Thus 50 is Samsung's reported maximum, not 50%; a direct attempt to set 100 read back 50/50. Samsung's normal group path still uses Apple, not verified as DDC.
-- XDR software brightness upscaling is on for the built-in; the current full-screen light output was not measured. Accessibility permission was granted. Keys listening after restarting BetterDisplay were visible in settings.
-- The Pro trial/license status should be checked before relying on features marked Pro long-term.
+Default group tag -1001 contains built-in tag 2, Samsung Odyssey G81SF tag 3, Dell U4025QW tag 4. Layout protection and General Brightness synchronization are enabled. Nits and externally induced changes are on; only built-in tag 2 is a source. IDs are installation-specific.
 
-## Feature inventory and suggestions
+Fresh reversible CLI tests set the built-in to 150 nits, then 15 nits. At 150, all three reported 150. At 15, all reported approximately 15; Dell hardware brightness reached 0, software brightness 0.798 and raw DDC luminance 0. This verifies the Dell combined path dims below its minimum hardware setting. These values are app estimates, not measured panel luminance or proof of perceptual matching. Samsung/built-in further-below-min software dimming was not separately tested.
 
-[object Promise]
+Initial combined brightness was 1.0 on each display. Tests restored 1.0 on all three and read back built-in 600, Samsung 255 and Dell 450 estimated nits. Dell DDC restored 100; Samsung DDC restored 50.
 
-## Deferred work
+Samsung configured controllers are Apple and DDC; the active normal brightness path remains Apple. At 150/15-nit group changes, Samsung raw DDC stayed 50 while its reported Apple brightness changed. A separate direct DDC test wrote 49, read back 49, then restored/read back 50. Its DDC maximum is 50, not 100. Raw DDC works, but DDC-selected normal/group brightness is NOT configured or verified.
 
-The full UI click-through and complete wiki review requested by Albert were not completed. After non-focus-stealing computer control is available, inspect every settings pane and complete this inventory; switch Samsung's normal brightness controller from Apple to DDC if supported and verify reads/writes; configure an always-built-in native-key target or a safe tested shortcut/remap, then verify native keypresses and a mid-range synchronization curve. Check how manual nits ranges interact with Apple-reported nits; measure both minima and maxima with a luminance meter to calibrate if precise matching matters. Do not claim nominal manufacturer SDR specifications are measured HDR/XDR brightness.
+Current videoKeyboardControl is displayWithMouse, not an always-built-in target. Plain brightness keys on an external display do not establish built-in source propagation. Official documentation says Control+brightness targets built-in when additional modifiers are enabled; this key combination has not been live-tested. All suitable screens bypasses group synchronization and should not be selected as a supposed fix for nits-matched source sync.
 
-2026-10-29 background-control follow-up: mini native AX acceptance passed; signed CuaDriver and limited wrapper staged on sweetpotato3 without launching it. Laptop daemon/grants remain unverified, so deferred BetterDisplay UI and brightness tests were NOT performed. See bg-computer-use.md for permission-onboarding blocker and receipts. Existing BetterDisplay configuration unchanged by this follow-up.
+Software adjustments and combined brightness were enabled on all three in the earlier UI inspection. Built-in uses Apple, Dell DDC, Samsung Apple with DDC also configured. Built-in software XDR upscaling is enabled. Manual anchors remain Dell 25-450 and Samsung max250; Samsung active Apple maximum reports255. These are provisional nominal anchors, not measured calibration. Built-in UI hardware1-600/HDR500-1600 is not proof of sustained full-screen1600.
 
-2026-10-29T21:07:45-07:00 read-only onboarding investigation found no verified, already-authorized background input host on the laptop. No Brightness, DDC, keys, settings or app state were changed. Every deferred item above remains OPEN; see bg-computer-use.md for inspected routes and exact safety boundary.
+Accessibility had been granted; the earlier UI reported native-key listening. Current key interception and Pro/trial longevity require live confirmation. No app restart was performed in this resumed pass.
+
+## Scoped settings and official-reference inventory
+
+The official guide lists Displays, Groups, Application, Menu, Keyboard, Pro and About. This map is researched; it does not mean every installed pane was opened. The complete exported preference snapshot contains 240 keys at verification, including per-display saved state and caches; it is retained privately, not treated as 228 verified user-facing settings.
+
+Displays covers per-display general behavior, controller selection, image adjustments, resolution/HiDPI, layout and display identity. Device Control permits multiple controllers. Adding DDC is not the same as selecting it for brightness. Prefer hardware brightness affects the normal control path. Treat as generic third-party display is a separate compatibility override with a vendor warning; do not flip it speculatively to force Samsung DDC.
+
+Groups controls layout and synchronization. The current built-in-only source with nits sync is verified numerically. Synchronization and keyboard target selection are distinct. All-screen keys bypass group sync.
+
+Keyboard covers native brightness/audio interception, target displays, custom shortcuts, standard/fine steps and OSD. Control targets built-in, Control+Command external displays; Shift skips sync, while Option can open Settings and Command+brightness-down can change mirroring. Do not synthesize untested global modifier keys on the active laptop. The narrow Cua wrapper deliberately excludes them.
+
+Application and Menu govern app behavior and menu organization. Their full installed values have not been audited. Pro controls license/trial access; About version/update. None was opened or changed during this pass.
+
+Avoid display activation/system-override Apply, power/disconnection, mirroring, language switches that relaunch the app, update/restart actions, or unsupported controller changes while Albert uses the machine. These can blank displays or alter the workspace.
+
+## Exact remaining boundary and open work
+
+Cua background AX and capture now pass on the laptop. However BetterDisplay has no existing window, settingsWindow reads off, and its application AX tree exposes only the menu extra, not settings controls. Creating its Settings window is a visible-window action excluded by the current permission boundary. Do not use raw defaults writes for guessed live controller/key settings, start another app, open its menu or window, or use foreground fallback to force completion.
+
+Still OPEN are the full installed pane-by-pane click-through and complete wiki review, always-built-in native brightness-key configuration and live key tests, Samsung DDC selection for normal/group control, further Samsung/built-in below-min tests and physical luminance calibration if precision is required. Direct Samsung DDC read/write and Dell below-min dimming are now DONE. Numerical midrange source sync is DONE; measured/visual match is not.
+
+Sanitized evidence is in notes/bg-computer-use-tests/laptop/. Private trees/screenshots and original preference exports remain ~/.local/state/cua-laptop-acceptance/. See notes/bg-computer-use.md for background-control limits.
+
+## Sources read on this pass
+
+https://betterdisplay.pro/guide/interface-reference/settings/
+https://betterdisplay.pro/guide/interface-reference/settings/keyboard/
+https://betterdisplay.pro/guide/interface-reference/settings/keyboard/target-displays/
+https://betterdisplay.pro/guide/interface-reference/settings/keyboard/native-keyboard-control/
+https://betterdisplay.pro/guide/interface-reference/settings/displays/display/device-control/
+https://betterdisplay.pro/guide/interface-reference/settings/displays/display/device-control/settings/
+https://betterdisplay.pro/guide/technical-reference/brightness/

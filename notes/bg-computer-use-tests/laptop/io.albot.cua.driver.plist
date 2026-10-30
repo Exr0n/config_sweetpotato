@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>io.albot.cua.driver</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/Applications/CuaDriver.app/Contents/MacOS/cua-driver</string>
+		<string>serve</string>
+		<string>--no-overlay</string>
+		<string>--no-permissions-gate</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StandardErrorPath</key>
+	<string>/Users/exr0n/.local/state/cua-laptop-acceptance/daemon.stderr.log</string>
+	<key>StandardOutPath</key>
+	<string>/Users/exr0n/.local/state/cua-laptop-acceptance/daemon.stdout.log</string>
+</dict>
+</plist>

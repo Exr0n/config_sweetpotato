@@ -1,6 +1,20 @@
 # Background computer use (Cua Driver)
 
-Status 2026-10-29: Mini native-window acceptance PASSED with driver-owned permissions and recorded focus/cursor checks. Signed app and limited fail-closed wrapper staged headlessly on sweetpotato3; laptop daemon and permission onboarding remain blocked by the no-open/no-focus/no-restart restriction. See the verified evidence and exact limits below.
+Current status 2026-10-29: laptop driver-owned grants, background native AX input and live capture PASSED. Read the current verified laptop deployment section first; historical staging/pause sections below are superseded.
+
+## Verified laptop deployment, 2026-10-29, supersedes earlier pause
+
+Albert explicitly approved a headless daemon restart, a harmless already-running-app acceptance test and reversible BetterDisplay tests. CuaDriver 0.38.0 now serves on sweetpotato3 as launchd job io.albot.cua.driver with arguments serve --no-overlay --no-permissions-gate. Its own com.trycua.driver identity reports Accessibility and Screen Recording true, PID 72453 at verification. No additional System Settings window was needed; earlier normal onboarding grants persisted. No other app was launched, focused or restarted in this resumed pass.
+
+Existing Notes PID 88933/window 8555 supplied a harmless reversible AX test. Its Folders sidebar button collapsed the sidebar; the new tree exposed the button at its new token; a second AXPress restored it, and AXOutline readback confirmed restoration. During this pair, a 1 ms observer recorded 14,020 samples over 14.284913 seconds with zero frontmost-PID/cursor changes and no activation events. A separate live window capture returned 1366x902 pixels while an independent observer recorded 12,130 samples over 12.193535 seconds, again zero changes/no activation. These are sampled results, not universal guarantees for every app. The click result itself said effect unverifiable; the changed tree and restored outline supplied the independent effect proof.
+
+The installed fail-closed wrapper remains the narrow tested subset. Use one explicit stable session across observations and mutations. AX-unresolved Safari and Screen Sharing windows were observation-only; no input was sent to them. Do not enable raw pointer, keypress, drag, scroll, custom-canvas input, foreground fallback or app launch based on this evidence.
+
+Private raw Notes trees and screenshots remain ONLY in ~/.local/state/cua-laptop-acceptance/. They contain user content and must not be committed, published or copied into migration exports. Sanitized observer logs, operation receipts, permission status and display-test results are exported in notes/bg-computer-use-tests/laptop/. No secrets are required for the wrapper. Permissions must be granted normally on every new Mac.
+
+A persistent agent template is in notes/bg-computer-use-tests/laptop/io.albot.cua.driver.plist, installed at ~/Library/LaunchAgents/io.albot.cua.driver.plist for next login. It matches the currently submitted launchd job; no unload/reload was performed. On migration, create the log directory and substitute the destination home path before installing the plist. RunAtLoad starts the driver without a window or overlay. Missing permissions cause the wrapper to refuse rather than bypass consent. Telemetry status remains enabled by the vendor default; it was inspected, not changed.
+
+BetterDisplay CLI tests verified 150-nit and 15-nit numerical synchronization, Dell below-hardware-min software dimming and Samsung raw DDC read/write. Original combined brightness was restored. These do not establish physical luminance calibration, keyboard behavior or Samsung normal-path DDC selection. BetterDisplay settingsWindow is off and its AX tree exposes no settings controls; the no-new-visible-window/no-other-app-launch boundary therefore prevents the remaining UI audit/configuration. See notes/betterdisplay.md. Background computer use is operational for the tested native AX subset, NOT a blanket completion of BetterDisplay.
 
 ## Intended policy
 
@@ -12,7 +26,7 @@ Candidate: Cua Driver, https://cua.ai/docs/cua-driver/quickstart and https://cua
 
 On the mini the signed Homebrew cask is `brew install --cask cuadriver`. Installed bundle `/Applications/CuaDriver.app`, executable `/opt/homebrew/bin/cua-driver`, bundle ID `com.trycua.driver`; version 0.38.0, Developer ID Cua AI Inc, team YCK386LBJ7, notarization verified on installation. Confirm the current cask, code signature and version before future install. Driver telemetry was enabled by default on the mini; inspect `cua-driver telemetry status`, and make an explicit choice with `cua-driver telemetry disable` if desired. No extension, history recorder, or login-start service was configured. The mini app-owned daemon is running for the verified tests. Portable source and acceptance receipts are exported below.
 
-The permissions grant flow is `cua-driver permissions grant` on the actual interactive machine. It requests Accessibility and Screen & System Audio Recording for CuaDriver.app, and macOS Tahoe can additionally ask about direct capture. `cua-driver permissions status --json` is read-only. Require `accessibility:true`, `screen_recording:true`, `source.attribution:"driver-daemon"`, then independently verify a live window capture. A status of unknown is not a grant. OS permissions belong to the machine and signed app; they cannot be migrated as files. Do not edit TCC databases or run resets. LaunchServices attribution matters. Automation permissions for specific target apps may also be requested later. No laptop permissions have been granted for this driver yet.
+The permissions grant flow is `cua-driver permissions grant` on the actual interactive machine. It requests Accessibility and Screen & System Audio Recording for CuaDriver.app, and macOS Tahoe can additionally ask about direct capture. `cua-driver permissions status --json` is read-only. Require `accessibility:true`, `screen_recording:true`, `source.attribution:"driver-daemon"`, then independently verify a live window capture. A status of unknown is not a grant. OS permissions belong to the machine and signed app; they cannot be migrated as files. Do not edit TCC databases or run resets. LaunchServices attribution matters. Automation permissions for specific target apps may also be requested later. Laptop driver-owned permissions are now verified; see the current laptop deployment section.
 
 ## Prepared wrapper and complete reference
 
@@ -30,7 +44,7 @@ Only after passing: install on sweetpotato3 without opening any windows or switc
 
 Then use the working method to finish BetterDisplay's deferred items in `notes/betterdisplay.md`: mid-range nits matching, below-minimum dimming, brightness-key behavior on all displays and Samsung DDC selection. Verify readback and avoid changing visible brightness while he is using the laptop without an appropriate safe window.
 
-## Verified mini acceptance and laptop deployment boundary, 2026-10-29
+## Historical mini acceptance and initial deployment boundary, superseded
 
 CuaDriver 0.38.0 now has both Accessibility and Screen Recording on the mini,
 verified through its own daemon identity com.trycua.driver, not inherited SSH or
@@ -114,7 +128,7 @@ Remaining BetterDisplay work stays OPEN, not completed by staging Cua. Full sett
 Sources checked on this pass are https://cua.ai/docs/cua-driver/guides/use-the-sdk and https://cua.ai/docs/cua-driver/reference/cli/serve-and-configure . The embedding reference explicitly documents parent-process responsibility, read-only embedded permission checks and restart-on-grant-change behavior.
 
 
-## Authorized onboarding attempt and pause, 2026-10-29
+## Historical onboarding attempt and pause, superseded
 
 Albert explicitly authorized a brief Cua/System Settings onboarding exception, with no unrelated app launches and no deletion. The installed signed CuaDriver bundle was reused. `permissions grant` was invoked through its normal LaunchServices flow. Accessibility Settings showed CuaDriver.app; its checkbox was enabled through normal System Events UI scripting. Screen Recording used the normal add-app picker. While the picker was being navigated, System Settings disappeared before selection could be confirmed. The cause is not established. No attempt was made to reopen it after this disappearance.
 

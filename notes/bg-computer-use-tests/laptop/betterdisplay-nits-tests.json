@@ -1,0 +1,742 @@
+[
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-combinedBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-combinedBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-combinedBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-brightnessNits"
+    ],
+    "exit": 0,
+    "stdout": "600.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-hardwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-softwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-combinedBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-brightnessNits"
+    ],
+    "exit": 0,
+    "stdout": "255.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-hardwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-softwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-combinedBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-brightnessNits"
+    ],
+    "exit": 0,
+    "stdout": "450.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-hardwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-softwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-combinedBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-ddc",
+      "-vcp=0x10"
+    ],
+    "exit": 0,
+    "stdout": "50",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-ddc",
+      "-vcp=0x10"
+    ],
+    "exit": 0,
+    "stdout": "100",
+    "stderr": ""
+  },
+  {
+    "label": "initial",
+    "2": {
+      "brightnessNits": "600.0",
+      "hardwareBrightness": "1.0",
+      "softwareBrightness": "1.0",
+      "combinedBrightness": "1.0"
+    },
+    "3": {
+      "brightnessNits": "255.0",
+      "hardwareBrightness": "1.0",
+      "softwareBrightness": "1.0",
+      "combinedBrightness": "1.0",
+      "DDC10": "50"
+    },
+    "4": {
+      "brightnessNits": "450.0",
+      "hardwareBrightness": "1.0",
+      "softwareBrightness": "1.0",
+      "combinedBrightness": "1.0",
+      "DDC10": "100"
+    }
+  },
+  {
+    "args": [
+      "set",
+      "-tagID=2",
+      "-brightnessNits=150"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-brightnessNits"
+    ],
+    "exit": 0,
+    "stdout": "150.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-hardwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "0.532",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-softwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-combinedBrightness"
+    ],
+    "exit": 0,
+    "stdout": "0.622",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-brightnessNits"
+    ],
+    "exit": 0,
+    "stdout": "150.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-hardwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "0.783",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-softwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-combinedBrightness"
+    ],
+    "exit": 0,
+    "stdout": "0.835",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-brightnessNits"
+    ],
+    "exit": 0,
+    "stdout": "150.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-hardwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "0.579",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-softwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-combinedBrightness"
+    ],
+    "exit": 0,
+    "stdout": "0.789",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-ddc",
+      "-vcp=0x10"
+    ],
+    "exit": 0,
+    "stdout": "50",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-ddc",
+      "-vcp=0x10"
+    ],
+    "exit": 0,
+    "stdout": "58",
+    "stderr": ""
+  },
+  {
+    "label": "source-150-nits",
+    "2": {
+      "brightnessNits": "150.0",
+      "hardwareBrightness": "0.532",
+      "softwareBrightness": "1.0",
+      "combinedBrightness": "0.622"
+    },
+    "3": {
+      "brightnessNits": "150.0",
+      "hardwareBrightness": "0.783",
+      "softwareBrightness": "1.0",
+      "combinedBrightness": "0.835",
+      "DDC10": "50"
+    },
+    "4": {
+      "brightnessNits": "150.0",
+      "hardwareBrightness": "0.579",
+      "softwareBrightness": "1.0",
+      "combinedBrightness": "0.789",
+      "DDC10": "58"
+    }
+  },
+  {
+    "args": [
+      "set",
+      "-tagID=2",
+      "-brightnessNits=15"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-brightnessNits"
+    ],
+    "exit": 0,
+    "stdout": "15.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-hardwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "0.145",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-softwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-combinedBrightness"
+    ],
+    "exit": 0,
+    "stdout": "0.309",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-brightnessNits"
+    ],
+    "exit": 0,
+    "stdout": "15.000000406056643",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-hardwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "0.184",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-softwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-combinedBrightness"
+    ],
+    "exit": 0,
+    "stdout": "0.382",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-brightnessNits"
+    ],
+    "exit": 0,
+    "stdout": "15.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-hardwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "0.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-softwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "0.798",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-combinedBrightness"
+    ],
+    "exit": 0,
+    "stdout": "0.399",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-ddc",
+      "-vcp=0x10"
+    ],
+    "exit": 0,
+    "stdout": "50",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-ddc",
+      "-vcp=0x10"
+    ],
+    "exit": 0,
+    "stdout": "0",
+    "stderr": ""
+  },
+  {
+    "label": "source-15-nits",
+    "2": {
+      "brightnessNits": "15.0",
+      "hardwareBrightness": "0.145",
+      "softwareBrightness": "1.0",
+      "combinedBrightness": "0.309"
+    },
+    "3": {
+      "brightnessNits": "15.000000406056643",
+      "hardwareBrightness": "0.184",
+      "softwareBrightness": "1.0",
+      "combinedBrightness": "0.382",
+      "DDC10": "50"
+    },
+    "4": {
+      "brightnessNits": "15.0",
+      "hardwareBrightness": "0.0",
+      "softwareBrightness": "0.798",
+      "combinedBrightness": "0.399",
+      "DDC10": "0"
+    }
+  },
+  {
+    "args": [
+      "set",
+      "-tagID=2",
+      "-combinedBrightness=1.0"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "set",
+      "-tagID=3",
+      "-combinedBrightness=1.0"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "set",
+      "-tagID=4",
+      "-combinedBrightness=1.0"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-brightnessNits"
+    ],
+    "exit": 0,
+    "stdout": "600.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-hardwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "0.999",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-softwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=2",
+      "-combinedBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-brightnessNits"
+    ],
+    "exit": 0,
+    "stdout": "255.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-hardwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-softwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-combinedBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-brightnessNits"
+    ],
+    "exit": 0,
+    "stdout": "450.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-hardwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-softwareBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-combinedBrightness"
+    ],
+    "exit": 0,
+    "stdout": "1.0",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=3",
+      "-ddc",
+      "-vcp=0x10"
+    ],
+    "exit": 0,
+    "stdout": "50",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "get",
+      "-tagID=4",
+      "-ddc",
+      "-vcp=0x10"
+    ],
+    "exit": 0,
+    "stdout": "100",
+    "stderr": ""
+  },
+  {
+    "label": "restored",
+    "2": {
+      "brightnessNits": "600.0",
+      "hardwareBrightness": "0.999",
+      "softwareBrightness": "1.0",
+      "combinedBrightness": "1.0"
+    },
+    "3": {
+      "brightnessNits": "255.0",
+      "hardwareBrightness": "1.0",
+      "softwareBrightness": "1.0",
+      "combinedBrightness": "1.0",
+      "DDC10": "50"
+    },
+    "4": {
+      "brightnessNits": "450.0",
+      "hardwareBrightness": "1.0",
+      "softwareBrightness": "1.0",
+      "combinedBrightness": "1.0",
+      "DDC10": "100"
+    }
+  }
+]

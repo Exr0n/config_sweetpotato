@@ -1,0 +1,21 @@
+{
+  "accessibility": true,
+  "direct_capture_error": null,
+  "direct_capture_status": "not_checked",
+  "direct_capture_verification": {
+    "bundle_id": "com.trycua.driver",
+    "source": "permissions_grant",
+    "verified_at": "2026-10-30T04:18:16Z"
+  },
+  "screen_recording": true,
+  "screen_recording_capturable": null,
+  "source": {
+    "attribution": "driver-daemon",
+    "bundle_id": "com.trycua.driver",
+    "disclaim_env": false,
+    "executable": "/Applications/CuaDriver.app/Contents/MacOS/cua-driver",
+    "note": "These booleans reflect the CuaDriver daemon's own TCC identity (com.trycua.driver) because this process is its own responsible process.",
+    "pid": 72453,
+    "responsible_ppid": 1
+  }
+}
