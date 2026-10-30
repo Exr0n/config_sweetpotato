@@ -1,0 +1,713 @@
+{
+  "calls": [
+    {
+      "tool": "get_window_state",
+      "arguments": {
+        "pid": 87226,
+        "window_id": 95139,
+        "tree_format": "elements",
+        "screenshot_out_file": "/Users/albot-mac2-acct2/.local/state/cua-permission-recovery/proof-before.png",
+        "session": "acceptance-proof"
+      },
+      "result": {
+        "app_name": "CuaAcceptance",
+        "capture_id": "capture_3e56184d66834b12b0a7167f6b133837_000000000000000a",
+        "element_count": 7,
+        "elements": [
+          {
+            "actions": [
+              "AXRaise"
+            ],
+            "depth": 0,
+            "element_index": 0,
+            "element_token": "s0000000f:0",
+            "frame": {
+              "h": 272.0,
+              "w": 480.0,
+              "x": 80.0,
+              "y": 658.0
+            },
+            "label": "Cua Background Acceptance",
+            "role": "AXWindow",
+            "screenshot_frame": {
+              "h": 272,
+              "w": 480,
+              "x": 0,
+              "y": 0
+            }
+          },
+          {
+            "actions": [
+              "AXPress"
+            ],
+            "depth": 1,
+            "element_index": 1,
+            "element_token": "s0000000f:1",
+            "enabled": true,
+            "frame": {
+              "h": 42.0,
+              "w": 162.0,
+              "x": 111.0,
+              "y": 759.0
+            },
+            "label": "Increment",
+            "parent_index": 0,
+            "role": "AXButton",
+            "screenshot_frame": {
+              "h": 42,
+              "w": 162,
+              "x": 31,
+              "y": 101
+            }
+          },
+          {
+            "actions": [
+              "AXShowMenu",
+              "AXConfirm"
+            ],
+            "depth": 1,
+            "element_index": 2,
+            "element_token": "s0000000f:2",
+            "enabled": true,
+            "frame": {
+              "h": 34.0,
+              "w": 352.0,
+              "x": 111.0,
+              "y": 867.0
+            },
+            "label": "Acceptance input",
+            "parent_index": 0,
+            "role": "AXTextField",
+            "screenshot_frame": {
+              "h": 34,
+              "w": 352,
+              "x": 31,
+              "y": 209
+            },
+            "value": "verified background input"
+          },
+          {
+            "actions": [
+              "AXPress"
+            ],
+            "depth": 1,
+            "element_index": 3,
+            "element_token": "s0000000f:3",
+            "enabled": true,
+            "frame": {
+              "h": 16.0,
+              "w": 16.0,
+              "x": 88.0,
+              "y": 666.0
+            },
+            "parent_index": 0,
+            "role": "AXButton",
+            "screenshot_frame": {
+              "h": 16,
+              "w": 16,
+              "x": 8,
+              "y": 8
+            }
+          },
+          {
+            "actions": [
+              "AXCancel"
+            ],
+            "depth": 0,
+            "element_index": 4,
+            "element_token": "s0000000f:4",
+            "enabled": true,
+            "frame": {
+              "h": 30.0,
+              "w": 1920.0,
+              "x": 0.0,
+              "y": 0.0
+            },
+            "role": "AXMenuBar",
+            "screenshot_frame": {
+              "h": 30,
+              "w": 1920,
+              "x": -80,
+              "y": -658
+            },
+            "selected": false
+          },
+          {
+            "actions": [
+              "AXCancel",
+              "AXPress",
+              "AXPick"
+            ],
+            "depth": 1,
+            "element_index": 5,
+            "element_token": "s0000000f:5",
+            "enabled": true,
+            "frame": {
+              "h": 30.0,
+              "w": 34.0,
+              "x": 10.0,
+              "y": 0.0
+            },
+            "label": "Apple",
+            "parent_index": 4,
+            "role": "AXMenuBarItem",
+            "screenshot_frame": {
+              "h": 30,
+              "w": 34,
+              "x": -70,
+              "y": -658
+            },
+            "selected": false
+          },
+          {
+            "actions": [
+              "AXCancel",
+              "AXPress",
+              "AXPick"
+            ],
+            "depth": 1,
+            "element_index": 6,
+            "element_token": "s0000000f:6",
+            "enabled": true,
+            "frame": {
+              "h": 30.0,
+              "w": 122.0,
+              "x": 44.0,
+              "y": 0.0
+            },
+            "label": "CuaAcceptance",
+            "parent_index": 4,
+            "role": "AXMenuBarItem",
+            "screenshot_frame": {
+              "h": 30,
+              "w": 122,
+              "x": -36,
+              "y": -658
+            },
+            "selected": false
+          }
+        ],
+        "elements_complete": false,
+        "invalidated_snapshot_ids": [
+          "s0000000e"
+        ],
+        "pid": 87226,
+        "returned_element_count": 7,
+        "screenshot_file_path": "/Users/albot-mac2-acct2/.local/state/cua-permission-recovery/proof-before.png",
+        "screenshot_frame_valid": true,
+        "screenshot_height": 272,
+        "screenshot_mime_type": "image/png",
+        "screenshot_scale": 1.0,
+        "screenshot_width": 480,
+        "snapshot_id": "s0000000f",
+        "timeout_ms": 1000,
+        "total_element_count": 7,
+        "tree_format": "elements",
+        "truncated": false,
+        "window_bounds": {
+          "height": 272.0,
+          "width": 480.0,
+          "x": 80.0,
+          "y": 658.0
+        },
+        "window_id": 95139,
+        "window_title": "Cua Background Acceptance"
+      }
+    },
+    {
+      "tool": "click",
+      "arguments": {
+        "element_token": "s0000000f:1",
+        "delivery_mode": "background",
+        "session": "acceptance-proof"
+      },
+      "result": {
+        "delivery": {
+          "mode": "background"
+        },
+        "effect": "unverifiable",
+        "hint": "The click was sent but nothing confirmed it. Read what changed before clicking again; a repeat can toggle or double-fire. Three single actions in a row: send the next ones as one run_steps call. It runs them in order, stops at the first failure and returns what changed.",
+        "route": "accessibility",
+        "summary": "\u2705 Performed AXPress on [1] AXButton \"Increment\"."
+      }
+    },
+    {
+      "tool": "set_value",
+      "arguments": {
+        "element_token": "s0000000f:2",
+        "value": "verified background",
+        "session": "acceptance-proof"
+      },
+      "result": {
+        "delivery": {
+          "mode": "background"
+        },
+        "effect": "confirmed",
+        "evidence": [
+          {
+            "kind": "value_readback"
+          }
+        ],
+        "route": "accessibility",
+        "summary": "\u2705 Set AXValue on [2] AXTextField."
+      }
+    },
+    {
+      "tool": "type_text",
+      "arguments": {
+        "element_token": "s0000000f:2",
+        "text": " input",
+        "delivery_mode": "background",
+        "session": "acceptance-proof"
+      },
+      "result": {
+        "delivery": {
+          "delivered_count": 6,
+          "mode": "background"
+        },
+        "effect": "confirmed",
+        "evidence": [
+          {
+            "kind": "value_readback"
+          }
+        ],
+        "route": "accessibility",
+        "summary": "\u2705 Inserted 6 char(s) into [2] AXTextField \"\"."
+      }
+    },
+    {
+      "tool": "click",
+      "arguments": {
+        "pid": 87226,
+        "window_id": 95139,
+        "x": 110,
+        "y": 122,
+        "delivery_mode": "background",
+        "session": "acceptance-proof"
+      },
+      "result": {
+        "delivery": {
+          "mode": "background"
+        },
+        "effect": "unverifiable",
+        "hint": "The click was sent but nothing confirmed it. Read what changed before clicking again; a repeat can toggle or double-fire. Three single actions in a row: send the next ones as one run_steps call. It runs them in order, stops at the first failure and returns what changed.",
+        "next_call": {
+          "arguments": {
+            "pid": 87226,
+            "session": "acceptance-proof",
+            "since": "latest",
+            "window_id": 95139
+          },
+          "tool": "get_window_state"
+        },
+        "route": "accessibility",
+        "summary": "\u2705 PX hit-test pressed the background element via AX."
+      }
+    },
+    {
+      "tool": "get_window_state",
+      "arguments": {
+        "pid": 87226,
+        "window_id": 95139,
+        "tree_format": "elements",
+        "screenshot_out_file": "/Users/albot-mac2-acct2/.local/state/cua-permission-recovery/proof-after.png",
+        "session": "acceptance-proof"
+      },
+      "result": {
+        "app_name": "CuaAcceptance",
+        "capture_id": "capture_3e56184d66834b12b0a7167f6b133837_000000000000000b",
+        "element_count": 7,
+        "elements": [
+          {
+            "actions": [
+              "AXRaise"
+            ],
+            "depth": 0,
+            "element_index": 0,
+            "element_token": "s00000010:0",
+            "frame": {
+              "h": 272.0,
+              "w": 480.0,
+              "x": 80.0,
+              "y": 658.0
+            },
+            "label": "Cua Background Acceptance",
+            "role": "AXWindow",
+            "screenshot_frame": {
+              "h": 272,
+              "w": 480,
+              "x": 0,
+              "y": 0
+            }
+          },
+          {
+            "actions": [
+              "AXPress"
+            ],
+            "depth": 1,
+            "element_index": 1,
+            "element_token": "s00000010:1",
+            "enabled": true,
+            "frame": {
+              "h": 42.0,
+              "w": 162.0,
+              "x": 111.0,
+              "y": 759.0
+            },
+            "label": "Increment",
+            "parent_index": 0,
+            "role": "AXButton",
+            "screenshot_frame": {
+              "h": 42,
+              "w": 162,
+              "x": 31,
+              "y": 101
+            }
+          },
+          {
+            "actions": [
+              "AXShowMenu",
+              "AXConfirm"
+            ],
+            "depth": 1,
+            "element_index": 2,
+            "element_token": "s00000010:2",
+            "enabled": true,
+            "frame": {
+              "h": 34.0,
+              "w": 352.0,
+              "x": 111.0,
+              "y": 867.0
+            },
+            "label": "Acceptance input",
+            "parent_index": 0,
+            "role": "AXTextField",
+            "screenshot_frame": {
+              "h": 34,
+              "w": 352,
+              "x": 31,
+              "y": 209
+            },
+            "value": "verified background input"
+          },
+          {
+            "actions": [
+              "AXPress"
+            ],
+            "depth": 1,
+            "element_index": 3,
+            "element_token": "s00000010:3",
+            "enabled": true,
+            "frame": {
+              "h": 16.0,
+              "w": 16.0,
+              "x": 88.0,
+              "y": 666.0
+            },
+            "parent_index": 0,
+            "role": "AXButton",
+            "screenshot_frame": {
+              "h": 16,
+              "w": 16,
+              "x": 8,
+              "y": 8
+            }
+          },
+          {
+            "actions": [
+              "AXCancel"
+            ],
+            "depth": 0,
+            "element_index": 4,
+            "element_token": "s00000010:4",
+            "enabled": true,
+            "frame": {
+              "h": 30.0,
+              "w": 1920.0,
+              "x": 0.0,
+              "y": 0.0
+            },
+            "role": "AXMenuBar",
+            "screenshot_frame": {
+              "h": 30,
+              "w": 1920,
+              "x": -80,
+              "y": -658
+            },
+            "selected": false
+          },
+          {
+            "actions": [
+              "AXCancel",
+              "AXPress",
+              "AXPick"
+            ],
+            "depth": 1,
+            "element_index": 5,
+            "element_token": "s00000010:5",
+            "enabled": true,
+            "frame": {
+              "h": 30.0,
+              "w": 34.0,
+              "x": 10.0,
+              "y": 0.0
+            },
+            "label": "Apple",
+            "parent_index": 4,
+            "role": "AXMenuBarItem",
+            "screenshot_frame": {
+              "h": 30,
+              "w": 34,
+              "x": -70,
+              "y": -658
+            },
+            "selected": false
+          },
+          {
+            "actions": [
+              "AXCancel",
+              "AXPress",
+              "AXPick"
+            ],
+            "depth": 1,
+            "element_index": 6,
+            "element_token": "s00000010:6",
+            "enabled": true,
+            "frame": {
+              "h": 30.0,
+              "w": 122.0,
+              "x": 44.0,
+              "y": 0.0
+            },
+            "label": "CuaAcceptance",
+            "parent_index": 4,
+            "role": "AXMenuBarItem",
+            "screenshot_frame": {
+              "h": 30,
+              "w": 122,
+              "x": -36,
+              "y": -658
+            },
+            "selected": false
+          }
+        ],
+        "elements_complete": false,
+        "invalidated_snapshot_ids": [
+          "s0000000f"
+        ],
+        "pid": 87226,
+        "returned_element_count": 7,
+        "screenshot_file_path": "/Users/albot-mac2-acct2/.local/state/cua-permission-recovery/proof-after.png",
+        "screenshot_frame_valid": true,
+        "screenshot_height": 272,
+        "screenshot_mime_type": "image/png",
+        "screenshot_scale": 1.0,
+        "screenshot_width": 480,
+        "snapshot_id": "s00000010",
+        "timeout_ms": 1000,
+        "total_element_count": 7,
+        "tree_format": "elements",
+        "truncated": false,
+        "window_bounds": {
+          "height": 272.0,
+          "width": 480.0,
+          "x": 80.0,
+          "y": 658.0
+        },
+        "window_id": 95139,
+        "window_title": "Cua Background Acceptance"
+      }
+    },
+    {
+      "tool": "get_window_state",
+      "arguments": {
+        "pid": 87226,
+        "window_id": 95139,
+        "tree_format": "elements",
+        "include_screenshot": false,
+        "session": "acceptance-proof"
+      },
+      "result": {
+        "app_name": "CuaAcceptance",
+        "element_count": 7,
+        "elements": [
+          {
+            "actions": [
+              "AXRaise"
+            ],
+            "depth": 0,
+            "element_index": 0,
+            "element_token": "s00000011:0",
+            "frame": {
+              "h": 272.0,
+              "w": 480.0,
+              "x": 80.0,
+              "y": 658.0
+            },
+            "label": "Cua Background Acceptance",
+            "role": "AXWindow"
+          },
+          {
+            "actions": [
+              "AXPress"
+            ],
+            "depth": 1,
+            "element_index": 1,
+            "element_token": "s00000011:1",
+            "enabled": true,
+            "frame": {
+              "h": 42.0,
+              "w": 162.0,
+              "x": 111.0,
+              "y": 759.0
+            },
+            "label": "Increment",
+            "parent_index": 0,
+            "role": "AXButton"
+          },
+          {
+            "actions": [
+              "AXShowMenu",
+              "AXConfirm"
+            ],
+            "depth": 1,
+            "element_index": 2,
+            "element_token": "s00000011:2",
+            "enabled": true,
+            "frame": {
+              "h": 34.0,
+              "w": 352.0,
+              "x": 111.0,
+              "y": 867.0
+            },
+            "label": "Acceptance input",
+            "parent_index": 0,
+            "role": "AXTextField",
+            "value": "verified background input"
+          },
+          {
+            "actions": [
+              "AXPress"
+            ],
+            "depth": 1,
+            "element_index": 3,
+            "element_token": "s00000011:3",
+            "enabled": true,
+            "frame": {
+              "h": 16.0,
+              "w": 16.0,
+              "x": 88.0,
+              "y": 666.0
+            },
+            "parent_index": 0,
+            "role": "AXButton"
+          },
+          {
+            "actions": [
+              "AXCancel"
+            ],
+            "depth": 0,
+            "element_index": 4,
+            "element_token": "s00000011:4",
+            "enabled": true,
+            "frame": {
+              "h": 30.0,
+              "w": 1920.0,
+              "x": 0.0,
+              "y": 0.0
+            },
+            "role": "AXMenuBar",
+            "selected": false
+          },
+          {
+            "actions": [
+              "AXCancel",
+              "AXPress",
+              "AXPick"
+            ],
+            "depth": 1,
+            "element_index": 5,
+            "element_token": "s00000011:5",
+            "enabled": true,
+            "frame": {
+              "h": 30.0,
+              "w": 34.0,
+              "x": 10.0,
+              "y": 0.0
+            },
+            "label": "Apple",
+            "parent_index": 4,
+            "role": "AXMenuBarItem",
+            "selected": false
+          },
+          {
+            "actions": [
+              "AXCancel",
+              "AXPress",
+              "AXPick"
+            ],
+            "depth": 1,
+            "element_index": 6,
+            "element_token": "s00000011:6",
+            "enabled": true,
+            "frame": {
+              "h": 30.0,
+              "w": 122.0,
+              "x": 44.0,
+              "y": 0.0
+            },
+            "label": "CuaAcceptance",
+            "parent_index": 4,
+            "role": "AXMenuBarItem",
+            "selected": false
+          }
+        ],
+        "elements_complete": false,
+        "invalidated_snapshot_ids": [
+          "s00000010"
+        ],
+        "pid": 87226,
+        "returned_element_count": 7,
+        "snapshot_id": "s00000011",
+        "timeout_ms": 1000,
+        "total_element_count": 7,
+        "tree_format": "elements",
+        "truncated": false,
+        "window_id": 95139,
+        "window_title": "Cua Background Acceptance"
+      }
+    },
+    {
+      "tool": "click",
+      "arguments": {
+        "pid": 87226,
+        "window_id": 95139,
+        "delivery_mode": "foreground",
+        "x": 110,
+        "y": 122
+      },
+      "exit": 2,
+      "stderr": "bg-computer-use: foreground delivery forbidden\n"
+    },
+    {
+      "tool": "click",
+      "arguments": {
+        "scope": "desktop",
+        "x": 110,
+        "y": 122
+      },
+      "exit": 2,
+      "stderr": "bg-computer-use: desktop scope forbidden\n"
+    },
+    {
+      "tool": "bring_to_front",
+      "arguments": {
+        "pid": 87226,
+        "window_id": 95139
+      },
+      "exit": 2,
+      "stderr": "bg-computer-use: tool not permitted by background-only wrapper\n"
+    }
+  ],
+  "status": "passed"
+}
