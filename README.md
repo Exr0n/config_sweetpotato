@@ -371,3 +371,7 @@ The installed ~/.local/bin/bg-computer-use links to notes/bg-computer-use-wrappe
 Do not enable raw pointer, keyboard shortcuts, scrolling, dragging, desktop scope or foreground fallback from these results. App behavior can vary; re-read state after every mutation. AX-unresolved windows remain observation-only. Raw screenshots/trees of private Notes content stay outside the repo. Sanitized receipts are in notes/bg-computer-use-tests/laptop/.
 
 BetterDisplay background completion is partial, not finished. No Settings window exists, so its full UI audit, Samsung normal-path DDC selection and native-key configuration/tests cannot be done without creating a visible window. Current no-new-visible-window/no-other-app-launch restrictions remain in force. The Cua onboarding pause is superseded by this verified deployment, not by unrestricted GUI permission.
+
+## Time-tracking pipeline on mini
+
+Hourly collector, local audio inference, idempotent Time Tracking calendar writer, health contract and migration steps are documented in [notes/time-tracking.md](notes/time-tracking.md). Source is on mini at ~/kat-time-tracking. This setup makes no laptop app launches or GUI changes.
