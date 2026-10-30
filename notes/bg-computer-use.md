@@ -112,3 +112,14 @@ Normal standalone onboarding uses permissions grant and macOS Settings, may disp
 Remaining BetterDisplay work stays OPEN, not completed by staging Cua. Full settings inventory/wiki review, Samsung normal-controller DDC selection/read-write proof, always-built-in brightness key targeting, real native key tests, intermediate nits matching and below-minimum dimming need a verified permitted control path. Precision luminance calibration additionally needs actual measurement, not nominal specs.
 
 Sources checked on this pass are https://cua.ai/docs/cua-driver/guides/use-the-sdk and https://cua.ai/docs/cua-driver/reference/cli/serve-and-configure . The embedding reference explicitly documents parent-process responsibility, read-only embedded permission checks and restart-on-grant-change behavior.
+
+
+## Authorized onboarding attempt and pause, 2026-10-29
+
+Albert explicitly authorized a brief Cua/System Settings onboarding exception, with no unrelated app launches and no deletion. The installed signed CuaDriver bundle was reused. `permissions grant` was invoked through its normal LaunchServices flow. Accessibility Settings showed CuaDriver.app; its checkbox was enabled through normal System Events UI scripting. Screen Recording used the normal add-app picker. While the picker was being navigated, System Settings disappeared before selection could be confirmed. The cause is not established. No attempt was made to reopen it after this disappearance.
+
+The original long-running permissions-grant command subsequently returned success for Accessibility, Screen Recording and direct capture, explicitly saying macOS does not distinguish newly granted from already present consent. Its following diagnostic AppleScript failed because it asked for process name CuaDriver, which was not found. This command receipt is evidence of a successful permission probe at that moment, not proof of a currently serving daemon.
+
+Later independent read-only status checks report daemon_running=false and status=unknown. The expected socket and PID-file artifacts remain under ~/Library/Caches/cua-driver but are not evidence of a live service. One brief process listing showed a cua-driver process, later listings showed none. `call list_windows` failed because the daemon was not running and did not return windows. No harmless-app input test or BetterDisplay mutation occurred. No unrelated app was launched.
+
+Caller subsequently explicitly paused laptop GUI and input pending cause/fresh approval. Do not invoke grant, start/launch/restart any app or daemon, open Settings, send input, or change BetterDisplay under this pause. Only headless state inspection/documentation is allowed. Permissions remain currently unverified; all BetterDisplay deferred items remain OPEN.
