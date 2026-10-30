@@ -228,7 +228,7 @@ finish before indexing or searching the restored data.
 ## 9. sign-ins & onboarding (manual, last)
 **Required: sign into every account inside each app.** Installing an app does not carry over its accounts. After the packages land, open each app and log in, e.g. Spark (add every email account), Fantastical (add every calendar account), plus the rest below. Not done until each app shows your data.
 
-Raycast (then export .rayconfig!; its own "Launch at login" registers a login item, so no LaunchAgent is needed), Fantastical accounts, Spark email accounts, Zotero, VS Code Settings Sync, Claude, ChatGPT, Beeper, Discord, Todoist, Helium profile, `gh auth login -w` (device code; follow with `gh auth setup-git`). Accessibility: AeroSpace, Raycast. Gatekeeper "malware" flags (e.g. Codex): System Settings → Privacy & Security → Open Anyway.
+Raycast (then export .rayconfig!; its own "Launch at login" registers a login item, so no LaunchAgent is needed), Fantastical accounts, Spark email accounts, Zotero, VS Code Settings Sync, Claude, ChatGPT, Beeper, Discord, Todoist, Helium profile, `gh auth login -w` (device code; follow with `gh auth setup-git`). Accessibility: AeroSpace, Raycast. **Raycast needs Accessibility (System Settings → Privacy & Security → Accessibility) for the emoji picker shortcut to type/paste the emoji into the focused app**; without it the shortcut opens but inserts nothing. Gatekeeper "malware" flags (e.g. Codex): System Settings → Privacy & Security → Open Anyway.
 
 Codex resume performance depends on the active history under
 `~/.codex/sessions`. Archive old sessions instead of deleting them; keeping
