@@ -324,3 +324,11 @@ Reload already-open pages when you want the migrated scripts to apply.
 Debugging access is powerful, even on loopback. When convenient, quit Helium
 normally and reopen without debugging flags; do not leave a permanent debugging
 server or a public tunnel. Backups are under `~/.local/state/helium-setup/`.
+
+## 11. display tools
+
+```
+brew install --cask betterdisplay
+```
+
+Open once, grant Accessibility + launch at login. Enable XDR/HDR extra brightness on the built-in display, DDC brightness control for external monitors.
