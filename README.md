@@ -375,3 +375,5 @@ BetterDisplay background completion is partial, not finished. No Settings window
 ## Time-tracking pipeline on mini
 
 Hourly collector, local audio inference, idempotent Time Tracking calendar writer, health contract and migration steps are documented in [notes/time-tracking.md](notes/time-tracking.md). Source is on mini at ~/kat-time-tracking. This setup makes no laptop app launches or GUI changes.
+
+Audio ranged collector deployment and permissions: notes/audio-ranged-collector.md (read-only, no GUI prompts; existing developer pairing).
