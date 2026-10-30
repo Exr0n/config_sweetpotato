@@ -49,3 +49,6 @@ https://betterdisplay.pro/guide/interface-reference/settings/keyboard/native-key
 https://betterdisplay.pro/guide/interface-reference/settings/displays/display/device-control/
 https://betterdisplay.pro/guide/interface-reference/settings/displays/display/device-control/settings/
 https://betterdisplay.pro/guide/technical-reference/brightness/
+
+
+2026-10-29 22:17 continuation81de8e41: live idle1069s then immediate gate1090.789808208s passed. Opened only BetterDisplay Settings via documented CLI; activity/180s auto-close watchdog86174 installed. Window21068 existed, but Cua refused observation/input with screen_locked (screen lock/screensaver/display sleep cannot be distinguished). No AX input, key injection, controller change or brightness change attempted. Closed immediately via CLI and readback settingsWindow=off. This is a real access blocker, not completion; do not wake/unlock or bypass. Remaining keys, Samsung normal DDC and full audit OPEN. Future continuation must first inspect lock/screen-saver state headlessly and never open Settings when unavailable.
