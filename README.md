@@ -379,3 +379,5 @@ Hourly collector, local audio inference, idempotent Time Tracking calendar write
 Audio ranged collector deployment and permissions: notes/audio-ranged-collector.md (read-only, no GUI prompts; existing developer pairing).
 
 Time tracking scoped-day publication, title policy and bounded hourly pipeline are exported in notes/time-tracking.md.
+
+**Helium and AeroSpace (2026-11-02):** Helium is managed by AeroSpace through its `on-window-detected` rule (record id, float-if-small) but is deliberately NOT moved to a fixed workspace. A `move-node-to-workspace arc` rule sent every new Helium window to the laptop display; windows now open on the workspace/display you were on (e.g. after shift-enter on another monitor). Do not re-add the move. Its macOS app id is `net.imput.helium`; "unmanaged" in the Helium UI is Chrome's enterprise-policy badge (no `/Library/Managed Preferences` profile exists by design), unrelated to AeroSpace.

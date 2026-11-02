@@ -69,10 +69,11 @@ run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest
 [[on-window-detected]]
 if.app-id = 'company.thebrowser.Browser'
 run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace arc', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
-# Helium (default browser since 2026-10-25) lives where Arc did
+# Helium (default browser since 2026-10-25): managed, but NOT moved to a fixed workspace.
+# New windows open on the workspace/display you were on (2026-11-02: a move to `arc` sent them to the laptop display).
 [[on-window-detected]]
 if.app-id = 'net.imput.helium'
-run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace arc', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
+run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
 [[on-window-detected]]
 if.app-id = 'com.apple.Notes'
 run = ['exec-and-forget echo "$AEROSPACE_WINDOW_ID" > ~/.caches/aerospace/latest_window_id', 'move-node-to-workspace notes', 'exec-and-forget ~/.config/aerospace/float-if-small.sh']
