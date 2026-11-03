@@ -204,6 +204,8 @@ killall Dock Finder ControlCenter SystemUIServer 2>/dev/null || true
 
 # Photos "Start Playback" = Ctrl-Space (default Opt-Space clashes with Todoist quick add). Albert 2026-06-23. Quit Photos first.
 defaults write com.apple.Photos NSUserKeyEquivalents -dict-add "Start Playback" '^ '
+# Claude desktop "Open File…" grabs Cmd-O; rebind to Ctrl-Opt-Shift-Cmd-F19 (unreachable) to kill it. Albert 2026-11-03. Quit Claude first.
+defaults write com.anthropic.claudefordesktop NSUserKeyEquivalents -dict-add "$(printf 'Open File\xe2\x80\xa6')" "$(printf '@~^$\xef\x9c\x96')"
 
 # Todoist: disable the Ramble global shortcut (eats physical cmd-shift-p = alt-shift-p window tag). Albert 2026-06-19. Quit Todoist first; skipped if Todoist has never run.
 _td="$HOME/Library/Application Support/Todoist/settings.json"
