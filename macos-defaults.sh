@@ -206,6 +206,14 @@ killall Dock Finder ControlCenter SystemUIServer 2>/dev/null || true
 defaults write com.apple.Photos NSUserKeyEquivalents -dict-add "Start Playback" '^ '
 # Claude desktop "Open File…" grabs Cmd-O; rebind to Ctrl-Opt-Shift-Cmd-F19 (unreachable) to kill it. Albert 2026-11-03. Quit Claude first.
 defaults write com.anthropic.claudefordesktop NSUserKeyEquivalents -dict-add "$(printf 'Open File\xe2\x80\xa6')" "$(printf '@~^$\xef\x9c\x96')"
+# Claude desktop Quick Entry defaults to double-tap Option (= physical Cmd under Karabiner) and keeps popping Claude; turn it off. Albert 2026-11-03. Quit Claude first.
+python3 - <<'PY'
+import json, os
+p = os.path.expanduser("~/Library/Application Support/Claude/claude_desktop_config.json")
+d = json.load(open(p)) if os.path.exists(p) else {}
+d.setdefault("preferences", {})["quickEntryShortcut"] = "off"
+t = p + ".tmp"; json.dump(d, open(t, "w"), indent=2); os.replace(t, p)
+PY
 
 # Todoist: disable the Ramble global shortcut (eats physical cmd-shift-p = alt-shift-p window tag). Albert 2026-06-19. Quit Todoist first; skipped if Todoist has never run.
 _td="$HOME/Library/Application Support/Todoist/settings.json"
