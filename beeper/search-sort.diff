@@ -1,0 +1,27 @@
+--- a/build/renderer/App-B2grLudt.js
++++ b/build/renderer/App-B2grLudt.js
+@@ -1,5 +1,23 @@
+ sortResults(t){
+-return Ai(t,[n=>this.isNetworkOnlyMatch(n)?1:0,n=>this.computeStatePenalty(n),n=>n.thread.sortTimestamp??uit,n=>String(n.thread.id)],["asc","asc","desc","asc"])}
++return Ai(t,[n=>this.__dmFirst(n),n=>this.isNetworkOnlyMatch(n)?1:0,n=>this.__pCount(n),n=>this.computeStatePenalty(n),n=>n.thread.sortTimestamp??uit,n=>String(n.thread.id)],["asc","asc","asc","asc","desc","asc"])}
++/*albert-dm-first-search*/__dmFirst(e){
++try{
++const t=e.thread,s=e.result&&e.result.score;
++if(!t||!s)return 1;
++const dm=t.type==="single"||(!!t.isUnion&&Array.isArray(t.memberThreads)&&t.memberThreads.length>0&&t.memberThreads.every(m=>m.type==="single"));
++return dm&&((s.title&&s.title.hits>0)||(s.participants&&s.participants.hits>0))?0:1}
++catch(_){
++return 1}
++}
++__pCount(e){
++try{
++const t=e.thread;
++let c=(t.rawActiveParticipants||[]).length;
++if(!c&&Array.isArray(t.memberThreads))for(const m of t.memberThreads)c=Math.max(c,(m.rawActiveParticipants||[]).length);
++return c>0?c:1e9}
++catch(_){
++return 1e9}
++}
+ isNetworkOnlyMatch(t){
+ const{
+ title:n,network:s,participants:r}
