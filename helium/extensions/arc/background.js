@@ -268,7 +268,9 @@ async function getHistory(query) {
 function historyBoost(entry) {
   const age = Date.now() - entry.lastVisitTime;
   const recency = age < 86400000 ? 4 : age < 7 * 86400000 ? 2 : 0;
-  return Math.min(8, Math.log2(entry.visitCount + 1) * 1.5) + recency;
+  let rootBonus = 0;
+  try { const u = new URL(entry.url); if ((u.pathname === '/' || u.pathname === '') && !u.search) rootBonus = 14; } catch {}
+  return Math.min(3, Math.log2(entry.visitCount + 1) * 0.75) + Math.min(recency, 1) + rootBonus;
 }
 
 // ---------------------------------------------------------------------------
@@ -328,14 +330,23 @@ async function handleSearch({ query }, ctx) {
     { limit: LIMITS.history, boost: historyBoost }
   );
 
+  // arc-typed-go: a complete URL is always the first row (Enter opens exactly it in a new
+  // tab). For a bare word the first rows are matching sites (shortest, most-used host).
+  const urlLike = isLikelyUrl(q);
+  const typedItems = urlLike
+    ? [{ type: 'typed', id: 'typed-go', url: toNavigableUrl(q), title: toNavigableUrl(q), description: 'Open exactly this address in a new tab', icon: '↗', query: q }]
+    : siteCandidates(q, [...tabs, ...bookmarks, ...history]);
+  const webItems = urlLike ? [] : [{ type: 'typed', id: 'typed-web', title: `Search for "${q}"`, description: 'Search the web in a new tab', icon: '↗', query: q }];
   return {
     groups: [
+      { id: 'typed', label: urlLike ? 'Go' : 'Sites', items: typedItems },
       { id: 'workspaces', label: 'Workspaces', items: rank(workspaces, q, { limit: 9 }) },
       { id: 'tabs', label: 'Tabs', items: tabItems },
       { id: 'bookmarks', label: 'Bookmarks', items: bookmarkItems },
       { id: 'actions', label: 'Actions', items: actionItems },
       { id: 'closed', label: 'Recently closed', items: closedItems },
-      { id: 'history', label: 'History', items: historyItems }
+      { id: 'history', label: 'History', items: historyItems },
+      { id: 'web', label: 'Search', items: webItems }
     ].filter(g => g.items.length)
   };
 }
@@ -775,6 +786,7 @@ const HANDLERS = {
   openWorkspace,
   search: handleSearch,
   home: handleHome,
+  preview: handlePreview,
   open: handleOpen,
   navigate: handleNavigate,
   executeAction,
@@ -808,6 +820,103 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       sendResponse({ success: false, error: String(error?.message || error) });
     });
   return true;
+});
+
+
+// ---------------------------------------------------------------------------
+// Site candidates: a bare word like "map" goes to the site, not to history
+// ---------------------------------------------------------------------------
+
+const SEED_SITES = {
+  map: 'maps.google.com', maps: 'maps.google.com', mail: 'mail.google.com', gmail: 'mail.google.com',
+  cal: 'calendar.google.com', calendar: 'calendar.google.com', drive: 'drive.google.com', docs: 'docs.google.com',
+  sheets: 'docs.google.com/spreadsheets', slides: 'docs.google.com/presentation', photos: 'photos.google.com',
+  meet: 'meet.google.com', gh: 'github.com', github: 'github.com', yt: 'youtube.com', youtube: 'youtube.com',
+  x: 'x.com', twitter: 'x.com', amazon: 'amazon.com', chatgpt: 'chatgpt.com', claude: 'claude.ai',
+  linkedin: 'linkedin.com', reddit: 'reddit.com', hn: 'news.ycombinator.com', notion: 'notion.so',
+  gemini: 'gemini.google.com', scholar: 'scholar.google.com', arxiv: 'arxiv.org', wiki: 'wikipedia.org',
+  wikipedia: 'wikipedia.org', drive2: 'drive.google.com', exr: 'exr0n.com', exr0n: 'exr0n.com'
+};
+
+function siteCandidates(q, items) {
+  const word = q.toLowerCase().trim();
+  if (!word || /\s/.test(word)) return [];
+  const found = new Map(); // host -> { score }
+  const add = (host, score) => {
+    const prev = found.get(host);
+    if (!prev || prev < score) found.set(host, score);
+  };
+  for (const [key, host] of Object.entries(SEED_SITES)) {
+    if (key === word) add(host, 3000);
+    else if (word.length >= 2 && key.startsWith(word)) add(host, 2000 - key.length);
+  }
+  const seen = new Map(); // host -> aggregate
+  for (const it of items) {
+    const host = getHost(it.url || '');
+    if (!host) continue;
+    const agg = seen.get(host) || { visits: 0, bookmark: 0, tab: 0 };
+    agg.visits += it.visitCount || 0;
+    if (it.type === 'bookmark') agg.bookmark = 30;
+    if (it.type === 'tab') agg.tab = 20;
+    seen.set(host, agg);
+  }
+  for (const [host, agg] of seen) {
+    const bare = host.replace(/^www\./, '');
+    const name = bare.split('.')[0];
+    const exact = bare === word || name === word;
+    if (!(exact || bare.startsWith(word) || name.startsWith(word))) continue;
+    add(host, (exact ? 500 : 100) + Math.log2(agg.visits + 1) * 4 + agg.bookmark + agg.tab - bare.length);
+  }
+  return [...found.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 2)
+    .map(([host]) => ({
+      type: 'typed', id: 'site-' + host, url: 'https://' + host + '/', title: host,
+      description: 'Open site in a new tab', icon: '↗', query: 'https://' + host + '/'
+    }));
+}
+
+// ---------------------------------------------------------------------------
+// Hover previews: screenshot of each tab, taken when it was last in front
+// ---------------------------------------------------------------------------
+
+let thumbCache = null;
+async function loadThumbs() {
+  if (!thumbCache) {
+    try { thumbCache = (await chrome.storage.session.get('thumbs')).thumbs || {}; } catch { thumbCache = {}; }
+  }
+  return thumbCache;
+}
+
+async function captureThumb(tabId) {
+  try {
+    const tab = await chrome.tabs.get(tabId);
+    if (!tab.active || !/^https?:/.test(tab.url || '')) return;
+    const data = await chrome.tabs.captureVisibleTab(tab.windowId, { format: 'jpeg', quality: 40 });
+    const cache = await loadThumbs();
+    delete cache['t' + tabId];
+    cache['t' + tabId] = { data, url: tab.url };
+    const keys = Object.keys(cache);
+    for (const k of keys.slice(0, Math.max(0, keys.length - 25))) delete cache[k];
+    await chrome.storage.session.set({ thumbs: cache });
+  } catch {
+    // tab closed, restricted page, or no permission yet
+  }
+}
+
+async function handlePreview({ tabId }) {
+  const cache = await loadThumbs();
+  const hit = cache['t' + tabId];
+  return { thumb: hit ? hit.data : null };
+}
+
+chrome.tabs.onActivated.addListener(({ tabId }) => setTimeout(() => captureThumb(tabId), 600));
+chrome.tabs.onUpdated.addListener((tabId, info, tab) => {
+  if (info.status === 'complete' && tab.active) setTimeout(() => captureThumb(tabId), 900);
+});
+chrome.tabs.onRemoved.addListener(async tabId => {
+  const cache = await loadThumbs();
+  if (delete cache['t' + tabId]) chrome.storage.session.set({ thumbs: cache }).catch(() => {});
 });
 
 // Warm the caches so the first palette open is instant.

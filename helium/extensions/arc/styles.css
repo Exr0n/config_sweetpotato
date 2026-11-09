@@ -777,3 +777,19 @@
     transition: none;
   }
 }
+
+.arc-preview {
+  position: fixed;
+  z-index: 2147483647;
+  box-sizing: border-box;
+  padding: 10px;
+  background: var(--arc-bg);
+  color: var(--arc-text);
+  border-radius: var(--arc-radius);
+  box-shadow: var(--arc-shadow);
+  pointer-events: none;
+  overflow: hidden;
+}
+.arc-preview-img { display: block; width: 100%; border-radius: 6px; margin-bottom: 8px; }
+.arc-preview-title { font-weight: 600; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.arc-preview-url { font-size: 11px; color: var(--arc-text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 2px; }

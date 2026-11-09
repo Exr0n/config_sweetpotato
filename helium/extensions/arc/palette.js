@@ -235,6 +235,7 @@
     listen(dom.backdrop, 'click', () => (state.view === 'switch' ? cancelSwitch() : dismiss()));
     listen(dom.results, 'click', onResultsClick);
     listen(dom.results, 'mouseover', onResultsHover);
+    listen(dom.results, 'mouseleave', hidePreview);
     listen(dom.banner, 'click', openShortcuts);
     listen(scope, 'mousemove', onMouseMove);
 
@@ -330,6 +331,7 @@
 
   // Called after a result has been opened or an action has run.
   function finish() {
+    hidePreview();
     if (MODE === 'overlay') {
       close();
     } else if (MODE === 'popup') {
@@ -448,6 +450,8 @@
       row.append(el('span', 'arc-badge arc-badge-history', 'History'));
     } else if (item.type === 'workspace') {
       row.append(el('span', 'arc-badge arc-badge-action', 'Workspace'));
+    } else if (item.type === 'typed') {
+      row.append(el('span', 'arc-badge arc-badge-action', 'Go'));
     } else if (item.type === 'scope') {
       row.append(el('span', 'arc-badge', 'Scope'));
     } else {
@@ -892,6 +896,11 @@
       }
       return;
     }
+    if (item.type === 'typed') {
+      send({ action: 'navigate', query: item.query, disposition: alternate ? dispositionFor(false) : 'newTab' });
+      finish();
+      return;
+    }
     if (item.type === 'scope') return setQuery(`@${item.id} `);
     if (item.type === 'workspace') return restoreWorkspace(item);
     if (item.resultAction) return runResultAction(item);
@@ -946,7 +955,51 @@
   function onResultsHover(event) {
     if (state.keyboardMode) return;
     const row = event.target.closest('.arc-row');
-    if (row) select(Number(row.dataset.index), { scroll: false });
+    if (row) {
+      select(Number(row.dataset.index), { scroll: false });
+      showPreview(Number(row.dataset.index));
+    }
+  }
+
+  // Arc-style hover card: page screenshot (tabs), title and address.
+  let previewEl = null;
+  let previewTimer = null;
+  function hidePreview() {
+    clearTimeout(previewTimer);
+    if (previewEl) { previewEl.remove(); previewEl = null; }
+  }
+  function showPreview(index) {
+    clearTimeout(previewTimer);
+    const item = state.items[index];
+    if (!item || !item.url || state.view !== 'list') return hidePreview();
+    previewTimer = setTimeout(async () => {
+      if (state.selected !== index) return;
+      let thumb = null;
+      if (item.type === 'tab') {
+        const r = await send({ action: 'preview', tabId: item.id });
+        thumb = r && r.thumb;
+      }
+      if (state.selected !== index) return;
+      hidePreview();
+      const card = el('div', 'arc-preview');
+      if (thumb) {
+        const img = el('img', 'arc-preview-img');
+        img.src = thumb;
+        card.append(img);
+      }
+      card.append(el('div', 'arc-preview-title', item.title || ''), el('div', 'arc-preview-url', item.url));
+      const panel = dom.results.closest('.arc-panel');
+      const root = panel && panel.parentElement;
+      if (!root) return;
+      const rect = panel.getBoundingClientRect();
+      const w = 300;
+      const left = rect.right + 12 + w <= window.innerWidth ? rect.right + 12 : Math.max(8, rect.left - w - 12);
+      card.style.left = left + 'px';
+      card.style.top = rect.top + 'px';
+      card.style.width = w + 'px';
+      root.append(card);
+      previewEl = card;
+    }, 150);
   }
 
   function onMouseMove(event) {
@@ -959,6 +1012,7 @@
 
   function onKeyDown(event) {
     if (event.isComposing) return;
+    if (['ArrowUp', 'ArrowDown', 'Tab'].includes(event.key)) setTimeout(() => showPreview(state.selected), 0);
 
     if (state.view === 'switch') return; // handled by the window-level switch listeners
 
@@ -1040,6 +1094,12 @@
         break;
       case 'Enter':
         event.preventDefault();
+        if ((event.metaKey || event.altKey) && state.query && state.view === 'list' && !isScopedSearch()) {
+          // Cmd/Alt+Enter: open exactly what was typed in a new tab, whatever is selected.
+          send({ action: 'navigate', query: state.query, disposition: 'newTab' });
+          finish();
+          break;
+        }
         activate(state.selected, { alternate: event.shiftKey });
         break;
       case 'Tab':

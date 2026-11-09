@@ -4,6 +4,7 @@
   "version": "2.0.0",
   "description": "Arc-style command palette and quick tab switcher for Chrome",
   "minimum_chrome_version": "121",
+  "host_permissions": ["<all_urls>"],
   "permissions": [
     "bookmarks",
     "tabs",
