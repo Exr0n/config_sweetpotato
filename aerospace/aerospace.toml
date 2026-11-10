@@ -195,7 +195,6 @@ alt-m       = 'layout tiles horizontal vertical'   # toggle split dir (yabai alt
 alt-e            = '''exec-and-forget open -a kitty'''                                # focus/open terminal (lalt-e)
 ctrl-alt-t       = '''exec-and-forget open -na kitty --args --start-as=maximized'''   # NEW terminal window (ctrl+lalt-t)
 ctrl-alt-shift-t = 'move-workspace-to-monitor 1'  # (was a duplicate of ctrl-alt-t new-kitty — that one still works)
-alt-o            = '''exec-and-forget open -a Claude'''         # claude (lalt-o)
 alt-semicolon    = '''exec-and-forget open -a ChatGPT'''        # Codex/ChatGPT app (physical cmd-;)
 alt-a            = '''exec-and-forget open -a Helium'''         # browser (lalt-a)
 alt-c            = '''exec-and-forget open -a "Visual Studio Code"'''   # vscode
