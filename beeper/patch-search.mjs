@@ -27,7 +27,7 @@ const MARKER2 = '/*albert-tapback-hover-v5*/';
 // tapbacks), show that list in order, up to 6, instead of the top emoji filtered down to what the chat allows.
 const REACT_RE = /u=u\.slice\(0,3\),(\w+)\(u\)/;
 // Tapback glyphs: iMessage draws HA HA, !! and ? as bold blue text; Beeper's bundle references tapback PNGs it does not ship.
-const ICON_RE = /icon:(\w+)\.jsx\("span",\{children:(\w+)\((\w+)\)\?(\w+)\.jsx\("img",\{src:(\w+)\(\3\),alt:\3,width:"16",height:"16"\}\):\3\}\)/;
+const ICON_RE = /icon:(\w+)\.jsx\("span",\{children:(\w+)\((\w+)\)\?(\w+)\.jsx\((?:"img"|\w+),\{src:(\w+)\(\3\),alt:\3,width:"16",height:"16"\}\):\3\}\)/;
 // Send native tapback names to the iMessage bridge (it treats other strings as emoji reactions, type 2006).
 const ADD_RE = /this\.api\.addReaction\(this\.id,(\w+),(\w+),(\w+),(\w+)\.imgURL\)/;
 const RM_RE = /this\.api\.removeReaction\(this\.id,(\w+),(\w+),(\w+)\)/;
