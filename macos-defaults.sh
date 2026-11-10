@@ -206,6 +206,7 @@ killall Dock Finder ControlCenter SystemUIServer 2>/dev/null || true
 defaults write com.apple.Photos NSUserKeyEquivalents -dict-add "Start Playback" '^ '
 # Claude desktop "Open File…" grabs Cmd-O; rebind to Ctrl-Opt-Shift-Cmd-F19 (unreachable) to kill it. Albert 2026-11-03. Quit Claude first.
 defaults write com.anthropic.claudefordesktop NSUserKeyEquivalents -dict-add "$(printf 'Open File\xe2\x80\xa6')" "$(printf '@~^$\xef\x9c\x96')"
+defaults write com.anthropic.claudefordesktop NSUserKeyEquivalents -dict-add "$(printf 'Open Folder\xe2\x80\xa6')" "$(printf '@~^$\xef\x9c\x96')"  # Open Folder… takes Cmd-O once Open File… is moved; 2026-11-09
 # Claude desktop Quick Entry defaults to double-tap Option (= physical Cmd under Karabiner) and keeps popping Claude; turn it off. Albert 2026-11-03. Quit Claude first.
 python3 - <<'PY'
 import json, os
