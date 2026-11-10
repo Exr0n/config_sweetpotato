@@ -22,7 +22,7 @@ import nodePath from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const MARKER = '/*albert-dm-first-search*/';
-const MARKER2 = '/*albert-tapback-hover-v5*/';
+const MARKER2 = '/*albert-tapback-hover-v6*/';
 // Quick-reaction hover bar: for chats whose bridge restricts reactions to a short list (iMessage: the six
 // tapbacks), show that list in order, up to 6, instead of the top emoji filtered down to what the chat allows.
 const REACT_RE = /u=u\.slice\(0,3\),(\w+)\(u\)/;
@@ -107,10 +107,14 @@ function patchSource(src) {
     const J = ic[1], V = ic[3];
     const ICO = {"\u2764\uFE0F":"heart","\uD83D\uDC4D":"like","\uD83D\uDC4E":"dislike","HAHA":"haha","\u203C\uFE0F":"emph","\u2753":"question"};
     const uri = n => "data:image/png;base64," + fs.readFileSync(nodePath.join(nodePath.dirname(fileURLToPath(import.meta.url)), "icons", n + ".png")).toString("base64");
+    const before = src.slice(0, ic.index);
+    const am = [...before.matchAll(/allowedReactions:(\w+),supportsCustomEmojiReactions/g)].pop();
+    if (!am) throw new Error('allowedReactions prop not found before the quick-reaction icons');
+    const IM = `(${am[1]}&&${am[1]}.includes("HAHA"))`;
     let tb = V;
-    for (const [k, n] of Object.entries(ICO)) tb = `(${V}===${JSON.stringify(k)}?${J}.jsx("img",{src:${JSON.stringify(uri(n))},alt:${JSON.stringify(n)},width:"22",height:"22",style:{objectFit:"contain"}}):${tb})`;
+    for (const [k, n] of Object.entries(ICO)) tb = `(${IM}&&${V}===${JSON.stringify(k)}?${J}.jsx("img",{src:${JSON.stringify(uri(n))},alt:${JSON.stringify(n)},width:"22",height:"22",style:{objectFit:"contain"}}):${tb})`;
     src = src.replace(ic[0], ic[0].replace(/:(\w+)\}\)$/, `:${tb}})`).replace('icon:', 'icon:'));
-    src = src.replace(r[0], `u=e?.length&&e.length<=6?e.slice():u.slice(0,3)${MARKER2},${r[1]}(u)`);
+    src = src.replace(r[0], `u=e?.length&&e.length<=6&&e.includes("HAHA")?e.slice():u.slice(0,3)${MARKER2},${r[1]}(u)`);
   }
   if (src.includes(MARKER)) return src;
   const m = src.match(SORT_RE);
