@@ -20,6 +20,10 @@ import fs from 'node:fs';
 import crypto from 'node:crypto';
 
 const MARKER = '/*albert-dm-first-search*/';
+const MARKER2 = '/*albert-tapback-hover*/';
+// Quick-reaction hover bar: for chats whose bridge restricts reactions to a short list (iMessage: the six
+// tapbacks), show that list in order, up to 6, instead of the top emoji filtered down to what the chat allows.
+const REACT_RE = /u=u\.filter\((\w+)=>(\w+)\.includes\(\1\)\)\}const (\w+)=(\w+)\?(\w+)\?\?1:1;u=u\.slice\(0,3\)/;
 const BLOCK = 4 * 1024 * 1024;
 
 // Keyed on code shape, not minified names: the thread-search class has
@@ -79,13 +83,20 @@ function findTarget(path) {
   let patched = null;
   for (const [p, e] of candidates(a.header)) {
     const src = readEntry(path, a.dataStart, e).toString('utf8');
-    if (src.includes(MARKER)) patched = p;
-    else if (SORT_RE.test(src)) return { ...a, file: p, entry: e, src, state: 'unpatched' };
+    const h1 = src.includes(MARKER), h2 = src.includes(MARKER2);
+    if (h1 && h2) patched = p;
+    else if ((h1 || SORT_RE.test(src)) && (h2 || REACT_RE.test(src))) return { ...a, file: p, entry: e, src, state: 'unpatched' };
   }
   return { ...a, file: patched, state: patched ? 'patched' : 'nomatch' };
 }
 
 function patchSource(src) {
+  if (!src.includes(MARKER2)) {
+    const r = src.match(REACT_RE);
+    const [w, , mm, dd, nn] = r;
+    src = src.replace(w, `u=e.length<=6?e.slice():u.filter(y=>${mm}.includes(y))}const ${dd}=${nn}?l??1:1;u=u.slice(0,e?.length&&!${nn}&&e.length<=6?6:3);${MARKER2}`);
+  }
+  if (src.includes(MARKER)) return src;
   const m = src.match(SORT_RE);
   const [whole, arg, orderBy, v, restKeys, dirs] = m;
   const replacement =

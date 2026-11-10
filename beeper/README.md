@@ -41,3 +41,7 @@ The ad-hoc signature means Squirrel.Mac will most likely refuse to install futur
 If either prints "no longer matches the patch pattern", Beeper rewrote its search code and `SORT_RE` in `patch-search.mjs` needs updating. The app is left unpatched but working.
 
 All app data lives in `~/Library/Application Support/BeeperTexts` and is never touched. Login and bridges survived each patch and relaunch.
+
+## Tapback hover bar (added 2026-11-09)
+
+Second patch in patch-search.mjs (marker albert-tapback-hover): in the quick-reaction hook, a chat whose bridge restricts reactions to 6 or fewer (iMessage: heart, like, dislike, haha, !!, ?) shows that list in order on hover, instead of top emoji filtered by the allowed list. Other chats are unchanged. Same apply/--update/--restore flow; status is "patched" only when both patches are present.
