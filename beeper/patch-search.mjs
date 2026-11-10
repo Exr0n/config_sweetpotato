@@ -94,7 +94,7 @@ function patchSource(src) {
   if (!src.includes(MARKER2)) {
     const r = src.match(REACT_RE);
     const [w, , mm, dd, nn] = r;
-    src = src.replace(w, `u=e.length<=6?e.slice():u.filter(y=>${mm}.includes(y))}const ${dd}=${nn}?l??1:1;u=u.slice(0,e?.length&&!${nn}&&e.length<=6?6:3);${MARKER2}`);
+    src = src.replace(w, `u=e.length<=6?e.slice():u.filter(y=>${mm}.includes(y))}const ${dd}=${nn}?l??1:1;u=u.slice(0,e?.length&&!${nn}&&e.length<=6?6:3)${MARKER2}`);
   }
   if (src.includes(MARKER)) return src;
   const m = src.match(SORT_RE);
