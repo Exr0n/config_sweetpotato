@@ -18,12 +18,20 @@
 
 import fs from 'node:fs';
 import crypto from 'node:crypto';
+import nodePath from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const MARKER = '/*albert-dm-first-search*/';
-const MARKER2 = '/*albert-tapback-hover*/';
+const MARKER2 = '/*albert-tapback-hover-v5*/';
 // Quick-reaction hover bar: for chats whose bridge restricts reactions to a short list (iMessage: the six
 // tapbacks), show that list in order, up to 6, instead of the top emoji filtered down to what the chat allows.
-const REACT_RE = /u=u\.filter\((\w+)=>(\w+)\.includes\(\1\)\)\}const (\w+)=(\w+)\?(\w+)\?\?1:1;u=u\.slice\(0,3\)/;
+const REACT_RE = /u=u\.slice\(0,3\),(\w+)\(u\)/;
+// Tapback glyphs: iMessage draws HA HA, !! and ? as bold blue text; Beeper's bundle references tapback PNGs it does not ship.
+const ICON_RE = /icon:(\w+)\.jsx\("span",\{children:(\w+)\((\w+)\)\?(\w+)\.jsx\("img",\{src:(\w+)\(\3\),alt:\3,width:"16",height:"16"\}\):\3\}\)/;
+// Send native tapback names to the iMessage bridge (it treats other strings as emoji reactions, type 2006).
+const ADD_RE = /this\.api\.addReaction\(this\.id,(\w+),(\w+),(\w+),(\w+)\.imgURL\)/;
+const RM_RE = /this\.api\.removeReaction\(this\.id,(\w+),(\w+),(\w+)\)/;
+const TBK = (k) => `((k,th)=>th.roomFeatures&&th.roomFeatures.allowed_reactions&&th.roomFeatures.allowed_reactions.includes("HAHA")?({"\\u2764\\uFE0F":"heart","\\u2764":"heart","\\uD83D\\uDC4D":"like","\\uD83D\\uDC4E":"dislike",HAHA:"laugh","\\u203C\\uFE0F":"emphasize","\\u203C":"emphasize","\\u2753":"question"})[k]||k:k)(${k},this)`;
 const BLOCK = 4 * 1024 * 1024;
 
 // Keyed on code shape, not minified names: the thread-search class has
@@ -85,7 +93,7 @@ function findTarget(path) {
     const src = readEntry(path, a.dataStart, e).toString('utf8');
     const h1 = src.includes(MARKER), h2 = src.includes(MARKER2);
     if (h1 && h2) patched = p;
-    else if ((h1 || SORT_RE.test(src)) && (h2 || REACT_RE.test(src))) return { ...a, file: p, entry: e, src, state: 'unpatched' };
+    else if ((h1 || SORT_RE.test(src)) && (h2 || (REACT_RE.test(src) && ICON_RE.test(src) && ADD_RE.test(src) && RM_RE.test(src)))) return { ...a, file: p, entry: e, src, state: 'unpatched' };
   }
   return { ...a, file: patched, state: patched ? 'patched' : 'nomatch' };
 }
@@ -93,8 +101,16 @@ function findTarget(path) {
 function patchSource(src) {
   if (!src.includes(MARKER2)) {
     const r = src.match(REACT_RE);
-    const [w, , mm, dd, nn] = r;
-    src = src.replace(w, `u=e.length<=6?e.slice():u.filter(y=>${mm}.includes(y))}const ${dd}=${nn}?l??1:1;u=u.slice(0,e?.length&&!${nn}&&e.length<=6?6:3)${MARKER2}`);
+    src = src.replace(ADD_RE, (w, a, b, c, d) => `this.api.addReaction(this.id,${a},${TBK(b)},${c},${d}.imgURL)`);
+    src = src.replace(RM_RE, (w, a, b, c) => `this.api.removeReaction(this.id,${a},${TBK(b)},${c})`);
+    const ic = src.match(ICON_RE);
+    const J = ic[1], V = ic[3];
+    const ICO = {"\u2764\uFE0F":"heart","\uD83D\uDC4D":"like","\uD83D\uDC4E":"dislike","HAHA":"haha","\u203C\uFE0F":"emph","\u2753":"question"};
+    const uri = n => "data:image/png;base64," + fs.readFileSync(nodePath.join(nodePath.dirname(fileURLToPath(import.meta.url)), "icons", n + ".png")).toString("base64");
+    let tb = V;
+    for (const [k, n] of Object.entries(ICO)) tb = `(${V}===${JSON.stringify(k)}?${J}.jsx("img",{src:${JSON.stringify(uri(n))},alt:${JSON.stringify(n)},width:"22",height:"22",style:{objectFit:"contain"}}):${tb})`;
+    src = src.replace(ic[0], ic[0].replace(/:(\w+)\}\)$/, `:${tb}})`).replace('icon:', 'icon:'));
+    src = src.replace(r[0], `u=e?.length&&e.length<=6?e.slice():u.slice(0,3)${MARKER2},${r[1]}(u)`);
   }
   if (src.includes(MARKER)) return src;
   const m = src.match(SORT_RE);
