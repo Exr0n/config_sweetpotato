@@ -174,7 +174,8 @@ killall sharingd 2>/dev/null
 echo "macos-defaults.sh applied."
 
 # Show Desktop = opt+shift+e (dvorak e = keycode 2 = physical D, char 101; 655360 = opt+shift). Was only in archive/README-2026-06-03.md, so fresh installs lost it.
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 36 "{enabled = 1; value = {parameters = (101, 2, 655360); type = standard;};}"
+# XML form, not {enabled = 1; ...}: the old-style syntax stores "1"/"101" as strings and macOS silently ignores the hotkey (broke 2026-10-25, fixed 2026-11-10).
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 36 "<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>101</integer><integer>2</integer><integer>655360</integer></array><key>type</key><string>standard</string></dict></dict>"
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 
 # --- Restored from archive/README-2026-06-03.md (pinktop settings never carried into this script) ---
@@ -195,10 +196,10 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeF
 defaults write com.apple.screencapture target clipboard           # screenshots to clipboard
 defaults write com.apple.controlcenter "NSStatusItem Visible AirDrop" -bool false
 defaults write com.apple.controlcenter "NSStatusItem Visible Display" -bool false
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{enabled = 0;}"  # Cmd-Space Spotlight off
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "{enabled = 0;}"  # Cmd-Opt-Space Finder search off
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 "{enabled = 0;}"  # Ctrl-Space input source off
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 61 "{enabled = 0;}"  # Ctrl-Opt-Space input source off
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "<dict><key>enabled</key><false/></dict>"  # Cmd-Space Spotlight off
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "<dict><key>enabled</key><false/></dict>"  # Cmd-Opt-Space Finder search off
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 "<dict><key>enabled</key><false/></dict>"  # Ctrl-Space input source off
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 61 "<dict><key>enabled</key><false/></dict>"  # Ctrl-Opt-Space input source off
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 killall Dock Finder ControlCenter SystemUIServer 2>/dev/null || true
 
