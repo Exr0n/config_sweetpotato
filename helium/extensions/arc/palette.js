@@ -274,36 +274,6 @@
     dom.input.focus({ preventScroll: true });
   }
 
-  // The page (or the omnibox) can keep or retake focus after the overlay opens,
-  // so typing would land underneath. While open, pull focus back on the first
-  // few frames, on any focus move outside the overlay, and on a stray keydown.
-  let focusGuard = null;
-  function holdFocus() {
-    if (MODE !== 'overlay' || focusGuard) return;
-    const outside = () => state.open && state.view === 'list' && dom.host && dom.host.shadowRoot && dom.host.shadowRoot.activeElement !== dom.input;
-    const pull = () => { if (outside()) { window.focus(); focusInput(); } };
-    const onFocusIn = e => { if (e.target !== dom.host && state.open) setTimeout(pull, 0); };
-    const onKey = e => {
-      if (!outside() || e.target === dom.host || e.key === 'Escape') return;
-      pull();
-      if (e.key.length === 1 && !e.metaKey && !e.ctrlKey && !e.altKey) {
-        e.preventDefault(); e.stopPropagation();
-        dom.input.value += e.key;
-        dom.input.dispatchEvent(new Event('input', { bubbles: true }));
-      }
-    };
-    window.addEventListener('focusin', onFocusIn, true);
-    window.addEventListener('keydown', onKey, true);
-    const timers = [0, 50, 150, 400].map(ms => setTimeout(pull, ms));
-    focusGuard = () => {
-      window.removeEventListener('focusin', onFocusIn, true);
-      window.removeEventListener('keydown', onKey, true);
-      timers.forEach(clearTimeout);
-      focusGuard = null;
-    };
-  }
-  function releaseFocus() { if (focusGuard) focusGuard(); }
-
   async function open() {
     mount();
     await Promise.all([ensureStyles(), loadSettings()]);
@@ -323,9 +293,7 @@
     dom.input.value = '';
     state.query = '';
     updateClearButton();
-    if (MODE === 'overlay') window.focus();
     focusInput();
-    holdFocus();
     checkShortcuts().then(renderBanner);
     showHome();
   }
@@ -333,7 +301,6 @@
   function close() {
     if (!state.open) return;
     state.open = false;
-    releaseFocus();
     endSwitch();
     setNumbered(false);
     dom.root.classList.remove('is-open');
