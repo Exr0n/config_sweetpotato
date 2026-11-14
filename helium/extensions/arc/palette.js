@@ -281,8 +281,7 @@
   function holdFocus() {
     if (MODE !== 'overlay' || focusGuard) return;
     const outside = () => state.open && state.view === 'list' && dom.host && dom.host.shadowRoot && dom.host.shadowRoot.activeElement !== dom.input;
-    let pulls = 0;
-    const pull = () => { if (outside() && pulls++ < 8) { window.focus(); focusInput(); } };
+    const pull = () => { if (outside()) { window.focus(); focusInput(); } };
     const onFocusIn = e => { if (e.target !== dom.host && state.open) setTimeout(pull, 0); };
     const onKey = e => {
       if (!outside() || e.target === dom.host || e.key === 'Escape') return;
